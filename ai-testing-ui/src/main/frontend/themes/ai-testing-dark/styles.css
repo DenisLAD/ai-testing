@@ -1,0 +1,30 @@
+.agent-action {
+    transition: all 0.2s ease;
+}
+
+.agent-action:hover {
+    background: var(--lumo-contrast-10pct) !important;
+}
+
+.screenshot-container {
+    border: 2px solid var(--lumo-contrast-20pct);
+    border-radius: var(--lumo-border-radius-l);
+    overflow: hidden;
+    box-shadow: var(--lumo-box-shadow-s);
+}
+
+.progress-indicator {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.status-badge {
+    font-size: var(--lumo-font-size-xs);
+    padding: 2px 8px;
+    border-radius: 12px;
+}

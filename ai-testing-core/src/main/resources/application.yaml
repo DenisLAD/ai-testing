@@ -1,0 +1,5 @@
+selenium:
+  viewport-width: 1920
+  viewport-height: 1080
+  slow-motion-ms: 100
+  wait-timeout: 10
