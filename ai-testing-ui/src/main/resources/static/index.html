@@ -397,6 +397,12 @@
                     if (actions.length != data.actions.length) {
                         addLogEntry(data.actions[data.actions.length - 1].reason);
                         updateScreenshot(data.actions[data.actions.length - 1].screenshotBefore);
+                        addActionToGrid({
+                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
+                            type: data.actions[data.actions.length - 1].actionType + "[s=" + data.actions[data.actions.length - 1].targetSelector + ", e=" + data.actions[data.actions.length - 1].inputValue + "]",
+                            result: data.actions[data.actions.length - 1].result.message,
+                            status: data.actions[data.actions.length - 1].result.errorDetails == null ? 'info' : 'error'
+                        });
                     }
 
                     if (data.status == 'RUNNING') {
@@ -408,7 +414,7 @@
                     window.sessions[id] = data;
                 });
 
-            
+
         }
 
         function stopTesting() {
