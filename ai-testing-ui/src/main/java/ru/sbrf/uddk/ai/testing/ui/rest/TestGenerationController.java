@@ -11,7 +11,10 @@ import ru.sbrf.uddk.ai.testing.entity.TestSession;
 import ru.sbrf.uddk.ai.testing.repository.TestSessionRepository;
 import ru.sbrf.uddk.ai.testing.testgen.model.GeneratedTest;
 import ru.sbrf.uddk.ai.testing.testgen.service.TestGeneratorService;
+import ru.sbrf.uddk.ai.testing.ui.model.dto.CodeImprovementRequestDto;
+import ru.sbrf.uddk.ai.testing.ui.model.dto.CodeImprovementResponseDto;
 import ru.sbrf.uddk.ai.testing.ui.model.dto.GenerateTestResponseDto;
+import ru.sbrf.uddk.ai.testing.ui.service.CodeImprovementService;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,6 +34,7 @@ public class TestGenerationController {
 
     private final TestGeneratorService testGeneratorService;
     private final TestSessionRepository testSessionRepository;
+    private final CodeImprovementService codeImprovementService;
 
     /**
      * Генерирует JUnit 5 тест по завершённой сессии
@@ -156,6 +160,30 @@ public class TestGenerationController {
             Map<String, String> error = new HashMap<>();
             error.put("error", "Ошибка: " + e.getMessage());
             return ResponseEntity.internalServerError().body(error);
+        }
+    }
+
+    /**
+     * Улучшает сгенерированный код с помощью AI
+     */
+    @PostMapping("/{id}/improve-code")
+    @Transactional(readOnly = true)
+    public ResponseEntity<CodeImprovementResponseDto> improveCode(
+            @PathVariable("id") String id,
+            @RequestBody CodeImprovementRequestDto request) {
+        log.info("Улучшение кода для сессии: {}", id);
+
+        try {
+            CodeImprovementResponseDto response = codeImprovementService.improveCode(request);
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            log.error("Ошибка улучшения кода", e);
+            return ResponseEntity.internalServerError()
+                .body(CodeImprovementResponseDto.builder()
+                    .improvedCode(request.getSourceCode())
+                    .improvementNotes("Ошибка: " + e.getMessage())
+                    .build());
         }
     }
 

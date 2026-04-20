@@ -269,7 +269,7 @@
 
     <!-- Модальное окно: Генерация теста -->
     <div class="modal fade" id="generateTestModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><i class="bi bi-file-earmark-code"></i> Сгенерированный тест</h5>
@@ -281,8 +281,18 @@
                         <p class="mt-2">Генерация теста...</p>
                     </div>
                     <div id="testCodeContainer" class="d-none">
-                        <div class="alert alert-success">Тест успешно сгенерирован!</div>
-                        <pre class="bg-dark text-light p-3 rounded" style="max-height: 400px; overflow-y: auto;"><code id="testCode"></code></pre>
+                        <div class="alert alert-success d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-check-circle"></i> Тест успешно сгенерирован!</span>
+                            <button class="btn btn-sm btn-outline-primary" id="improveCodeBtn" title="Улучшить код с помощью AI">
+                                <i class="bi bi-magic"></i> Улучшить с AI
+                            </button>
+                        </div>
+                        <div class="mb-2">
+                            <small class="text-muted">
+                                <i class="bi bi-info-circle"></i> Используйте Ctrl+C для копирования, Ctrl+V для вставки
+                            </small>
+                        </div>
+                        <div id="monacoEditorContainer" style="height: 500px; border: 1px solid #dee2e6; border-radius: 0.375rem;"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -295,6 +305,9 @@
         </div>
     </div>
 
+    <!-- Monaco Editor CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -305,6 +318,11 @@
         let lastActionCount = 0;
         let allSessions = [];
         let pollTimeout = null;
+        
+        // Monaco Editor
+        let monacoEditor = null;
+        let generatedTestCode = null;
+        let generatedTestClassName = null;
 
         // DOM элементы
         const startButton = document.getElementById('startButton');
@@ -312,6 +330,7 @@
         const refreshButton = document.getElementById('refreshButton');
         const generateTestButton = document.getElementById('generateTestButton');
         const downloadTestButton = document.getElementById('downloadTestButton');
+        const improveCodeBtn = document.getElementById('improveCodeBtn');
         const logContainer = document.getElementById('logContainer');
         const statusAlert = document.getElementById('statusAlert');
         const statusText = document.getElementById('statusText');
@@ -329,8 +348,31 @@
             refreshButton.addEventListener('click', () => location.reload());
             generateTestButton.addEventListener('click', generateTest);
             downloadTestButton.addEventListener('click', downloadTest);
+            improveCodeBtn.addEventListener('click', improveCodeWithAI);
             document.getElementById('sessionsModal').addEventListener('show.bs.modal', loadSessions);
+            
+            // Инициализация Monaco Editor
+            initMonacoEditor();
         });
+        
+        // Инициализация Monaco Editor
+        function initMonacoEditor() {
+            require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' }});
+            require(['vs/editor/editor.main'], function() {
+                monacoEditor = monaco.editor.create(document.getElementById('monacoEditorContainer'), {
+                    value: '// Код теста появится здесь после генерации\n',
+                    language: 'java',
+                    theme: 'vs-dark',
+                    automaticLayout: true,
+                    fontSize: 14,
+                    minimap: { enabled: true },
+                    scrollBeyondLastLine: false,
+                    readOnly: false,
+                    tabSize: 4,
+                    wordWrap: 'on'
+                });
+            });
+        }
 
         // Очистка таймеров
         function clearPollTimeout() {
@@ -657,7 +699,7 @@
             }
         }
 
-        // Генерация теста - ИСПРАВЛЕНИЕ: проверка ответа
+        // Генерация теста с Monaco Editor
         function generateTest() {
             if (!currentSessionId) {
                 alert('Выберите сессию');
@@ -680,14 +722,19 @@
                     if (!data || !data.sourceCode) {
                         throw new Error('Пустой ответ от сервера');
                     }
-                    
+
                     document.getElementById('testGenerationSpinner').style.display = 'none';
                     document.getElementById('testCodeContainer').classList.remove('d-none');
-                    document.getElementById('testCode').textContent = data.sourceCode;
-                    document.getElementById('downloadGeneratedTest').disabled = false;
                     
-                    window.generatedTestCode = data.sourceCode;
-                    window.generatedTestClassName = data.className || 'GeneratedTest';
+                    // Устанавливаем код в Monaco Editor
+                    if (monacoEditor) {
+                        monacoEditor.setValue(data.sourceCode);
+                    }
+                    
+                    document.getElementById('downloadGeneratedTest').disabled = false;
+
+                    generatedTestCode = data.sourceCode;
+                    generatedTestClassName = data.className || 'GeneratedTest';
                 })
                 .catch(err => {
                     console.error('Generate error:', err);
@@ -696,15 +743,56 @@
                 });
         }
 
-        // Скачивание - ИСПРАВЛЕНИЕ: защита от undefined
+        // Улучшение кода с помощью AI
+        function improveCodeWithAI() {
+            if (!currentSessionId || !monacoEditor) {
+                alert('Сначала сгенерируйте тест');
+                return;
+            }
+
+            const currentCode = monacoEditor.getValue();
+            const originalBtnText = improveCodeBtn.innerHTML;
+            
+            improveCodeBtn.disabled = true;
+            improveCodeBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Улучшение...';
+
+            fetch('/test/' + currentSessionId + '/improve-code', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sourceCode: currentCode })
+            })
+            .then(r => {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            })
+            .then(data => {
+                if (data && data.improvedCode) {
+                    monacoEditor.setValue(data.improvedCode);
+                    generatedTestCode = data.improvedCode;
+                    alert('Код успешно улучшен!');
+                } else {
+                    throw new Error('Пустой ответ от сервера');
+                }
+            })
+            .catch(err => {
+                console.error('Improve error:', err);
+                alert('Ошибка улучшения: ' + err.message);
+            })
+            .finally(() => {
+                improveCodeBtn.disabled = false;
+                improveCodeBtn.innerHTML = originalBtnText;
+            });
+        }
+
+        // Скачивание из Monaco Editor
         function downloadTest() {
-            const code = window.generatedTestCode;
+            const code = monacoEditor ? monacoEditor.getValue() : generatedTestCode;
             if (!code) {
                 alert('Нет кода для скачивания');
                 return;
             }
 
-            const className = window.generatedTestClassName || 'GeneratedTest';
+            const className = generatedTestClassName || 'GeneratedTest';
             const blob = new Blob([code], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
