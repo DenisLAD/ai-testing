@@ -5,6 +5,7 @@ import ru.sbrf.uddk.ai.testing.entity.InteractiveElement;
 import ru.sbrf.uddk.ai.testing.entity.TestSession;
 import ru.sbrf.uddk.ai.testing.entity.consts.InteractionType;
 import ru.sbrf.uddk.ai.testing.model.AgentObservation;
+import ru.sbrf.uddk.ai.testing.utils.EnhancedDOMExtractor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
@@ -533,15 +534,16 @@ public class ObservationService implements InitializingBean, DisposableBean {
         return html;
     }
 
-    // Обновленный метод для релевантного HTML (теперь использует оптимизированную версию)
+    // Обновленный метод для релевантного HTML (ИСПРАВЛЕНО: использует EnhancedDOMExtractor)
     private String extractRelevantHTML(WebDriver driver) {
-        return extractOptimizedHTML(driver);
+        // Используем улучшенный экстрактор который удаляет html/head/body теги
+        return EnhancedDOMExtractor.extractForLLM(driver);
     }
 
     // НОВЫЙ МЕТОД: Получение DOM снапшота с видимыми элементами
     public String takeDomSnapshot(WebDriver driver) {
         // Используем улучшенный экстрактор для LLM
-        return ru.sbrf.uddk.ai.testing.utils.EnhancedDOMExtractor.extractForLLM(driver);
+        return EnhancedDOMExtractor.extractForLLM(driver);
     }
 
     /**
