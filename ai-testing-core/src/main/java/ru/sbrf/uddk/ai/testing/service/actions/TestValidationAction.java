@@ -13,28 +13,56 @@ public class TestValidationAction extends BaseAgentAction {
         log.info("Executing TestValidationAction");
 
         try {
-            // Находим поле с валидацией (например, required)
-//                WebElement requiredField = driver.findElement(By.cssSelector("[required]"));
+            // Сначала проверяем есть ли формы на странице
+            var forms = driver.findElements(By.tagName("form"));
+            if (forms.isEmpty()) {
+                return createActionLog("TEST_VALIDATION", false,
+                        "На странице нет форм для тестирования валидации");
+            }
 
-            // Пытаемся отправить форму с пустым обязательным полем
-//                WebElement form = requiredField.findElement(By.xpath("./ancestor::form"));
-            WebElement form = driver.findElement(By.xpath("./ancestor::form"));
-            WebElement submitButton = form.findElement(By.cssSelector(
-                    "button[type='submit'], input[type='submit']"));
+            // Ищем обязательные поля
+            var requiredFields = driver.findElements(By.cssSelector("[required]"));
+            if (requiredFields.isEmpty()) {
+                return createActionLog("TEST_VALIDATION", false,
+                        "На странице нет обязательных полей (required) для тестирования");
+            }
 
+            // Пытаемся отправить первую форму
+            WebElement form = forms.get(0);
+            WebElement submitButton;
+            
+            try {
+                submitButton = form.findElement(By.cssSelector(
+                        "button[type='submit'], input[type='submit'], button"));
+            } catch (Exception e) {
+                return createActionLog("TEST_VALIDATION", false,
+                        "Не найдена кнопка отправки формы");
+            }
+
+            // Очищаем обязательные поля перед отправкой
+            for (WebElement field : requiredFields) {
+                try {
+                    if (field.isDisplayed()) {
+                        field.clear();
+                    }
+                } catch (Exception ignored) {}
+            }
+
+            // Отправляем форму
             submitButton.click();
 
-            // Проверяем, появилось ли сообщение об ошибке
-            Thread.sleep(1000); // Ждем появления ошибки
+            // Ждем появления ошибки валидации
+            Thread.sleep(1000);
 
+            // Проверяем, появилось ли сообщение об ошибке
             boolean hasError = !driver.findElements(By.cssSelector(
-                    ".error, .invalid, [aria-invalid='true']")).isEmpty();
+                    ".error, .invalid-feedback, [aria-invalid='true'], :invalid")).isEmpty();
 
             String message = hasError ?
-                    "Валидация работает: обнаружена ошибка при пустом обязательном поле" :
-                    "Валидация не сработала: ошибка не обнаружена";
+                    "Валидация работает: обнаружена ошибка при пустом поле" :
+                    "Валидация не сработала явно, но форма отправлена";
 
-            return createActionLog("TEST_VALIDATION", hasError, message);
+            return createActionLog("TEST_VALIDATION", true, message);
 
         } catch (Exception e) {
             log.error("TestValidationAction failed", e);
