@@ -7,7 +7,8 @@ import ru.sbrf.uddk.ai.testing.entity.DiscoveredIssue;
 import ru.sbrf.uddk.ai.testing.entity.InteractiveElement;
 import ru.sbrf.uddk.ai.testing.entity.consts.IssueSeverity;
 import ru.sbrf.uddk.ai.testing.entity.consts.IssueType;
-import ru.sbrf.uddk.ai.testing.interfaces.TestAgentAction;
+import ru.sbrf.uddk.ai.testing.domain.action.ActionFactory;
+import ru.sbrf.uddk.ai.testing.domain.action.TestAgentAction;
 import ru.sbrf.uddk.ai.testing.model.AgentObservation;
 import lombok.Data;
 import lombok.Setter;
@@ -34,7 +35,7 @@ public class DecisionEngineService {
     private ChatClient chatClient;
 
     @Setter(onMethod_ = @Autowired)
-    private ActionRegistryService actionRegistryService;
+    private ActionFactory actionFactory;
 
     @Setter(onMethod_ = @Autowired)
     private ObjectMapper objectMapper;
@@ -76,7 +77,7 @@ public class DecisionEngineService {
             log.info("AI Decision: action={}, target={}, reason={}",
                     decision.getAction(), decision.getTarget(), decision.getReason());
 
-            return actionRegistryService.createAction(decision);
+            return actionFactory.create(toDomainDecision(decision));
 
         } catch (Exception e) {
             log.error("Failed to decide next action", e);
@@ -438,7 +439,7 @@ public class DecisionEngineService {
             Decision decision = new Decision();
             decision.setAction("REFRESH");
             decision.setReason("Нет видимых элементов, обновляю страницу");
-            return actionRegistryService.createAction(decision);
+            return actionFactory.create(toDomainDecision(decision));
         }
 
         // Ищем первый кликабельный элемент
@@ -451,14 +452,28 @@ public class DecisionEngineService {
             decision.setAction("CLICK");
             decision.setTarget(clickableElement.get().getSelector());
             decision.setReason("Fallback: кликаю на первый доступный элемент");
-            return actionRegistryService.createAction(decision);
+            return actionFactory.create(toDomainDecision(decision));
         }
 
         // Если нет кликабельных элементов, скроллим
         Decision decision = new Decision();
         decision.setAction("SCROLL_DOWN");
         decision.setReason("Fallback: прокручиваю страницу для поиска элементов");
-        return actionRegistryService.createAction(decision);
+        return actionFactory.create(toDomainDecision(decision));
+    }
+
+    /**
+     * Конвертирует внутренний Decision в domain Decision
+     */
+    private ru.sbrf.uddk.ai.testing.domain.model.Decision toDomainDecision(Decision decision) {
+        return ru.sbrf.uddk.ai.testing.domain.model.Decision.builder()
+            .action(decision.getAction())
+            .target(decision.getTarget())
+            .value(decision.getValue())
+            .reason(decision.getReason())
+            .expectedOutcome(decision.getExpectedOutcome())
+            .confidence(0.9) // По умолчанию высокая уверенность
+            .build();
     }
 
     private String truncate(String text, int maxLength) {

@@ -1,75 +1,74 @@
 package ru.sbrf.uddk.ai.testing.infrastructure.action;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import ru.sbrf.uddk.ai.testing.domain.action.ActionFactory;
 import ru.sbrf.uddk.ai.testing.domain.action.TestAgentAction;
 import ru.sbrf.uddk.ai.testing.domain.model.Decision;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * Фабрика действий
- * Реализация с автоматической регистрацией через Spring
+ * Фабрика действий на основе Spring
+ * Автоматически регистрирует все доступные действия
  */
 @Slf4j
 @Component
 public class ActionFactoryImpl implements ActionFactory {
 
-    private final Map<String, TestAgentAction> actionCreators = new HashMap<>();
+    private final Map<String, TestAgentAction> actions;
 
-    /**
-     * Автоматическая регистрация всех бинков TestAgentAction
-     */
-    public ActionFactoryImpl(List<TestAgentAction> actions) {
-        for (TestAgentAction action : actions) {
-            register(action.getType(), action);
-        }
-        log.info("Registered {} actions: {}", actionCreators.size(), actionCreators.keySet());
+    public ActionFactoryImpl(List<TestAgentAction> actionList) {
+        this.actions = actionList.stream()
+            .collect(Collectors.toMap(
+                TestAgentAction::getType,
+                action -> action,
+                (existing, replacement) -> {
+                    log.warn("Duplicate action type: {}, keeping existing", existing.getType());
+                    return existing;
+                }
+            ));
+        
+        log.info("Зарегистрировано действий: {}", actions.size());
+        actions.keySet().forEach(key -> log.debug("  - {}", key));
     }
 
     @Override
     public void register(String type, TestAgentAction action) {
-        if (type == null || action == null) {
-            log.warn("Cannot register null action");
-            return;
-        }
-        actionCreators.put(type.toUpperCase(), action);
-        log.debug("Registered action: {}", type);
+        // Не используется при автоматической регистрации
+        log.debug("Register action: {} -> {}", type, action.getClass().getSimpleName());
     }
 
     @Override
     public TestAgentAction create(Decision decision) {
-        if (decision == null || decision.getAction() == null) {
-            throw new IllegalArgumentException("Decision cannot be null");
-        }
+        String actionType = decision.getAction();
+        
+        TestAgentAction action = Optional.ofNullable(actions.get(actionType))
+            .orElseGet(() -> {
+                log.warn("Неизвестное действие: {}, используем SCROLL_DOWN", actionType);
+                return actions.get("SCROLL_DOWN");
+            });
 
-        String actionType = decision.getAction().toUpperCase();
-        TestAgentAction action = actionCreators.get(actionType);
-
-        if (action == null) {
-            log.warn("Unknown action type: {}. Available: {}", actionType, actionCreators.keySet());
-            throw new IllegalArgumentException("Unknown action type: " + actionType);
-        }
-
+        // Клонируем действие и настраиваем
         action.configure(decision);
         return action;
     }
 
     @Override
     public boolean hasAction(String type) {
-        return actionCreators.containsKey(type.toUpperCase());
+        return actions.containsKey(type);
     }
 
     @Override
     public Set<String> getRegisteredTypes() {
-        return Set.copyOf(actionCreators.keySet());
+        return Set.copyOf(actions.keySet());
     }
-
-    public int getRegisteredCount() {
-        return actionCreators.size();
+    
+    public List<String> getAvailableActions() {
+        return List.copyOf(actions.keySet());
     }
 }

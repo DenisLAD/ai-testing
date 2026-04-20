@@ -1,0 +1,120 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for ru.sbrf.uddk.ai.testing:ai-testing-app:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 35, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] ai-testing                                                         [pom]
+[INFO] ai-testing-core                                                    [jar]
+[INFO] AI Testing - Test Generator                                        [jar]
+[INFO] ai-testing-ui                                                      [jar]
+[INFO] ai-testing-app                                                     [jar]
+[INFO] 
+[INFO] -----------------< ru.sbrf.uddk.ai.testing:ai-testing >-----------------
+[INFO] Building ai-testing 1.0-SNAPSHOT                                   [1/5]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ ai-testing ---
+[INFO] 
+[INFO] --------------< ru.sbrf.uddk.ai.testing:ai-testing-core >---------------
+[INFO] Building ai-testing-core 1.0-SNAPSHOT                              [2/5]
+[INFO]   from ai-testing-core\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ ai-testing-core ---
+[INFO] Deleting E:\Projects2026\ai-testing\ai-testing-core\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ai-testing-core ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ ai-testing-core ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 80 source files with javac [debug target 21] to target\classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java: Some input files use or override a deprecated API.
+[INFO] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java: Recompile with -Xlint:deprecation for details.
+[INFO] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/infrastructure/observation/ElementScannerImpl.java: Some input files use unchecked or unsafe operations.
+[INFO] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/infrastructure/observation/ElementScannerImpl.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] -------------< ru.sbrf.uddk.ai.testing:ai-testing-testgen >-------------
+[INFO] Building AI Testing - Test Generator 1.0-SNAPSHOT                  [3/5]
+[INFO]   from ai-testing-testgen\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ ai-testing-testgen ---
+[INFO] Deleting E:\Projects2026\ai-testing\ai-testing-testgen\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ai-testing-testgen ---
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ ai-testing-testgen ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 5 source files with javac [debug target 21] to target\classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] ---------------< ru.sbrf.uddk.ai.testing:ai-testing-ui >----------------
+[INFO] Building ai-testing-ui 1.0-SNAPSHOT                                [4/5]
+[INFO]   from ai-testing-ui\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ ai-testing-ui ---
+[INFO] Deleting E:\Projects2026\ai-testing\ai-testing-ui\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ai-testing-ui ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ ai-testing-ui ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 20 source files with javac [debug target 21] to target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-ui/src/main/java/ru/sbrf/uddk/ai/testing/ui/service/TestSessionService.java:[72,85] incompatible types: ru.sbrf.uddk.ai.testing.domain.action.TestAgentAction cannot be converted to ru.sbrf.uddk.ai.testing.interfaces.TestAgentAction
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for ai-testing 1.0-SNAPSHOT:
+[INFO] 
+[INFO] ai-testing ......................................... SUCCESS [  0.093 s]
+[INFO] ai-testing-core .................................... SUCCESS [  3.564 s]
+[INFO] AI Testing - Test Generator ........................ SUCCESS [  1.096 s]
+[INFO] ai-testing-ui ...................................... FAILURE [  1.556 s]
+[INFO] ai-testing-app ..................................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.545 s
+[INFO] Finished at: 2026-04-20T22:43:23+03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project ai-testing-ui: Compilation failure
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-ui/src/main/java/ru/sbrf/uddk/ai/testing/ui/service/TestSessionService.java:[72,85] incompatible types: ru.sbrf.uddk.ai.testing.domain.action.TestAgentAction cannot be converted to ru.sbrf.uddk.ai.testing.interfaces.TestAgentAction
+[ERROR] 
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :ai-testing-ui

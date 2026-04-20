@@ -2,7 +2,7 @@ package ru.sbrf.uddk.ai.testing.service;
 
 import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 import ru.sbrf.uddk.ai.testing.entity.TestSession;
-import ru.sbrf.uddk.ai.testing.interfaces.TestAgentAction;
+import ru.sbrf.uddk.ai.testing.domain.action.TestAgentAction;
 import ru.sbrf.uddk.ai.testing.model.AgentObservation;
 import lombok.Setter;
 import org.openqa.selenium.WebDriver;

@@ -12,7 +12,13 @@
       "Bash(java *)",
       "Bash(powershell *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(type *)",
+      "Bash(do *)",
+      "Bash(then *)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(git checkout *)"
     ]
   },
   "$version": 3

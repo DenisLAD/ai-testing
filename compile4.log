@@ -1,0 +1,267 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for ru.sbrf.uddk.ai.testing:ai-testing-app:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 35, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] ai-testing                                                         [pom]
+[INFO] ai-testing-core                                                    [jar]
+[INFO] AI Testing - Test Generator                                        [jar]
+[INFO] ai-testing-ui                                                      [jar]
+[INFO] ai-testing-app                                                     [jar]
+[INFO] 
+[INFO] -----------------< ru.sbrf.uddk.ai.testing:ai-testing >-----------------
+[INFO] Building ai-testing 1.0-SNAPSHOT                                   [1/5]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --------------< ru.sbrf.uddk.ai.testing:ai-testing-core >---------------
+[INFO] Building ai-testing-core 1.0-SNAPSHOT                              [2/5]
+[INFO]   from ai-testing-core\pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ai-testing-core ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ ai-testing-core ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 80 source files with javac [debug target 21] to target\classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[7,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[8,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[10,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[11,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[12,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[13,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[14,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[17,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[22,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[7,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[8,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[9,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[10,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[12,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[13,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[14,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[15,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[16,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[17,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[18,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[19,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[22,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[60,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[7,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[10,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[15,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[13,1] illegal start of type
+[INFO] 98 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for ai-testing 1.0-SNAPSHOT:
+[INFO] 
+[INFO] ai-testing ......................................... SUCCESS [  0.002 s]
+[INFO] ai-testing-core .................................... FAILURE [  1.174 s]
+[INFO] AI Testing - Test Generator ........................ SKIPPED
+[INFO] ai-testing-ui ...................................... SKIPPED
+[INFO] ai-testing-app ..................................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.418 s
+[INFO] Finished at: 2026-04-20T22:41:10+03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project ai-testing-core: Compilation failure: Compilation failure: 
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[7,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[8,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[10,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[11,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[12,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[13,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[14,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[17,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreFormsAction.java:[22,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollUpAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/RefreshAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateBackAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ScrollDownAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertTextAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TypeAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[7,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[8,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[9,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[10,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[12,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[13,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[14,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[15,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[16,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[17,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[18,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[19,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[22,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ExploreMenuAction.java:[60,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[7,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[10,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/TestValidationAction.java:[15,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/CompleteAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateForwardAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/NavigateToAction.java:[13,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[6,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[9,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/AssertPresenceAction.java:[14,1] illegal start of type
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[4,34] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[4,43] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[5,1] class, interface, enum, or record expected
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[8,11] illegal character: '`'
+[ERROR] /E:/Projects2026/ai-testing/ai-testing-core/src/main/java/ru/sbrf/uddk/ai/testing/service/actions/ReportIssueAction.java:[13,1] illegal start of type
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :ai-testing-core

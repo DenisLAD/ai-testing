@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 import ru.sbrf.uddk.ai.testing.entity.TestSession;
 import ru.sbrf.uddk.ai.testing.entity.consts.SessionStatus;
-import ru.sbrf.uddk.ai.testing.interfaces.TestAgentAction;
+import ru.sbrf.uddk.ai.testing.domain.action.TestAgentAction;
 import ru.sbrf.uddk.ai.testing.model.AgentObservation;
 import ru.sbrf.uddk.ai.testing.repository.TestSessionRepository;
 import ru.sbrf.uddk.ai.testing.service.DecisionEngineService;
