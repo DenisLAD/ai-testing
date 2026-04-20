@@ -1,27 +1,43 @@
-package ru.sbrf.uddk.ai.testing.service.actions;
+package ru.sbrf.uddk.ai.testing.infrastructure.action;
 
 import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+/**
+ * Действие: Тестирование валидации полей
+ */
 @Slf4j
+@Component
 public class TestValidationAction extends BaseAgentAction {
+
+    @Override
+    public String getType() {
+        return "TEST_VALIDATION";
+    }
+
     @Override
     public AgentAction execute(WebDriver driver) {
         log.info("Executing TestValidationAction");
 
         try {
+            // Скриншот до
+            String screenshotBefore = takeScreenshotBefore(driver);
+            
             // Сначала проверяем есть ли формы на странице
-            var forms = driver.findElements(By.tagName("form"));
+            List<WebElement> forms = driver.findElements(By.tagName("form"));
             if (forms.isEmpty()) {
                 return createActionLog("TEST_VALIDATION", false,
                         "На странице нет форм для тестирования валидации");
             }
 
             // Ищем обязательные поля
-            var requiredFields = driver.findElements(By.cssSelector("[required]"));
+            List<WebElement> requiredFields = driver.findElements(By.cssSelector("[required]"));
             if (requiredFields.isEmpty()) {
                 return createActionLog("TEST_VALIDATION", false,
                         "На странице нет обязательных полей (required) для тестирования");
@@ -62,7 +78,13 @@ public class TestValidationAction extends BaseAgentAction {
                     "Валидация работает: обнаружена ошибка при пустом поле" :
                     "Валидация не сработала явно, но форма отправлена";
 
-            return createActionLog("TEST_VALIDATION", true, message);
+            // Скриншот после
+            String screenshotAfter = takeScreenshotAfter(driver);
+
+            AgentAction logEntry = createActionLog("TEST_VALIDATION", true, message);
+            logEntry.setScreenshotBefore(screenshotBefore);
+            logEntry.setScreenshotAfter(screenshotAfter);
+            return logEntry;
 
         } catch (Exception e) {
             log.error("TestValidationAction failed", e);

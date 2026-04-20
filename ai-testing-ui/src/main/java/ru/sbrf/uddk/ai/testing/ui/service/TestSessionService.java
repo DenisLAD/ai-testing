@@ -15,8 +15,6 @@ import ru.sbrf.uddk.ai.testing.repository.TestSessionRepository;
 import ru.sbrf.uddk.ai.testing.service.DecisionEngineService;
 import ru.sbrf.uddk.ai.testing.service.ObservationService;
 import ru.sbrf.uddk.ai.testing.service.SeleniumSupplierService;
-import ru.sbrf.uddk.ai.testing.service.actions.CompleteAction;
-import ru.sbrf.uddk.ai.testing.service.actions.ReportIssueAction;
 
 import java.util.List;
 import java.util.UUID;
@@ -72,11 +70,13 @@ public class TestSessionService {
                 TestAgentAction agentAction = decisionEngineService.decideNextAction(agentObservation);
                 AgentAction ac = agentAction.execute(webDriver);
                 testSession.addAction(ac);
-                
+
                 // Сохраняем действие в БД
                 testSessionRepository.save(testSession);
 
-                if (agentAction instanceof CompleteAction || agentAction instanceof ReportIssueAction) {
+                // Проверяем тип действия через getType()
+                String actionType = agentAction.getType();
+                if ("COMPLETE".equals(actionType) || "REPORT_ISSUE".equals(actionType)) {
                     testSession.setStatus(SessionStatus.COMPLETED);
                     testSessionRepository.save(testSession);
                 }
