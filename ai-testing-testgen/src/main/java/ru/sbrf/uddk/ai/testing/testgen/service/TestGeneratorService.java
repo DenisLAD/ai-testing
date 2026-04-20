@@ -163,15 +163,145 @@ public class TestGeneratorService {
 
     /**
      * Генерирует методы теста на основе последовательности действий
+     * Фильтрует и группирует действия для создания качественного теста
      */
     private List<TestMethod> generateTestMethods(List<AgentAction> actions, int startOrder) {
-        // Группируем действия по типам для создания логических шагов
         List<TestMethod> methods = new ArrayList<>();
         int order = startOrder;
-        for (AgentAction action : actions) {
-            methods.add(convertActionToMethod(action, order++));
+        
+        // Фильтруем действия - оставляем только значимые
+        List<AgentAction> filteredActions = actions.stream()
+            .filter(this::isSignificantAction)  // Только значимые действия
+            .filter(this::isNotUnsupported)      // Исключаем неподдерживаемые
+            .collect(Collectors.toList());
+        
+        // Удаляем последовательные дубликаты
+        List<AgentAction> deduplicated = removeSequentialDuplicates(filteredActions);
+        
+        // Группируем в логические сценарии
+        List<List<AgentAction>> grouped = groupIntoScenarios(deduplicated);
+        
+        // Генерируем методы для каждой группы
+        for (List<AgentAction> group : grouped) {
+            if (!group.isEmpty()) {
+                methods.add(convertActionsToMethod(group, order++));
+            }
         }
+        
         return methods;
+    }
+    
+    /**
+     * Проверяет является ли действие значимым для теста
+     */
+    private boolean isSignificantAction(AgentAction action) {
+        String type = action.getActionType();
+        // Оставляем только действия которые влияют на тест
+        return "TYPE".equals(type) || 
+               "CLICK".equals(type) ||
+               "NAVIGATE_TO".equals(type) ||
+               "ASSERT_PRESENCE".equals(type) ||
+               "ASSERT_TEXT".equals(type);
+    }
+    
+    /**
+     * Проверяет что действие поддерживается
+     */
+    private boolean isNotUnsupported(AgentAction action) {
+        String type = action.getActionType();
+        // Исключаем действия без реализации
+        return !"EXPLORE_FORMS".equals(type) &&
+               !"EXPLORE_MENU".equals(type) &&
+               !"COMPLETE".equals(type) &&
+               !"REPORT_ISSUE".equals(type);
+    }
+    
+    /**
+     * Удаляет последовательные дубликаты действий
+     */
+    private List<AgentAction> removeSequentialDuplicates(List<AgentAction> actions) {
+        List<AgentAction> result = new ArrayList<>();
+        AgentAction previous = null;
+        
+        for (AgentAction action : actions) {
+            if (previous == null || !isDuplicate(previous, action)) {
+                result.add(action);
+            }
+            previous = action;
+        }
+        
+        return result;
+    }
+    
+    /**
+     * Проверяет являются ли действия дубликатами
+     */
+    private boolean isDuplicate(AgentAction a1, AgentAction a2) {
+        if (!a1.getActionType().equals(a2.getActionType())) {
+            return false;
+        }
+        if (!safeEquals(a1.getTargetSelector(), a2.getTargetSelector())) {
+            return false;
+        }
+        if (!safeEquals(a1.getInputValue(), a2.getInputValue())) {
+            return false;
+        }
+        return true;
+    }
+    
+    private boolean safeEquals(String s1, String s2) {
+        if (s1 == null && s2 == null) return true;
+        if (s1 == null || s2 == null) return false;
+        return s1.equals(s2);
+    }
+    
+    /**
+     * Группирует действия в логические сценарии
+     * Например: NAVIGATE_TO + TYPE + CLICK = один сценарий входа
+     */
+    private List<List<AgentAction>> groupIntoScenarios(List<AgentAction> actions) {
+        List<List<AgentAction>> groups = new ArrayList<>();
+        List<AgentAction> currentGroup = new ArrayList<>();
+        
+        for (AgentAction action : actions) {
+            currentGroup.add(action);
+            
+            // Завершаем группу на ASSERT или последнем действии
+            if (action.getActionType().contains("ASSERT")) {
+                groups.add(new ArrayList<>(currentGroup));
+                currentGroup.clear();
+            }
+        }
+        
+        // Добавляем последнюю группу если она не пуста
+        if (!currentGroup.isEmpty()) {
+            groups.add(currentGroup);
+        }
+        
+        return groups;
+    }
+    
+    /**
+     * Конвертирует группу действий в один метод теста
+     */
+    private TestMethod convertActionsToMethod(List<AgentAction> actions, int order) {
+        TestMethod method = new TestMethod();
+        method.setOrder(order);
+        
+        // Генерируем имя метода на основе первого действия
+        AgentAction firstAction = actions.get(0);
+        method.setMethodName(generateMethodName(firstAction, order));
+        method.setDisplayName(generateScenarioDisplayName(actions));
+        
+        // Генерируем тело метода для всех действий
+        StringBuilder body = new StringBuilder();
+        for (AgentAction action : actions) {
+            body.append(generateMethodBody(action));
+            body.append("\n        ");
+        }
+        method.setBody(body.toString());
+        
+        return method;
     }
 
     /**
@@ -269,6 +399,32 @@ public class TestGeneratorService {
             case "REFRESH" -> "Обновление страницы";
             case "COMPLETE" -> "Завершение теста";
             default -> action.getActionType() + ": " + truncate(action.getTargetSelector(), 30);
+        };
+    }
+    
+    /**
+     * Генерирует отображаемое имя для сценария (группы действий)
+     */
+    private String generateScenarioDisplayName(List<AgentAction> actions) {
+        if (actions.isEmpty()) return "Тестовый сценарий";
+        
+        // Если сценарий содержит ASSERT - это проверка
+        boolean hasAssert = actions.stream().anyMatch(a -> a.getActionType().contains("ASSERT"));
+        if (hasAssert) {
+            AgentAction assertAction = actions.stream()
+                .filter(a -> a.getActionType().contains("ASSERT"))
+                .findFirst()
+                .orElse(actions.get(0));
+            return "Проверка: " + truncate(assertAction.getTargetSelector(), 50);
+        }
+        
+        // Иначе описываем по первому действию
+        AgentAction first = actions.get(0);
+        return switch (first.getActionType()) {
+            case "NAVIGATE_TO" -> "Навигация на " + truncate(first.getTargetSelector(), 40);
+            case "CLICK" -> "Клик: " + truncate(first.getTargetSelector(), 40);
+            case "TYPE" -> "Ввод в поле: " + truncate(first.getTargetSelector(), 40);
+            default -> "Действие: " + first.getActionType();
         };
     }
 

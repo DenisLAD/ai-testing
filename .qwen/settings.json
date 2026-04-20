@@ -21,7 +21,9 @@
       "Bash(git checkout *)",
       "Bash(rm *)",
       "Bash(del *)",
-      "Bash(rmdir *)"
+      "Bash(rmdir *)",
+      "Bash(jq *)",
+      "Bash(git reset *)"
     ]
   },
   "$version": 3
