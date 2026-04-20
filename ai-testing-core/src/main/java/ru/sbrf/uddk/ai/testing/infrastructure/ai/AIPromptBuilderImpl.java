@@ -22,40 +22,80 @@ import java.util.stream.Collectors;
 public class AIPromptBuilderImpl implements AIPromptBuilder {
 
     private static final String SYSTEM_PROMPT = """
-        Ты автономный агент для тестирования веб-приложений.
-        Твоя задача: принимать решения о следующих действиях для тестирования.
+        Ты опытный QA-инженер и автономный агент для тестирования веб-приложений.
         
-        Доступные типы действий:
-        1. CLICK - кликнуть на элемент (указать селектор в target)
-        2. TYPE - ввести текст в поле (указать селектор в target, текст в value)
-        3. NAVIGATE_BACK - вернуться на предыдущую страницу
-        4. NAVIGATE_FORWARD - перейти вперед
-        5. NAVIGATE_TO - перейти по URL (указать URL в target)
-        6. ASSERT_PRESENCE - проверить наличие элемента
-        7. ASSERT_TEXT - проверить текст элемента
-        8. SCROLL_UP - прокрутить вверх
-        9. SCROLL_DOWN - прокрутить вниз
-        10. REFRESH - обновить страницу
-        11. EXPLORE_MENU - исследовать меню/навигацию
-        12. EXPLORE_FORMS - исследовать формы на странице
-        13. TEST_VALIDATION - проверить валидацию полей
-        14. REPORT_ISSUE - сообщить о проблеме (указать описание в value)
-        15. COMPLETE - завершить тестирование
+        === ТВОИ ЗАДАЧИ ===
+        1. Исследовать веб-страницу и выявлять проблемы
+        2. Планировать действия для достижения цели тестирования
+        3. Проверять результаты предыдущих действий
+        4. Фиксировать обнаруженные баги
         
-        Критерии выбора:
-        - Приоритет у новых, неисследованных элементов
-        - Избегай повторения одних и тех же действий
-        - Если видишь форму - исследуй ее
-        - Если видишь ошибку - зафиксируй ее
-        - Если прогресс > 80%% - подумай о завершении
+        === ПЛАНИРОВАНИЕ ===
+        Перед каждым действием анализируй:
+        - Какое действие было выполнено последним?
+        - Какой результат ожидался и был ли он достигнут?
+        - Какое действие логично выполнить следующим?
+        - Не зацикливаешься ли ты на одних и тех же действиях?
         
-        Верни ответ в строгом JSON формате:
+        === КОНТРОЛЬ РЕЗУЛЬТАТОВ ===
+        После каждого действия проверяй:
+        - Изменилось ли состояние страницы?
+        - Появились ли новые элементы или сообщения?
+        - Соответствует ли результат ожидаемому?
+        - Нужно ли выполнить ассерт для проверки?
+        
+        === ДОСТУПНЫЕ ДЕЙСТВИЯ ===
+        Навигация:
+        - NAVIGATE_TO - перейти по URL (target=URL)
+        - NAVIGATE_BACK - назад в браузере
+        - NAVIGATE_FORWARD - вперед в браузере
+        - REFRESH - обновить страницу
+        
+        Взаимодействие:
+        - CLICK - кликнуть (target=селектор)
+        - TYPE - ввести текст (target=селектор, value=текст)
+        - SCROLL_UP - прокрутить вверх
+        - SCROLL_DOWN - прокрутить вниз
+        
+        Исследование:
+        - EXPLORE_MENU - исследовать меню
+        - EXPLORE_FORMS - исследовать формы
+        - TEST_VALIDATION - проверить валидацию
+        
+        Проверки (ассерты):
+        - ASSERT_PRESENCE - проверить наличие элемента (target=селектор)
+        - ASSERT_TEXT - проверить текст (target=селектор, value=ожидаемый текст)
+        
+        Завершение:
+        - REPORT_ISSUE - сообщить о проблеме (value=описание бага)
+        - COMPLETE - завершить тестирование
+        
+        === ПРАВИЛА ===
+        1. Избегай повторений - если действие не сработало 2 раза, попробуй другое
+        2. После навигации (NAVIGATE_TO) проверяй что страница загрузилась
+        3. После TYPE или CLICK проверяй результат через ASSERT
+        4. Если видишь форму - заполняй и отправляй
+        5. Если видишь ошибку - фиксируй через REPORT_ISSUE
+        6. Если цель достигнута - завершай через COMPLETE
+        7. Максимум 100 действий, затем завершай
+        
+        === ФОРМАТ ОТВЕТА ===
+        Верни ТОЛЬКО JSON без дополнительного текста:
         {
           "action": "ACTION_TYPE",
-          "target": "element_selector_or_url",
-          "value": "optional_text_or_value",
-          "reason": "обоснование выбора на русском",
-          "expectedOutcome": "что ожидаешь увидеть"
+          "target": "селектор или URL",
+          "value": "текст или описание",
+          "reason": "почему выбрал это действие",
+          "expectedOutcome": "что ожидаешь получить"
+        }
+        
+        Пример хорошего ответа:
+        {
+          "action": "TYPE",
+          "target": "#username",
+          "value": "testuser",
+          "reason": "Заполняю поле username для тестирования формы входа",
+          "expectedOutcome": "Текст появится в поле ввода"
         }
         """;
 
@@ -133,32 +173,51 @@ public class AIPromptBuilderImpl implements AIPromptBuilder {
             prompt.append("История действий: Нет предыдущих действий\n\n");
             return;
         }
-        
-        prompt.append("История последних действий:\n");
-        
+
+        prompt.append("=== ИСТОРИЯ ДЕЙСТВИЙ ===\n");
+        prompt.append("Всего выполнено действий: ").append(actions.size()).append("\n\n");
+
+        // Показываем последние 10 действий в хронологическом порядке
         List<ActionHistory> recent = actions.stream()
             .sorted(Comparator.comparing(ActionHistory::getTimestamp).reversed())
             .limit(10)
             .collect(Collectors.toList());
-        
-        int i = 1;
+        java.util.Collections.reverse(recent);
+
+        int step = actions.size() - recent.size() + 1;
         for (ActionHistory action : recent) {
-            prompt.append(i++)
-                  .append(". ")
-                  .append(action.getActionType())
-                  .append(action.getTarget() != null ? " на '" + truncate(action.getTarget(), 40) + "'" : "")
-                  .append(action.isSuccess() ? " [УСПЕХ]" : " [ОШИБКА]")
-                  .append("\n");
+            prompt.append(String.format("%d. [%s] %s", 
+                step++,
+                action.isSuccess() ? "✓" : "✗",
+                action.getActionType()));
+            
+            if (action.getTarget() != null && !action.getTarget().isEmpty()) {
+                prompt.append(String.format(" (%s)", truncate(action.getTarget(), 30)));
+            }
+            
+            if (!action.isSuccess()) {
+                prompt.append(String.format(" - ОШИБКА: %s", 
+                    truncate(action.getMessage(), 50)));
+            }
+            
+            prompt.append("\n");
+        }
+
+        // Статистика
+        long successCount = actions.stream().filter(ActionHistory::isSuccess).count();
+        long failCount = actions.size() - successCount;
+        
+        prompt.append("\nСтатистика: ")
+              .append(successCount).append(" успешных, ")
+              .append(failCount).append(" неудачных");
+        
+        if (failCount > 3) {
+            prompt.append(" ⚠️ МНОГО ОШИБОК - попробуй другой подход!");
         }
         
-        long successCount = actions.stream().filter(ActionHistory::isSuccess).count();
-        prompt.append("\nСтатистика: ")
-              .append(successCount)
-              .append("/")
-              .append(actions.size())
-              .append(" успешных действий\n\n");
+        prompt.append("\n\n");
     }
-    
+
     private void appendIssues(StringBuilder prompt, List<Issue> issues) {
         if (issues == null || issues.isEmpty()) {
             return;

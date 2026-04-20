@@ -23,14 +23,23 @@ public class NavigateToAction extends BaseAgentAction {
         log.info("Executing NavigateToAction to: {}", target);
 
         try {
+            // Скриншот до
+            String screenshotBefore = takeScreenshotBefore(driver);
+            
             driver.get(target);
             
             // Ждем загрузки страницы
             getWait(driver).until(webDriver -> 
                 ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            
+            // Скриншот после
+            String screenshotAfter = takeScreenshotAfter(driver);
 
-            return createActionLog("NAVIGATE_TO", true,
+            AgentAction logEntry = createActionLog("NAVIGATE_TO", true,
                     String.format("Успешно перешел на: %s", target));
+            logEntry.setScreenshotBefore(screenshotBefore);
+            logEntry.setScreenshotAfter(screenshotAfter);
+            return logEntry;
 
         } catch (Exception e) {
             log.error("NavigateToAction failed: {}", e.getMessage());

@@ -20,7 +20,13 @@ import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.io.File;
+import java.util.Base64;
+import java.util.List;
 import java.util.function.Function;
+import java.nio.file.Files;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 /**
  * Базовый класс для действий агента
@@ -184,5 +190,41 @@ public abstract class BaseAgentAction implements TestAgentAction {
         }
 
         throw new NoSuchElementException("Unable to locate element: " + selector);
+    }
+
+    /**
+     * Сделать скриншот перед действием
+     */
+    protected String takeScreenshotBefore(WebDriver driver) {
+        try {
+            if (driver instanceof TakesScreenshot takesScreenshot) {
+                File screenshot = takesScreenshot.getScreenshotAs(OutputType.FILE);
+                byte[] screenshotBytes = Files.readAllBytes(screenshot.toPath());
+                return Base64.getEncoder().encodeToString(screenshotBytes);
+            }
+            return null;
+        } catch (Exception e) {
+            log.error("Failed to take screenshot before action", e);
+            return null;
+        }
+    }
+
+    /**
+     * Сделать скриншот после действия
+     */
+    protected String takeScreenshotAfter(WebDriver driver) {
+        try {
+            // Даем время для отрисовки изменений
+            Thread.sleep(300);
+            if (driver instanceof TakesScreenshot takesScreenshot) {
+                File screenshot = takesScreenshot.getScreenshotAs(OutputType.FILE);
+                byte[] screenshotBytes = Files.readAllBytes(screenshot.toPath());
+                return Base64.getEncoder().encodeToString(screenshotBytes);
+            }
+            return null;
+        } catch (Exception e) {
+            log.error("Failed to take screenshot after action", e);
+            return null;
+        }
     }
 }

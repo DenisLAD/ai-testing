@@ -1,45 +1,46 @@
 package ru.sbrf.uddk.ai.testing.infrastructure.action;
 
+import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;
-import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 
 /**
- * Действие: Прокрутка вниз
+ * Действие: Вперед в браузере
  */
 @Slf4j
 @Component
-public class ScrollDownAction extends BaseAgentAction {
+public class NavigateForwardAction extends BaseAgentAction {
 
     @Override
     public String getType() {
-        return "SCROLL_DOWN";
+        return "NAVIGATE_FORWARD";
     }
 
     @Override
     public AgentAction execute(WebDriver driver) {
-        log.info("Executing ScrollDownAction");
+        log.info("Executing NavigateForwardAction");
 
         try {
             // Скриншот до
             String screenshotBefore = takeScreenshotBefore(driver);
             
-            executeJavaScript(driver, "window.scrollBy(0, 500);");
-            Thread.sleep(500);
+            driver.navigate().forward();
+            Thread.sleep(1000);
             
             // Скриншот после
             String screenshotAfter = takeScreenshotAfter(driver);
 
-            AgentAction logEntry = createActionLog("SCROLL_DOWN", true, "Страница прокручена вниз на 500px");
+            AgentAction logEntry = createActionLog("NAVIGATE_FORWARD", true,
+                    "Успешно перешел вперед: " + driver.getCurrentUrl());
             logEntry.setScreenshotBefore(screenshotBefore);
             logEntry.setScreenshotAfter(screenshotAfter);
             return logEntry;
 
         } catch (Exception e) {
-            log.error("ScrollDownAction failed: {}", e.getMessage());
-            return createActionLog("SCROLL_DOWN", false,
-                    String.format("Ошибка прокрутки: %s", e.getMessage()));
+            log.error("NavigateForwardAction failed: {}", e.getMessage());
+            return createActionLog("NAVIGATE_FORWARD", false,
+                    String.format("Ошибка навигации вперед: %s", e.getMessage()));
         }
     }
 }

@@ -23,12 +23,21 @@ public class ClickAction extends BaseAgentAction {
         log.info("Executing ClickAction on: {}", target);
 
         try {
+            // Скриншот до
+            String screenshotBefore = takeScreenshotBefore(driver);
+            
             WebElement element = findElement(driver, target);
             highlightElement(driver, element);
             element.click();
+            
+            // Скриншот после
+            String screenshotAfter = takeScreenshotAfter(driver);
 
-            return createActionLog("CLICK", true,
+            AgentAction logEntry = createActionLog("CLICK", true,
                     String.format("Успешно кликнул на элемент: %s", target));
+            logEntry.setScreenshotBefore(screenshotBefore);
+            logEntry.setScreenshotAfter(screenshotAfter);
+            return logEntry;
 
         } catch (Exception e) {
             log.error("ClickAction failed: {}", e.getMessage());

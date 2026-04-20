@@ -1,48 +1,47 @@
 package ru.sbrf.uddk.ai.testing.infrastructure.action;
 
+import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.springframework.stereotype.Component;
-import ru.sbrf.uddk.ai.testing.entity.AgentAction;
 
 /**
- * Действие: Ввод текста в поле
+ * Действие: Проверка наличия элемента
  */
 @Slf4j
 @Component
-public class TypeAction extends BaseAgentAction {
+public class AssertPresenceAction extends BaseAgentAction {
 
     @Override
     public String getType() {
-        return "TYPE";
+        return "ASSERT_PRESENCE";
     }
 
     @Override
     public AgentAction execute(WebDriver driver) {
-        log.info("Executing TypeAction on: {} with value: {}", target, value);
+        log.info("Executing AssertPresenceAction on: {}", target);
 
         try {
             // Скриншот до
             String screenshotBefore = takeScreenshotBefore(driver);
             
             WebElement element = findElement(driver, target);
-            element.clear();
-            element.sendKeys(value);
+            boolean isPresent = element.isDisplayed();
             
             // Скриншот после
             String screenshotAfter = takeScreenshotAfter(driver);
 
-            AgentAction logEntry = createActionLog("TYPE", true,
-                    String.format("Успешно ввел '%s' в элемент: %s", value, target));
+            AgentAction logEntry = createActionLog("ASSERT_PRESENCE", isPresent,
+                    String.format("Элемент %s: %s", target, isPresent ? "найден" : "не найден"));
             logEntry.setScreenshotBefore(screenshotBefore);
             logEntry.setScreenshotAfter(screenshotAfter);
             return logEntry;
 
         } catch (Exception e) {
-            log.error("TypeAction failed: {}", e.getMessage());
-            return createActionLog("TYPE", false,
-                    String.format("Ошибка ввода в элемент %s: %s", target, e.getMessage()));
+            log.error("AssertPresenceAction failed: {}", e.getMessage());
+            return createActionLog("ASSERT_PRESENCE", false,
+                    String.format("Элемент %s не найден: %s", target, e.getMessage()));
         }
     }
 }

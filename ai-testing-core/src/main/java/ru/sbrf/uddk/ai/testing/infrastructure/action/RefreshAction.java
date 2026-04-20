@@ -23,12 +23,22 @@ public class RefreshAction extends BaseAgentAction {
         log.info("Executing RefreshAction");
 
         try {
+            // Скриншот до
+            String screenshotBefore = takeScreenshotBefore(driver);
+            
             driver.navigate().refresh();
             
-            getWait(driver).until(webDriver -> 
+            // Ждем загрузки
+            getWait(driver).until(webDriver ->
                 ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+            
+            // Скриншот после
+            String screenshotAfter = takeScreenshotAfter(driver);
 
-            return createActionLog("REFRESH", true, "Страница обновлена");
+            AgentAction logEntry = createActionLog("REFRESH", true, "Страница обновлена");
+            logEntry.setScreenshotBefore(screenshotBefore);
+            logEntry.setScreenshotAfter(screenshotAfter);
+            return logEntry;
 
         } catch (Exception e) {
             log.error("RefreshAction failed: {}", e.getMessage());
