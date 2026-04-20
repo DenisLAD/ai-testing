@@ -29,13 +29,12 @@ public class TestSessionController {
         TestSession testSession = new TestSession();
         testSession.setGoal(TestGoal.EXPLORATORY);
         testSession.setTargetUrl(startSession.getUrl());
-        testSession.setId(UUID.randomUUID());
         testSession.setDescription(startSession.getPrompt());
         testSession.setStatus(SessionStatus.RUNNING);
 
-        testSessionService.startTest(testSession);
+        TestSession savedSession = testSessionService.startTest(testSession);
 
-        return ResponseEntity.ok(testSession.getId().toString());
+        return ResponseEntity.ok(savedSession.getId().toString());
     }
 
     @PostMapping("/stopSession/{id}")

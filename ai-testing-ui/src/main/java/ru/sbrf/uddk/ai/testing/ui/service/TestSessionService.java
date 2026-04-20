@@ -38,11 +38,12 @@ public class TestSessionService {
     private final List<TestSession> testSessions = new java.util.ArrayList<>();
 
     @Transactional
-    public void startTest(TestSession testSession) {
-        // Сохраняем сессию в БД
+    public TestSession startTest(TestSession testSession) {
+        // Сохраняем сессию в БД (ID генерируется при сохранении)
         testSessionRepository.save(testSession);
         testSessions.add(testSession);
         CompletableFuture.runAsync(() -> test(testSession));
+        return testSession;
     }
 
     @Transactional
