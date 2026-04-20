@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: ai-testing
+
+  # База данных H2
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # Spring AI - OpenAI совместимый API
+  ai:
+    openai:
+      base-url: http://localhost:1234
+      api-key: ""
+      chat:
+        enabled: true
+        options:
+          model: local-model
+          temperature: 0.7
+
+# Server
+server:
+  port: 8080
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+# Логирование
+logging:
+  level:
+    root: INFO
+    ru.sbrf.uddk.ai.testing: DEBUG
+    org.springframework.ai: DEBUG
+    org.openqa.selenium: WARN
+
+# Скриншоты
+app:
+  screenshots:
+    dir: ./screenshots
+    format: png
+    max-size-kb: 500

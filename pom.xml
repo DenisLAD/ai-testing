@@ -109,6 +109,7 @@
     <modules>
         <module>ai-testing-core</module>
         <module>ai-testing-ui</module>
+        <module>ai-testing-testgen</module>
         <module>ai-testing-app</module>
     </modules>
 

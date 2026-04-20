@@ -90,20 +90,23 @@ public class DecisionEngineService {
         prompt.append("""
                 Ты автономный агент для тестирования веб-приложений.
                 Твоя задача: принимать решения о следующих действиях для тестирования.
-                                
-                Видимый DOM: %s
-                                
-                Цель тестирования: %s
+
+                === ИНФОРМАЦИЯ О СТРАНИЦЕ ===
                 URL: %s
-                Заголовок страницы: %s
+                Заголовок: %s
+                Цель тестирования: %s
                 Прогресс: %.1f%%
-                                
+
+                === ВИДИМЫЙ DOM ===
+                (Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+                %s
+
                 """.formatted(
-                removeStyleAndScriptTagsOptimized(observation.getPageSource()),
-                observation.getGoalDescription(),
                 observation.getUrl(),
                 observation.getPageTitle(),
-                observation.getGoalProgress() != null ? observation.getGoalProgress() * 100 : 0
+                observation.getGoalDescription(),
+                observation.getGoalProgress() != null ? observation.getGoalProgress() * 100 : 0,
+                removeStyleAndScriptTagsOptimized(observation.getPageSource())
         ));
 
         // Видимые элементы

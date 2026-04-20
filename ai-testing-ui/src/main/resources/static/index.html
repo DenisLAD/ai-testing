@@ -4,18 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous Testing Agent</title>
+    <title>AI Testing Platform</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
-        :root {
-            --bs-primary-rgb: 13, 110, 253;
-            --bs-danger-rgb: 220, 53, 69;
-            --bs-light-rgb: 248, 249, 250;
-        }
-
         body {
             background-color: #f8f9fa;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -47,22 +41,11 @@
             padding: 1rem;
         }
 
-        .action-grid-container {
-            height: 300px;
-            overflow-y: auto;
-            border: 1px solid #dee2e6;
-            border-radius: 0.375rem;
-        }
-
         .log-entry {
             padding: 0.5rem;
             border-bottom: 1px solid #eee;
             font-family: 'Courier New', monospace;
             font-size: 0.9rem;
-        }
-
-        .log-entry:last-child {
-            border-bottom: none;
         }
 
         .log-timestamp {
@@ -77,40 +60,25 @@
             padding: 1.5rem;
         }
 
-        .action-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-        }
-
         .status-success {
             color: #198754;
-            background-color: rgba(25, 135, 84, 0.1);
         }
 
         .status-error {
             color: #dc3545;
-            background-color: rgba(220, 53, 69, 0.1);
         }
 
         .status-info {
             color: #0d6efd;
-            background-color: rgba(13, 110, 253, 0.1);
         }
 
-        .action-grid {
-            font-size: 0.85rem;
+        .session-card {
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        .action-grid th {
-            position: sticky;
-            top: 0;
-            background-color: white;
-            z-index: 10;
-        }
-
-        .header-icon {
-            font-size: 1.5rem;
-            margin-right: 0.5rem;
+        .session-card:hover {
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -118,132 +86,131 @@
 <body>
     <div class="container-fluid py-4">
 
-        <!-- Секция с инструкциями -->
-        <section class="prompt-section mb-1">
-            <h3 class="mb-1">
-                <i class="bi bi-card-text"></i> Testing Instructions
-            </h3>
+        <!-- Заголовок и навигация -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-robot"></i> AI Testing Platform</h2>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sessionsModal">
+                <i class="bi bi-collection"></i> Все сессии
+            </button>
+        </div>
 
-            <div class="row mb-1">
-                <div class="col-12">
-                    <label for="urlField" class="form-label">URL</label>
+        <!-- Секция с инструкциями -->
+        <section class="prompt-section mb-4">
+            <h4 class="mb-3">
+                <i class="bi bi-card-text"></i> Новая тестовая сессия
+            </h4>
+
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label for="urlField" class="form-label">URL для тестирования</label>
                     <input type="text" class="form-control" id="urlField"
                         placeholder="https://the-internet.herokuapp.com/login"
-                        value="https://the-internet.herokuapp.com/login" maxlength="1000">
+                        value="https://the-internet.herokuapp.com/login">
+                </div>
+                <div class="col-md-4">
+                    <label for="goalSelect" class="form-label">Цель тестирования</label>
+                    <select class="form-select" id="goalSelect">
+                        <option value="EXPLORATORY">Исследовательское</option>
+                        <option value="REGRESSION">Регрессионное</option>
+                        <option value="SECURITY">Безопасность</option>
+                        <option value="ACCESSIBILITY">Доступность</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-12">
-                    <label for="promptField" class="form-label">Инструкции</label>
-                    <textarea class="form-control" id="promptField" rows="4"
+                    <label for="promptField" class="form-label">Описание тестового сценария</label>
+                    <textarea class="form-control" id="promptField" rows="3"
                         placeholder="Пример: Протестируйте функционал входа с неверными учетными данными"
-                        maxlength="1000"></textarea>
-                    <div class="form-text">Опишите тестовый сценарий для выполнения</div>
+                        maxlength="2000"></textarea>
+                    <div class="form-text">Опишите что именно нужно протестировать</div>
                 </div>
             </div>
-        </section>
 
-        <!-- Панель управления -->
-        <section class="mb-4">
             <div class="d-flex gap-2">
                 <button id="startButton" class="btn btn-primary">
-                    <i class="bi bi-play-fill"></i> Start Testing
+                    <i class="bi bi-play-fill"></i> Запустить тестирование
                 </button>
                 <button id="stopButton" class="btn btn-danger" disabled>
-                    <i class="bi bi-stop-fill"></i> Stop
+                    <i class="bi bi-stop-fill"></i> Остановить
                 </button>
-                <button id="clearButton" class="btn btn-outline-secondary">
-                    <i class="bi bi-trash"></i> Clear Log
+                <button id="refreshButton" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-clockwise"></i> Обновить
                 </button>
-
-                <div class="ms-auto">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="autoScrollSwitch" checked>
-                        <label class="form-check-label" for="autoScrollSwitch">Auto-scroll logs</label>
-                    </div>
-                </div>
             </div>
         </section>
+
+        <!-- Индикатор состояния -->
+        <div class="alert alert-info d-flex align-items-center" id="statusAlert" role="alert" style="display: none;">
+            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+            <div id="statusText">Тестирование выполняется...</div>
+        </div>
 
         <!-- Основное содержимое -->
         <section class="row g-4">
             <!-- Левая колонка: Скриншот браузера -->
             <div class="col-lg-6">
                 <div class="card h-100">
-                    <div class="card-header">
-                        <h4 class="mb-0">
-                            <i class="bi bi-display"></i> Browser Screenshot
-                        </h4>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-display"></i> Скриншот страницы</h5>
+                        <span class="badge bg-secondary" id="resolutionBadge">-</span>
                     </div>
                     <div class="card-body p-0">
                         <div class="screenshot-container p-3">
                             <div id="screenshotPlaceholder" class="text-center text-muted">
                                 <i class="bi bi-display" style="font-size: 3rem; opacity: 0.3;"></i>
-                                <p class="mt-2">Скриншот появится после начала тестирования</p>
+                                <p class="mt-2">Скриншот появится во время тестирования</p>
                             </div>
-                            <img id="screenshotImage" class="screenshot-img d-none" alt="Current browser state">
+                            <img id="screenshotImage" class="screenshot-img d-none" alt="Browser screenshot">
                         </div>
-                        <div class="p-3 border-top">
-                            <div class="row">
-                                <div class="col">
-                                    <small class="text-muted">
-                                        <i class="bi bi-clock"></i> Last updated: <span id="lastUpdateTime">-</span>
-                                    </small>
-                                </div>
-                                <div class="col-auto">
-                                    <small class="text-muted">
-                                        Resolution: <span id="resolutionInfo">-</span>
-                                    </small>
-                                </div>
-                            </div>
+                        <div class="p-2 border-top bg-light">
+                            <small class="text-muted">
+                                <i class="bi bi-clock"></i> Обновлено: <span id="lastUpdateTime">-</span>
+                            </small>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Правая колонка: Лог действий и результаты -->
+            <!-- Правая колонка: Лог действий -->
             <div class="col-lg-6">
-                <!-- Лог действий -->
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <h4 class="mb-0">
-                            <i class="bi bi-list-check"></i> Agent Actions & Results
-                        </h4>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-list-check"></i> Лог действий</h5>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="autoScrollSwitch" checked>
+                            <label class="form-check-label small" for="autoScrollSwitch">Автопрокрутка</label>
+                        </div>
                     </div>
                     <div class="card-body p-0">
                         <div class="log-container" id="logContainer">
-
+                            <div class="text-center text-muted py-4">
+                                <i class="bi bi-info-circle" style="font-size: 2rem;"></i>
+                                <p class="mt-2">Действия появятся здесь после запуска тестирования</p>
+                            </div>
                         </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            Действий выполнено: <strong id="actionCount">0</strong>
+                        </small>
                     </div>
                 </div>
 
-                <!-- Детальная таблица действий -->
+                <!-- Кнопки действий -->
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="mb-0">
-                            <i class="bi bi-table"></i> Detailed Actions
-                        </h4>
+                        <h5 class="mb-0"><i class="bi bi-gear"></i> Действия</h5>
                     </div>
-                    <div class="card-body p-0">
-                        <div class="action-grid-container">
-                            <table class="table table-hover table-sm mb-0 action-grid">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style="width: 100px;">Time</th>
-                                        <th scope="col" style="width: 200px;">Action</th>
-                                        <th scope="col" style="width: 300px;">Result</th>
-                                        <th scope="col" style="width: 100px;">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="actionGridBody">
-                                    <tr>
-                                        <td colspan="4" class="text-center text-muted py-4">
-                                            Действия появятся здесь после начала тестирования
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button id="generateTestButton" class="btn btn-success" disabled>
+                                <i class="bi bi-file-earmark-code"></i> Сгенерировать тест
+                            </button>
+                            <button id="downloadTestButton" class="btn btn-outline-success" disabled>
+                                <i class="bi bi-download"></i> Скачать тест
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -254,403 +221,504 @@
         <footer class="mt-4 pt-3 border-top">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="d-flex align-items-center">
-                        <div class="me-3">
-                            <div class="spinner-border spinner-border-sm text-primary d-none" role="status"
-                                id="statusSpinner">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
-                        <div>
-                            <small class="text-muted" id="statusText">Готов к работе</small>
-                        </div>
-                    </div>
+                    <small class="text-muted">
+                        Сессия: <span id="sessionId">-</span>
+                    </small>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <small class="text-muted">
-                        Session: <span id="sessionId">-</span> |
-                        Actions: <span id="actionCount">0</span> |
-                        <span id="testingStatus" class="badge bg-secondary">IDLE</span>
-                    </small>
+                    <span id="testingStatus" class="badge bg-secondary">IDLE</span>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
+    <!-- Модальное окно: Все сессии -->
+    <div class="modal fade" id="sessionsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-collection"></i> Все тестовые сессии</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>URL</th>
+                                    <th>Описание</th>
+                                    <th>Статус</th>
+                                    <th>Действий</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sessionsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" onclick="loadSessions()">
+                        <i class="bi bi-arrow-clockwise"></i> Обновить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно: Генерация теста -->
+    <div class="modal fade" id="generateTestModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-file-earmark-code"></i> Сгенерированный тест</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="testGenerationSpinner" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2">Генерация теста...</p>
+                    </div>
+                    <div id="testCodeContainer" class="d-none">
+                        <div class="alert alert-success">Тест успешно сгенерирован!</div>
+                        <pre class="bg-dark text-light p-3 rounded" style="max-height: 400px; overflow-y: auto;"><code id="testCode"></code></pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" id="downloadGeneratedTest" disabled>
+                        <i class="bi bi-download"></i> Скачать
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Эмуляция данных и состояния
-        let isStarted = false;
-        let actionCounter = 0;
-        let sessionId = generateSessionId();
-        let logEntries = [];
-        let actions = [];
+        // Состояние
+        let currentSessionId = null;
+        let isRunning = false;
+        let lastActionCount = 0;
+        let allSessions = [];
+        let pollTimeout = null;
 
-        // Элементы DOM
+        // DOM элементы
         const startButton = document.getElementById('startButton');
         const stopButton = document.getElementById('stopButton');
-        const clearButton = document.getElementById('clearButton');
+        const refreshButton = document.getElementById('refreshButton');
+        const generateTestButton = document.getElementById('generateTestButton');
+        const downloadTestButton = document.getElementById('downloadTestButton');
         const logContainer = document.getElementById('logContainer');
-        const actionGridBody = document.getElementById('actionGridBody');
-        const screenshotImage = document.getElementById('screenshotImage');
-        const screenshotPlaceholder = document.getElementById('screenshotPlaceholder');
-        const statusSpinner = document.getElementById('statusSpinner');
+        const statusAlert = document.getElementById('statusAlert');
         const statusText = document.getElementById('statusText');
         const testingStatus = document.getElementById('testingStatus');
         const sessionIdElement = document.getElementById('sessionId');
         const actionCountElement = document.getElementById('actionCount');
-        const lastUpdateTimeElement = document.getElementById('lastUpdateTime');
-        const resolutionInfoElement = document.getElementById('resolutionInfo');
         const urlField = document.getElementById('urlField');
         const promptField = document.getElementById('promptField');
         const autoScrollSwitch = document.getElementById('autoScrollSwitch');
 
         // Инициализация
-        document.addEventListener('DOMContentLoaded', function () {
-            sessionIdElement.textContent = sessionId;
-
-            // Обработчики событий
+        document.addEventListener('DOMContentLoaded', function() {
             startButton.addEventListener('click', startTesting);
             stopButton.addEventListener('click', stopTesting);
-            clearButton.addEventListener('click', clearLog);
-
-            // Валидация поля инструкций
-            promptField.addEventListener('input', function () {
-                const prompt = promptField.value;
-                // Эмуляция проверки на запрещенный контент
-                if (containsRestrictedContent(prompt)) {
-                    promptField.classList.add('is-invalid');
-                    // В реальном приложении здесь должно быть отображение ошибки
-                } else {
-                    promptField.classList.remove('is-invalid');
-                }
-            });
-
-            // Эмуляция загрузки скриншотов
-            loadMockScreenshots();
+            refreshButton.addEventListener('click', () => location.reload());
+            generateTestButton.addEventListener('click', generateTest);
+            downloadTestButton.addEventListener('click', downloadTest);
+            document.getElementById('sessionsModal').addEventListener('show.bs.modal', loadSessions);
         });
 
-        window.sessions = {};
+        // Очистка таймеров
+        function clearPollTimeout() {
+            if (pollTimeout !== null) {
+                clearTimeout(pollTimeout);
+                pollTimeout = null;
+            }
+        }
 
-        // Функции
+        // Запуск тестирования
         function startTesting() {
-            if (isStarted) return;
+            // Сброс предыдущего состояния
+            clearPollTimeout();
+            resetUI(true);
+            
+            // Сброс скриншота
+            document.getElementById('screenshotImage').classList.add('d-none');
+            document.getElementById('screenshotPlaceholder').classList.remove('d-none');
+            document.getElementById('lastUpdateTime').textContent = '-';
+            document.getElementById('resolutionBadge').textContent = '-';
+            
+            // Восстановление placeholder в логе
+            logContainer.innerHTML = '<div class="text-center text-muted py-4">' +
+                '<i class="bi bi-info-circle" style="font-size: 2rem;"></i>' +
+                '<p class="mt-2">Действия появятся здесь после запуска тестирования</p></div>';
 
-            const url = urlField.value;
-            const prompt = promptField.value;
+            const url = urlField.value.trim();
+            const prompt = promptField.value.trim();
 
             if (!url || !url.startsWith('http')) {
-                alert('Пожалуйста, введите корректный URL (начинающийся с http:// или https://)');
+                alert('Введите корректный URL (начинающийся с http:// или https://)');
                 return;
             }
 
-            if (!prompt.trim()) {
-                alert('Пожалуйста, введите инструкции для тестирования');
+            if (!prompt) {
+                alert('Введите описание сценария');
                 return;
             }
 
-            // Обновление состояния UI
-            isStarted = true;
+            isRunning = true;
             startButton.disabled = true;
             stopButton.disabled = false;
-            statusSpinner.classList.remove('d-none');
+            statusAlert.style.display = 'flex';
             testingStatus.textContent = 'TESTING';
             testingStatus.className = 'badge bg-primary';
 
-            // Обновление статуса
-            statusText.textContent = 'Выполняется тестирование: ' + prompt.substring(0, 50) + '...';
-
-            // Добавление начальной записи в лог
-            addLogEntry('Агент инициализирован и начинает тестирование...');
-            fetch("/test/startSession", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    url: url,
-                    prompt: prompt
-                })
-            })
-                .then(response => response.text())
-                .then(id => {
-                    setTimeout(() => update(id), 1000);
-                });
-
-            // Запуск эмуляции тестирования
-
-        }
-
-        function update(id) {
-            fetch("/test/session/" + id, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    let prev = window.sessions[id] || {};
-                    let actions = prev.actions || [];
-                    if (actions.length != data.actions.length) {
-                        addLogEntry(data.actions[data.actions.length - 1].reason);
-                        updateScreenshot(data.actions[data.actions.length - 1].screenshotBefore);
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: data.actions[data.actions.length - 1].actionType + "[s=" + data.actions[data.actions.length - 1].targetSelector + ", e=" + data.actions[data.actions.length - 1].inputValue + "]",
-                            result: data.actions[data.actions.length - 1].result.message,
-                            status: data.actions[data.actions.length - 1].result.errorDetails == null ? 'info' : 'error'
-                        });
-                    }
-
-                    if (data.status == 'RUNNING') {
-                        setTimeout(() => update(id), 1000);
-                    } else {
-                        addLogEntry('Автономное тестирование завершено. Сгенерирован отчет.', 'success');
-                    }
-
-                    window.sessions[id] = data;
-                });
-
-
-        }
-
-        function stopTesting() {
-            if (!isStarted) return;
-
-            isStarted = false;
-            startButton.disabled = false;
-            stopButton.disabled = true;
-            statusSpinner.classList.add('d-none');
-            testingStatus.textContent = 'STOPPED';
-            testingStatus.className = 'badge bg-danger';
-
-            statusText.textContent = 'Тестирование остановлено пользователем';
-            addLogEntry('Тестирование остановлено пользователем');
-        }
-
-        function clearLog() {
-            logContainer.innerHTML = '';
-            actionGridBody.innerHTML = '';
-            logEntries = [];
-            actions = [];
-            actionCounter = 0;
+            lastActionCount = 0;
             actionCountElement.textContent = '0';
 
-            addLogEntry('Лог очищен');
+            addLogEntry('Запуск тестирования...', 'info');
+
+            fetch("/test/startSession", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ url: url, prompt: prompt })
+            })
+            .then(r => {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.text();
+            })
+            .then(id => {
+                currentSessionId = id;
+                sessionIdElement.textContent = id.substring(0, 8) + '...';
+                addLogEntry('Сессия запущена: ' + id.substring(0, 8) + '...', 'success');
+                statusText.textContent = 'Выполняется: ' + prompt.substring(0, 40) + '...';
+                pollSession(id);
+            })
+            .catch(err => {
+                console.error('Start error:', err);
+                addLogEntry('Ошибка запуска: ' + err.message, 'error');
+                hideStatusAlert();
+                resetUI(false);
+            });
         }
 
-        function addLogEntry(message, type = 'info') {
-            const timestamp = new Date().toLocaleTimeString('ru-RU', { hour12: false });
-            const logEntry = document.createElement('div');
-            logEntry.className = 'log-entry';
+        // Опрос сессии
+        function pollSession(sessionId) {
+            if (!isRunning) return;
 
-            let typeClass = 'status-info';
-            if (type === 'success') typeClass = 'status-success';
-            if (type === 'error') typeClass = 'status-error';
+            fetch("/test/session/" + sessionId)
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                })
+                .then(data => {
+                    if (!isRunning) return; // Проверка после получения ответа
+                    
+                    updateUI(data);
 
-            logEntry.innerHTML = `
-            <span class="log-timestamp">[${timestamp}]</span>
-            <span class="${typeClass}">${message}</span>
-        `;
+                    if (data.status === 'RUNNING') {
+                        clearPollTimeout();
+                        pollTimeout = setTimeout(() => pollSession(sessionId), 2000);
+                    } else {
+                        completeTesting(data.status);
+                    }
+                })
+                .catch(err => {
+                    if (!isRunning) return;
+                    console.error('Poll error:', err);
+                    addLogEntry('Ошибка опроса: ' + err.message, 'error');
+                    hideStatusAlert();
+                    resetUI(false);
+                });
+        }
 
-            logContainer.appendChild(logEntry);
-            logEntries.push({ timestamp, message, type });
+        // Обновление UI - ИСПРАВЛЕНИЕ: перебираем ВСЕ новые действия
+        function updateUI(data) {
+            if (!data.actions || data.actions.length === 0) return;
+            
+            // Перебираем все новые действия от lastActionCount до конца
+            for (let i = lastActionCount; i < data.actions.length; i++) {
+                const action = data.actions[i];
+                
+                // Скриншот
+                if (action.screenshotBefore) {
+                    const imgSrc = action.screenshotBefore.startsWith('data:') 
+                        ? action.screenshotBefore 
+                        : 'data:image/png;base64,' + action.screenshotBefore;
+                    updateScreenshot(imgSrc);
+                }
+                
+                // Лог
+                if (action.reason) {
+                    const status = (action.result && action.result.success) ? 'success' : 'info';
+                    addLogEntry('[' + (i + 1) + '] ' + action.reason, status);
+                }
+            }
+            
+            lastActionCount = data.actions.length;
+            actionCountElement.textContent = lastActionCount;
+        }
 
-            // Автопрокрутка к новому элементу
+        // Завершение тестирования - ИСПРАВЛЕНИЕ: проверка статуса
+        function completeTesting(status) {
+            addLogEntry('Тестирование завершено: ' + status, status === 'COMPLETED' ? 'success' : 'error');
+            hideStatusAlert();
+            testingStatus.textContent = status;
+            
+            if (status === 'COMPLETED') {
+                testingStatus.className = 'badge bg-success';
+                generateTestButton.disabled = false;
+                downloadTestButton.disabled = false;
+            } else if (status === 'STOPPED') {
+                testingStatus.className = 'badge bg-danger';
+                generateTestButton.disabled = true;
+                downloadTestButton.disabled = true;
+            } else {
+                testingStatus.className = 'badge bg-warning';
+                generateTestButton.disabled = true;
+                downloadTestButton.disabled = true;
+            }
+            
+            resetUI(false);
+        }
+
+        // Остановка - ИСПРАВЛЕНИЕ: немедленный сброс флага
+        function stopTesting() {
+            if (!currentSessionId) return;
+
+            // Сразу сбрасываем флаг и таймеры
+            isRunning = false;
+            clearPollTimeout();
+            stopButton.disabled = true;
+            
+            addLogEntry('Остановка пользователем...', 'error');
+
+            // Отправляем запрос параллельно
+            fetch("/test/stopSession/" + currentSessionId, { method: "POST" })
+                .then(r => {
+                    if (r.ok) {
+                        testingStatus.textContent = 'STOPPED';
+                        testingStatus.className = 'badge bg-danger';
+                        hideStatusAlert();
+                        generateTestButton.disabled = true;
+                        downloadTestButton.disabled = true;
+                    } else {
+                        throw new Error('HTTP ' + r.status);
+                    }
+                })
+                .catch(err => {
+                    console.error('Stop error:', err);
+                    addLogEntry('Ошибка остановки: ' + err.message, 'error');
+                });
+        }
+
+        // Сброс UI - ИСПРАВЛЕНИЕ: полный сброс
+        function resetUI(fullReset) {
+            isRunning = false;
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            
+            if (fullReset) {
+                generateTestButton.disabled = true;
+                downloadTestButton.disabled = true;
+                lastActionCount = 0;
+                actionCountElement.textContent = '0';
+            }
+        }
+
+        // Скрытие статус алерта
+        function hideStatusAlert() {
+            statusAlert.style.display = 'none';
+        }
+
+        // Лог - ИСПРАВЛЕНИЕ: не удаляем placeholder, а скрываем
+        function addLogEntry(message, type) {
+            const timestamp = new Date().toLocaleTimeString('ru-RU');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            
+            const typeClass = type === 'success' ? 'status-success' : 
+                             type === 'error' ? 'status-error' : 'status-info';
+
+            entry.innerHTML = '<span class="log-timestamp">[' + timestamp + ']</span> ' +
+                            '<span class="' + typeClass + '">' + escapeHtml(message) + '</span>';
+
+            // Скрываем placeholder при первом добавлении
+            const placeholder = logContainer.querySelector('.text-center');
+            if (placeholder) placeholder.style.display = 'none';
+
+            logContainer.appendChild(entry);
+            
+            // Автоскролл
             if (autoScrollSwitch.checked) {
-                logContainer.scrollTop = logContainer.scrollHeight;
+                setTimeout(() => logContainer.scrollTop = logContainer.scrollHeight, 50);
             }
         }
 
-        function addActionToGrid(action) {
-            const row = document.createElement('tr');
+        // Скриншот
+        function updateScreenshot(src) {
+            const img = document.getElementById('screenshotImage');
+            const placeholder = document.getElementById('screenshotPlaceholder');
+            
+            img.onload = function() {
+                img.classList.remove('d-none');
+                placeholder.classList.add('d-none');
+            };
+            img.onerror = function() {
+                console.error('Failed to load image');
+            };
+            img.src = src;
+            
+            document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ru-RU');
+            document.getElementById('resolutionBadge').textContent = '1920x1080';
+        }
 
-            let statusBadge = '<span class="badge bg-secondary">PENDING</span>';
-            if (action.status === 'success') statusBadge = '<span class="badge bg-success">SUCCESS</span>';
-            if (action.status === 'error') statusBadge = '<span class="badge bg-danger">ERROR</span>';
-            if (action.status === 'info') statusBadge = '<span class="badge bg-info">INFO</span>';
+        // Сессии
+        function loadSessions() {
+            const tbody = document.getElementById('sessionsTableBody');
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center"><div class="spinner-border spinner-border-sm"></div></td></tr>';
 
-            row.innerHTML = `
-            <td>${action.time}</td>
-            <td>${action.type}</td>
-            <td>${action.result}</td>
-            <td>${statusBadge}</td>
-        `;
+            fetch("/test/sessions")
+                .then(r => r.json())
+                .then(sessions => {
+                    allSessions = sessions;
+                    
+                    if (sessions.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">Нет сессий</td></tr>';
+                        return;
+                    }
 
-            // Если таблица пустая (только placeholder)
-            if (actionGridBody.children.length === 1 &&
-                actionGridBody.children[0].children.length === 1) {
-                actionGridBody.innerHTML = '';
+                    tbody.innerHTML = sessions.map(s => {
+                        const statusClass = s.status === 'COMPLETED' ? 'bg-success' :
+                                          s.status === 'RUNNING' ? 'bg-primary' :
+                                          s.status === 'FAILED' ? 'bg-danger' : 'bg-secondary';
+                        
+                        return '<tr class="session-card" onclick="selectSession(\'' + s.id + '\')">' +
+                            '<td><small>' + s.id.substring(0, 8) + '...</small></td>' +
+                            '<td><small>' + escapeHtml(s.targetUrl || '-') + '</small></td>' +
+                            '<td><small>' + escapeHtml(s.description || '-') + '</small></td>' +
+                            '<td><span class="badge ' + statusClass + '">' + (s.status || '-') + '</span></td>' +
+                            '<td>' + (s.totalActions || 0) + '</td>' +
+                            '<td>' + (s.status === 'COMPLETED' ? '<button class="btn btn-sm btn-outline-success" onclick="event.stopPropagation(); openGenerateTest(\'' + s.id + '\')"><i class="bi bi-file-code"></i></button>' : '-') + '</td>' +
+                            '</tr>';
+                    }).join('');
+                })
+                .catch(err => {
+                    console.error(err);
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-danger">Ошибка загрузки</td></tr>';
+                });
+        }
+
+        // Выбор сессии - ИСПРАВЛЕНИЕ: сброс состояния и проверка статуса
+        function selectSession(sessionId) {
+            currentSessionId = sessionId;
+            sessionIdElement.textContent = sessionId.substring(0, 8) + '...';
+            
+            // Сброс лога и скриншота
+            logContainer.innerHTML = '<div class="text-center text-muted py-4">' +
+                '<i class="bi bi-info-circle" style="font-size: 2rem;"></i>' +
+                '<p class="mt-2">Выбрана сессия ' + sessionId.substring(0, 8) + '</p></div>';
+            lastActionCount = 0;
+            actionCountElement.textContent = '0';
+            
+            document.getElementById('screenshotImage').classList.add('d-none');
+            document.getElementById('screenshotPlaceholder').classList.remove('d-none');
+            document.getElementById('lastUpdateTime').textContent = '-';
+            
+            const session = allSessions.find(s => s.id === sessionId);
+            if (session) {
+                urlField.value = session.targetUrl || '';
+                promptField.value = session.description || '';
+                
+                // ИСПРАВЛЕНИЕ: явная проверка статуса
+                if (session.status === 'COMPLETED') {
+                    generateTestButton.disabled = false;
+                    downloadTestButton.disabled = false;
+                } else {
+                    generateTestButton.disabled = true;
+                    downloadTestButton.disabled = true;
+                }
+            }
+            
+            bootstrap.Modal.getInstance(document.getElementById('sessionsModal')).hide();
+        }
+
+        // ИСПРАВЛЕНИЕ: Добавлена отсутствующая функция
+        function openGenerateTest(sessionId) {
+            selectSession(sessionId);
+            if (generateTestButton.disabled === false) {
+                generateTest();
+            } else {
+                alert('Для этой сессии генерация теста недоступна');
+            }
+        }
+
+        // Генерация теста - ИСПРАВЛЕНИЕ: проверка ответа
+        function generateTest() {
+            if (!currentSessionId) {
+                alert('Выберите сессию');
+                return;
             }
 
-            actionGridBody.appendChild(row);
-            actions.push(action);
+            const modal = new bootstrap.Modal(document.getElementById('generateTestModal'));
+            modal.show();
 
-            // Обновление счетчика действий
-            actionCounter++;
-            actionCountElement.textContent = actionCounter;
+            document.getElementById('testGenerationSpinner').style.display = 'block';
+            document.getElementById('testCodeContainer').classList.add('d-none');
+            document.getElementById('downloadGeneratedTest').disabled = true;
+
+            fetch('/test/' + currentSessionId + '/generate-test', { method: "POST" })
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                })
+                .then(data => {
+                    if (!data || !data.sourceCode) {
+                        throw new Error('Пустой ответ от сервера');
+                    }
+                    
+                    document.getElementById('testGenerationSpinner').style.display = 'none';
+                    document.getElementById('testCodeContainer').classList.remove('d-none');
+                    document.getElementById('testCode').textContent = data.sourceCode;
+                    document.getElementById('downloadGeneratedTest').disabled = false;
+                    
+                    window.generatedTestCode = data.sourceCode;
+                    window.generatedTestClassName = data.className || 'GeneratedTest';
+                })
+                .catch(err => {
+                    console.error('Generate error:', err);
+                    alert('Ошибка генерации: ' + err.message);
+                    modal.hide();
+                });
         }
 
-        function updateScreenshot(imageSrc) {
-            screenshotPlaceholder.classList.add('d-none');
-            screenshotImage.classList.remove('d-none');
-            screenshotImage.src = imageSrc;
+        // Скачивание - ИСПРАВЛЕНИЕ: защита от undefined
+        function downloadTest() {
+            const code = window.generatedTestCode;
+            if (!code) {
+                alert('Нет кода для скачивания');
+                return;
+            }
 
-            // Обновление времени последнего обновления
-            const now = new Date();
-            lastUpdateTimeElement.textContent = now.toLocaleTimeString('ru-RU', { hour12: false });
-
-            // Эмуляция информации о разрешении
-            const widths = [1920, 1366, 1280, 1024];
-            const heights = [1080, 768, 720, 768];
-            const randomIndex = Math.floor(Math.random() * widths.length);
-            resolutionInfoElement.textContent = `${widths[randomIndex]}x${heights[randomIndex]}`;
+            const className = window.generatedTestClassName || 'GeneratedTest';
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = className + '.java';
+            a.click();
+            URL.revokeObjectURL(url);
         }
 
-        function simulateTesting(url, prompt) {
-            // Эмуляция асинхронного тестирования
-            let step = 0;
-            const testInterval = setInterval(() => {
-                if (!isStarted) {
-                    clearInterval(testInterval);
-                    return;
-                }
-
-                step++;
-
-                // Эмуляция различных действий агента
-                switch (step) {
-                    case 1:
-                        addLogEntry('Переход на URL: ' + url);
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: 'Navigate',
-                            result: 'Успешный переход на ' + url,
-                            status: 'success'
-                        });
-                        updateScreenshot('https://via.placeholder.com/800x600/0d6efd/ffffff?text=Browser+Loading+Page');
-                        break;
-
-                    case 2:
-                        addLogEntry('Анализ DOM страницы');
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: 'Analyze DOM',
-                            result: 'Обнаружено 15 элементов формы, 3 кнопки, 10 ссылок',
-                            status: 'info'
-                        });
-                        updateScreenshot('https://via.placeholder.com/800x600/198754/ffffff?text=Login+Page+Loaded');
-                        break;
-
-                    case 3:
-                        addLogEntry('Обнаружение полей ввода: username, password');
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: 'Find Elements',
-                            result: 'Найдены поля username и password',
-                            status: 'success'
-                        });
-                        updateScreenshot('https://via.placeholder.com/800x600/6f42c1/ffffff?text=Focused+on+Username+Field');
-                        break;
-
-                    case 4:
-                        addLogEntry('Ввод тестовых данных в поле username');
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: 'Input Text',
-                            result: 'Введено: test_user',
-                            status: 'success'
-                        });
-                        break;
-
-                    case 5:
-                        addLogEntry('Ввод тестовых данных в поле password');
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: 'Input Text',
-                            result: 'Введено: ********',
-                            status: 'success'
-                        });
-                        updateScreenshot('https://via.placeholder.com/800x600/fd7e14/ffffff?text=Password+Entered');
-                        break;
-
-                    case 6:
-                        addLogEntry('Нажатие кнопки Login');
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: 'Click Button',
-                            result: 'Кнопка "Login" нажата',
-                            status: 'success'
-                        });
-                        break;
-
-                    case 7:
-                        // Эмуляция успешного или неудачного теста
-                        const isSuccess = Math.random() > 0.3;
-
-                        if (isSuccess) {
-                            addLogEntry('Тест пройден успешно. Проверка корректного поведения системы.', 'success');
-                            addActionToGrid({
-                                time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                                type: 'Validate Result',
-                                result: 'Поведение системы соответствует ожиданиям',
-                                status: 'success'
-                            });
-                            updateScreenshot('https://via.placeholder.com/800x600/198754/ffffff?text=Login+Success');
-                        } else {
-                            addLogEntry('Обнаружена проблема: неверное сообщение об ошибке', 'error');
-                            addActionToGrid({
-                                time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                                type: 'Report Issue',
-                                result: 'Неверное сообщение об ошибке при невалидных данных',
-                                status: 'error'
-                            });
-                            updateScreenshot('https://via.placeholder.com/800x600/dc3545/ffffff?text=Error+Message+Issue');
-                        }
-                        break;
-
-                    case 8:
-                        addLogEntry('Тестовая сессия завершена');
-                        addActionToGrid({
-                            time: new Date().toLocaleTimeString('ru-RU', { hour12: false }),
-                            type: 'Complete Session',
-                            result: 'Тестирование завершено',
-                            status: 'info'
-                        });
-
-                        // Автоматическая остановка после завершения
-                        setTimeout(() => {
-                            if (isStarted) {
-                                stopTesting();
-                                addLogEntry('Автономное тестирование завершено. Сгенерирован отчет.', 'success');
-                            }
-                        }, 1000);
-                        break;
-
-                    default:
-                        // Остановка после завершения всех шагов
-                        clearInterval(testInterval);
-                }
-            }, 2000); // Интервал между действиями 2 секунды
-        }
-
-        function loadMockScreenshots() {
-            // Загрузка моковых скриншотов для демонстрации
-            // В реальном приложении здесь был бы вызов API
-        }
-
-        function generateSessionId() {
-            return 'session-' + Math.random().toString(36).substring(2, 9).toUpperCase();
-        }
-
-        function containsRestrictedContent(text) {
-            // Простая эмуляция проверки на запрещенный контент
-            const restrictedTerms = ['удалить', 'стереть', 'очистить все', 'форматировать'];
-            const lowerText = text.toLowerCase();
-            return restrictedTerms.some(term => lowerText.includes(term));
+        // Утилита
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
     </script>
 </body>

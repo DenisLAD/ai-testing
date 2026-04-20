@@ -540,7 +540,15 @@ public class ObservationService implements InitializingBean, DisposableBean {
 
     // НОВЫЙ МЕТОД: Получение DOM снапшота с видимыми элементами
     public String takeDomSnapshot(WebDriver driver) {
-        return extractVisibleDOM(driver);
+        // Используем улучшенный экстрактор для LLM
+        return ru.sbrf.uddk.ai.testing.utils.EnhancedDOMExtractor.extractForLLM(driver);
+    }
+
+    /**
+     * Получение компактного DOM для LLM (список элементов)
+     */
+    public String takeCompactDomSnapshot(WebDriver driver) {
+        return ru.sbrf.uddk.ai.testing.utils.EnhancedDOMExtractor.extractCompactDOM(driver);
     }
 
     // Обновленный метод сканирования видимых элементов (использует ту же логику)

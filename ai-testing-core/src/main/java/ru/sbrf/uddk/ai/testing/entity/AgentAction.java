@@ -42,6 +42,8 @@ public class AgentAction {
 
     private String targetElement;
     private String targetSelector;
+    private String targetXpath;
+    private String targetCss;
     private String inputValue;
 
     @Column(length = 1000)
@@ -49,6 +51,48 @@ public class AgentAction {
 
     @Column(length = 1000)
     private String expectedOutcome;
+
+    /**
+     * Описание шага для генерации теста
+     */
+    @Column(name = "step_description", length = 1000)
+    private String stepDescription;
+
+    /**
+     * Является ли действие ассертом
+     */
+    @Column(name = "is_assertion")
+    private Boolean isAssertion = false;
+
+    /**
+     * Тип ассерта (ASSERT_TEXT, ASSERT_PRESENCE, etc.)
+     */
+    @Column(name = "assertion_type", length = 50)
+    private String assertionType;
+
+    /**
+     * Ожидаемое значение для ассерта
+     */
+    @Column(name = "assertion_expected", length = 2000)
+    private String assertionExpected;
+
+    /**
+     * Можно ли параметризовать это действие
+     */
+    @Column(name = "can_be_parameterized")
+    private Boolean canBeParameterized = false;
+
+    /**
+     * Имя параметра для DataProvider
+     */
+    @Column(name = "parameter_name", length = 100)
+    private String parameterName;
+
+    /**
+     * Порядок шага в сценарии
+     */
+    @Column(name = "step_order")
+    private Integer stepOrder;
 
     @Lob
     @Column(columnDefinition = "TEXT")

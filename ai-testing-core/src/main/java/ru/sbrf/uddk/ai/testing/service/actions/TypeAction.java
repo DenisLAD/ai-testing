@@ -12,12 +12,21 @@ public class TypeAction extends BaseAgentAction {
         log.info("Executing TypeAction on: {} with value: {}", target, value);
 
         try {
+            // Скриншот до
+            String screenshotBefore = takeScreenshotBefore(driver, null);
+            
             WebElement element = findElement(driver, target);
             element.clear();
             element.sendKeys(value);
+            
+            // Скриншот после
+            String screenshotAfter = takeScreenshotAfter(driver, null);
 
-            return createActionLog("TYPE", true,
+            AgentAction logEntry = createActionLog("TYPE", true,
                     String.format("Успешно ввел '%s' в элемент: %s", value, target));
+            logEntry.setScreenshotBefore(screenshotBefore);
+            logEntry.setScreenshotAfter(screenshotAfter);
+            return logEntry;
 
         } catch (Exception e) {
             log.error("TypeAction failed", e);
