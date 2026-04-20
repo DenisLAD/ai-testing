@@ -30,9 +30,13 @@ public class ActionDto {
     
     private Boolean success;
     private String resultMessage;
-    
+
     private LocalDateTime timestamp;
     private Long executionTimeMs;
-    
+
+    // Скриншоты (base64)
+    private String screenshotBefore;
+    private String screenshotAfter;
+
     // Поле session намеренно исключено для избежания циклической ссылки
 }

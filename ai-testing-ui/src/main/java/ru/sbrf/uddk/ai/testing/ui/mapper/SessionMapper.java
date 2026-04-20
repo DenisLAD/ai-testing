@@ -44,6 +44,8 @@ public interface SessionMapper {
     @Mapping(target = "resultMessage", source = "result.message")
     @Mapping(target = "timestamp", source = "timestamp")
     @Mapping(target = "executionTimeMs", source = "executionTimeMs")
+    @Mapping(target = "screenshotBefore", source = "screenshotBefore")
+    @Mapping(target = "screenshotAfter", source = "screenshotAfter")
     ActionDto toDto(AgentAction action);
 
     @Mapping(target = "id", source = "id")
