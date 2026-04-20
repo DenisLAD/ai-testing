@@ -1,0 +1,840 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for ru.sbrf.uddk.ai.testing:ai-testing-app:jar:1.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.springframework.boot:spring-boot-maven-plugin is missing. @ line 35, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] 
+[INFO] ---------------< ru.sbrf.uddk.ai.testing:ai-testing-app >---------------
+[INFO] Building ai-testing-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.1.0-M4:run (default-cli) > test-compile @ ai-testing-app >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ ai-testing-app ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ ai-testing-app ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ ai-testing-app ---
+[INFO] skip non existing resourceDirectory E:\Projects2026\ai-testing\ai-testing-app\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ ai-testing-app ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] <<< spring-boot:4.1.0-M4:run (default-cli) < test-compile @ ai-testing-app <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.1.0-M4:run (default-cli) @ ai-testing-app ---
+[INFO] Attaching agents: []
+2026-04-20T23:04:45.690+03:00  INFO 53704 --- [ai-testing] [           main] ru.sbrf.uddk.ai.testing.Application      : Starting Application using Java 21.0.1 with PID 53704 (E:\Projects2026\ai-testing\ai-testing-app\target\classes started by Lucifer in E:\Projects2026\ai-testing\ai-testing-app)
+2026-04-20T23:04:45.691+03:00 DEBUG 53704 --- [ai-testing] [           main] ru.sbrf.uddk.ai.testing.Application      : Running with Spring Boot v3.5.10, Spring v6.2.15
+2026-04-20T23:04:45.691+03:00  INFO 53704 --- [ai-testing] [           main] ru.sbrf.uddk.ai.testing.Application      : No active profile set, falling back to 1 default profile: "default"
+2026-04-20T23:04:46.148+03:00  INFO 53704 --- [ai-testing] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-20T23:04:46.259+03:00  INFO 53704 --- [ai-testing] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 103 ms. Found 2 JPA repository interfaces.
+2026-04-20T23:04:46.633+03:00  INFO 53704 --- [ai-testing] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-04-20T23:04:46.644+03:00  INFO 53704 --- [ai-testing] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-20T23:04:46.644+03:00  INFO 53704 --- [ai-testing] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-04-20T23:04:46.700+03:00  INFO 53704 --- [ai-testing] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-20T23:04:46.701+03:00  INFO 53704 --- [ai-testing] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 981 ms
+2026-04-20T23:04:46.808+03:00  INFO 53704 --- [ai-testing] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-20T23:04:46.844+03:00  INFO 53704 --- [ai-testing] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.41.Final
+2026-04-20T23:04:46.867+03:00  INFO 53704 --- [ai-testing] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-04-20T23:04:47.058+03:00  INFO 53704 --- [ai-testing] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-20T23:04:47.078+03:00  INFO 53704 --- [ai-testing] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-04-20T23:04:47.216+03:00  INFO 53704 --- [ai-testing] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-04-20T23:04:47.217+03:00  INFO 53704 --- [ai-testing] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-04-20T23:04:47.234+03:00  WARN 53704 --- [ai-testing] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-20T23:04:47.249+03:00  INFO 53704 --- [ai-testing] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-20T23:04:48.050+03:00  INFO 53704 --- [ai-testing] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-20T23:04:48.104+03:00  INFO 53704 --- [ai-testing] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-20T23:04:48.435+03:00  INFO 53704 --- [ai-testing] [           main] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 147.0.7727.57 (resolved driver for Chrome 147)
+2026-04-20T23:04:48.443+03:00  INFO 53704 --- [ai-testing] [           main] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\lucif\.cache\selenium\chromedriver\win64\147.0.7727.57\chromedriver.exe
+2026-04-20T23:04:48.619+03:00 DEBUG 53704 --- [ai-testing] [           main] r.s.u.a.t.i.action.ActionFactoryImpl     : Registered action: CLICK
+2026-04-20T23:04:48.619+03:00 DEBUG 53704 --- [ai-testing] [           main] r.s.u.a.t.i.action.ActionFactoryImpl     : Registered action: COMPLETE
+2026-04-20T23:04:48.619+03:00 DEBUG 53704 --- [ai-testing] [           main] r.s.u.a.t.i.action.ActionFactoryImpl     : Registered action: NAVIGATE_TO
+2026-04-20T23:04:48.619+03:00 DEBUG 53704 --- [ai-testing] [           main] r.s.u.a.t.i.action.ActionFactoryImpl     : Registered action: REFRESH
+2026-04-20T23:04:48.620+03:00 DEBUG 53704 --- [ai-testing] [           main] r.s.u.a.t.i.action.ActionFactoryImpl     : Registered action: SCROLL_DOWN
+2026-04-20T23:04:48.620+03:00 DEBUG 53704 --- [ai-testing] [           main] r.s.u.a.t.i.action.ActionFactoryImpl     : Registered action: TYPE
+2026-04-20T23:04:48.620+03:00  INFO 53704 --- [ai-testing] [           main] r.s.u.a.t.i.action.ActionFactoryImpl     : Registered 6 actions: [COMPLETE, NAVIGATE_TO, REFRESH, CLICK, TYPE, SCROLL_DOWN]
+2026-04-20T23:04:48.650+03:00  WARN 53704 --- [ai-testing] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-20T23:04:48.663+03:00  INFO 53704 --- [ai-testing] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-04-20T23:04:49.083+03:00  INFO 53704 --- [ai-testing] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-20T23:04:49.560+03:00  INFO 53704 --- [ai-testing] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-04-20T23:04:49.566+03:00  INFO 53704 --- [ai-testing] [           main] ru.sbrf.uddk.ai.testing.Application      : Started Application in 4.209 seconds (process running for 4.518)
+2026-04-20T23:05:05.929+03:00  INFO 53704 --- [ai-testing] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-20T23:05:05.929+03:00  INFO 53704 --- [ai-testing] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-20T23:05:05.930+03:00  INFO 53704 --- [ai-testing] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-04-20T23:05:50.350+03:00  WARN 53704 --- [ai-testing] [onPool-worker-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 147
+2026-04-20T23:05:50.351+03:00  WARN 53704 --- [ai-testing] [onPool-worker-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 147.0.7727.101. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.31.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2026-04-20T23:05:54.577+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : DOM optimized: 1403 -> 826 characters
+2026-04-20T23:05:54.578+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 826 characters
+2026-04-20T23:05:54.776+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: img (Fork me on GitHub), selector: html > body:nth-child(2) > div:nth-child(2) > a > img
+2026-04-20T23:05:54.909+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: label (Username), selector: form#login > div > div > label
+2026-04-20T23:05:55.032+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: input (), selector: #username
+2026-04-20T23:05:55.160+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: label (Password), selector: form#login > div:nth-child(2) > div > label
+2026-04-20T23:05:55.287+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: input (), selector: #password
+2026-04-20T23:05:55.412+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: button (Login), selector: button.radius
+2026-04-20T23:05:55.534+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: i (Login), selector: i.fa.fa-2x.fa-sign-in
+2026-04-20T23:05:55.651+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: a (Elemental Selenium), selector: div#page-footer > div > div:nth-child(2) > a
+2026-04-20T23:05:55.651+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Found 8 visible interactive elements
+2026-04-20T23:05:55.654+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://the-internet.herokuapp.com/login
+Заголовок: The Internet
+Цель тестирования: Давай протестируем вход на сайт, данные для входа отображены прям на странице.
+Прогресс: 0,0%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<body> <div >  </div> <div > <div id="content" > <div > <h2>Log
+2026-04-20T23:05:57.659+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "TYPE",
+  "target": "#username",
+  "value": "tomsmith",
+  "reason": "Согласно инструкции на странице, пользователь \"tomsmith\" является валидным логином для авторизации.",
+  "expectedOutcome": "Текст 'tomsmith' появится в поле ввода пользователя."
+}
+2026-04-20T23:05:57.660+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=TYPE, target=#username, reason=Согласно инструкции на странице, пользователь "tomsmith" является валидным логином для авторизации.
+2026-04-20T23:05:57.660+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.actions.TypeAction     : Executing TypeAction on: #username with value: tomsmith
+2026-04-20T23:05:57.660+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: #username
+2026-04-20T23:05:59.771+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : DOM optimized: 1403 -> 826 characters
+2026-04-20T23:05:59.771+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 826 characters
+2026-04-20T23:05:59.941+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: img (Fork me on GitHub), selector: html > body:nth-child(2) > div:nth-child(2) > a > img
+2026-04-20T23:06:00.063+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: label (Username), selector: form#login > div > div > label
+2026-04-20T23:06:00.182+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: input (tomsmith), selector: #username
+2026-04-20T23:06:00.305+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: label (Password), selector: form#login > div:nth-child(2) > div > label
+2026-04-20T23:06:00.424+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: input (), selector: #password
+2026-04-20T23:06:00.535+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: button (Login), selector: button.radius
+2026-04-20T23:06:00.652+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: i (Login), selector: i.fa.fa-2x.fa-sign-in
+2026-04-20T23:06:00.765+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: a (Elemental Selenium), selector: div#page-footer > div > div:nth-child(2) > a
+2026-04-20T23:06:00.765+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Found 1 visible interactive elements
+2026-04-20T23:06:00.767+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://the-internet.herokuapp.com/login
+Заголовок: The Internet
+Цель тестирования: Давай протестируем вход на сайт, данные для входа отображены прям на странице.
+Прогресс: 3,3%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<body> <div >  </div> <div > <div id="content" > <div > <h2>Log
+2026-04-20T23:06:02.995+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "TYPE",
+  "target": "#password",
+  "value": "SuperSecretPassword!",
+  "reason": "Цель тестирования входа требует заполнения обоих полей. Пользовательское имя 'tomsmith' уже введено, теперь необходимо ввести предоставленный пароль.",
+  "expectedOutcome": "Текст 'SuperSecretPassword!' появится в поле ввода пароля."
+}
+2026-04-20T23:06:02.995+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=TYPE, target=#password, reason=Цель тестирования входа требует заполнения обоих полей. Пользовательское имя 'tomsmith' уже введено, теперь необходимо ввести предоставленный пароль.
+2026-04-20T23:06:02.995+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.actions.TypeAction     : Executing TypeAction on: #password with value: SuperSecretPassword!
+2026-04-20T23:06:02.995+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: #password
+2026-04-20T23:06:05.088+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : DOM optimized: 1403 -> 826 characters
+2026-04-20T23:06:05.088+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 826 characters
+2026-04-20T23:06:05.225+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: img (Fork me on GitHub), selector: html > body:nth-child(2) > div:nth-child(2) > a > img
+2026-04-20T23:06:05.343+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: label (Username), selector: form#login > div > div > label
+2026-04-20T23:06:05.460+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: input (tomsmith), selector: #username
+2026-04-20T23:06:05.575+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: label (Password), selector: form#login > div:nth-child(2) > div > label
+2026-04-20T23:06:05.690+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: input (SuperSecretPassword!), selector: #password
+2026-04-20T23:06:05.802+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: button (Login), selector: button.radius
+2026-04-20T23:06:05.917+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: i (Login), selector: i.fa.fa-2x.fa-sign-in
+2026-04-20T23:06:06.027+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: a (Elemental Selenium), selector: div#page-footer > div > div:nth-child(2) > a
+2026-04-20T23:06:06.027+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Found 1 visible interactive elements
+2026-04-20T23:06:06.028+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://the-internet.herokuapp.com/login
+Заголовок: The Internet
+Цель тестирования: Давай протестируем вход на сайт, данные для входа отображены прям на странице.
+Прогресс: 6,7%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<body> <div >  </div> <div > <div id="content" > <div > <h2>Log
+2026-04-20T23:06:08.632+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Response: ```json
+{
+  "action": "CLICK",
+  "target": "#login button[type='submit']",
+  "value": "",
+  "reason": "Поля username и password успешно заполнены тестовыми данными (tomsmith, SuperSecretPassword!). Следующий логичный шаг - нажать кнопку Login для прохождения аутентификации.",
+  "expectedOutcome": "Смена страницы на защищенную зону с приветствием 'Welcome...' или аналогичным текстом успеха."
+}
+```
+2026-04-20T23:06:08.632+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=CLICK, target=#login button[type='submit'], reason=Поля username и password успешно заполнены тестовыми данными (tomsmith, SuperSecretPassword!). Следующий логичный шаг - нажать кнопку Login для прохождения аутентификации.
+2026-04-20T23:06:08.632+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.actions.ClickAction    : Executing ClickAction on: #login button[type='submit']
+2026-04-20T23:06:08.633+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: #login button[type='submit']
+2026-04-20T23:06:11.035+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : DOM optimized: 978 -> 481 characters
+2026-04-20T23:06:11.035+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 481 characters
+2026-04-20T23:06:11.193+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: img (Fork me on GitHub), selector: html > body:nth-child(2) > div:nth-child(2) > a > img
+2026-04-20T23:06:11.318+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: a (Logout), selector: a.button.secondary.radius
+2026-04-20T23:06:11.434+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: i (Logout), selector: i.icon-2x.icon-signout
+2026-04-20T23:06:11.545+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: a (Elemental Selenium), selector: div#page-footer > div > div:nth-child(2) > a
+2026-04-20T23:06:11.545+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Found 4 visible interactive elements
+2026-04-20T23:06:11.546+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://the-internet.herokuapp.com/secure
+Заголовок: The Internet
+Цель тестирования: Давай протестируем вход на сайт, данные для входа отображены прям на странице.
+Прогресс: 10,0%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<body> <div > <div id="flash-messages" > <div  id="flash" > Y
+2026-04-20T23:06:13.730+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "ASSERT_TEXT",
+  "target": "h2",
+  "value": "Secure Area",
+  "reason": "Мы успешно вошли на защищенную страницу. Проверяем, что заголовок 'Secure Area' отображается как ожидалось.",
+  "expectedOutcome": "Текст 'Secure Area' должен быть найден в элементе с тегом h2."
+}
+2026-04-20T23:06:13.730+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=ASSERT_TEXT, target=h2, reason=Мы успешно вошли на защищенную страницу. Проверяем, что заголовок 'Secure Area' отображается как ожидалось.
+2026-04-20T23:06:13.730+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.s.actions.AssertTextAction     : Executing AssertTextAction for: h2, expected: Secure Area
+2026-04-20T23:06:13.731+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: h2
+2026-04-20T23:06:15.799+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : DOM optimized: 978 -> 481 characters
+2026-04-20T23:06:15.799+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 481 characters
+2026-04-20T23:06:15.934+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: img (Fork me on GitHub), selector: html > body:nth-child(2) > div:nth-child(2) > a > img
+2026-04-20T23:06:16.044+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: a (Logout), selector: a.button.secondary.radius
+2026-04-20T23:06:16.159+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: i (Logout), selector: i.icon-2x.icon-signout
+2026-04-20T23:06:16.273+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Mapped element: a (Elemental Selenium), selector: div#page-footer > div > div:nth-child(2) > a
+2026-04-20T23:06:16.273+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.ObservationService     : Found 0 visible interactive elements
+2026-04-20T23:06:16.273+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://the-internet.herokuapp.com/secure
+Заголовок: The Internet
+Цель тестирования: Давай протестируем вход на сайт, данные для входа отображены прям на странице.
+Прогресс: 13,3%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<body> <div > <div id="flash-messages" > <div  id="flash" > Y
+2026-04-20T23:06:18.484+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "COMPLETE",
+  "target": "",
+  "value": "",
+  "reason": "Цель тестирования (проверка входа на защищенную страницу с использованием предоставленных данных) успешно достигнута. Все шаги выполнены без ошибок: ввод логина/пароля, отправка формы и проверка текста заголовка страницы подтвердили успешный вход.",
+  "expectedOutcome": ""
+}
+2026-04-20T23:06:18.484+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=COMPLETE, target=, reason=Цель тестирования (проверка входа на защищенную страницу с использованием предоставленных данных) успешно достигнута. Все шаги выполнены без ошибок: ввод логина/пароля, отправка формы и проверка текста заголовка страницы подтвердили успешный вход.
+2026-04-20T23:06:18.484+03:00  INFO 53704 --- [ai-testing] [onPool-worker-1] r.s.u.a.t.s.actions.CompleteAction       : Executing CompleteAction
+2026-04-20T23:06:18.560+03:00  WARN 53704 --- [ai-testing] [kHttpClient-1-0] o.openqa.selenium.remote.http.WebSocket  : Connection reset
+
+java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:401) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:434) ~[na:na]
+	at java.net.http/jdk.internal.net.http.SocketTube.readAvailable(SocketTube.java:1178) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:841) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:207) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:280) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:233) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.signalReadable(SocketTube.java:782) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadEvent.signalEvent(SocketTube.java:965) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowEvent.handle(SocketTube.java:253) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:1467) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:1412) ~[java.net.http:na]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1412) ~[java.net.http:na]
+
+2026-04-20T23:06:31.405+03:00 ERROR 53704 --- [ai-testing] [nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Name for argument of type [java.lang.String] not specified, and parameter name information not available via reflection. Ensure that the compiler uses the '-parameters' flag.] with root cause
+
+java.lang.IllegalArgumentException: Name for argument of type [java.lang.String] not specified, and parameter name information not available via reflection. Ensure that the compiler uses the '-parameters' flag.
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.updateNamedValueInfo(AbstractNamedValueMethodArgumentResolver.java:186) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.getNamedValueInfo(AbstractNamedValueMethodArgumentResolver.java:161) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:107) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:227) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:181) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.50.jar:6.0]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.2.15.jar:6.2.15]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.50.jar:6.0]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.2.15.jar:6.2.15]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.50.jar:10.1.50]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-04-20T23:11:32.395+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 147
+2026-04-20T23:11:32.395+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 147.0.7727.101. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.31.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2026-04-20T23:11:34.668+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 220 -> 220 characters
+2026-04-20T23:11:34.668+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 220 characters
+2026-04-20T23:11:34.809+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Learn more), selector: html > body:nth-child(2) > div > p:nth-child(3) > a
+2026-04-20T23:11:34.809+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 1 visible interactive elements
+2026-04-20T23:11:34.809+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://example.com/
+Заголовок: Example Domain
+Цель тестирования: Test
+Прогресс: 0,0%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<body><div><h1>Example Domain</h1><p>This domain is for use in documentation examples without needing permission. Avoid use in operations.</p><p><a href="h
+2026-04-20T23:11:37.229+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "CLICK",
+  "target": "html > body:nth-child(2) > div > p:nth-child(3) > a",
+  "value": "",
+  "reason": "Единственный интерактивный элемент на странице — ссылка 'Learn more'. Для достижения цели тестирования необходимо исследовать все доступные элементы и переходы, чтобы проверить поведение приложения при навигации.",
+  "expectedOutcome": "Браузер перенаправится на страницу https://iana.org/domains/example"
+}
+2026-04-20T23:11:37.229+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=CLICK, target=html > body:nth-child(2) > div > p:nth-child(3) > a, reason=Единственный интерактивный элемент на странице — ссылка 'Learn more'. Для достижения цели тестирования необходимо исследовать все доступные элементы и переходы, чтобы проверить поведение приложения при навигации.
+2026-04-20T23:11:37.229+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.actions.ClickAction    : Executing ClickAction on: html > body:nth-child(2) > div > p:nth-child(3) > a
+2026-04-20T23:11:37.229+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: html > body:nth-child(2) > div > p:nth-child(3) > a
+2026-04-20T23:11:43.679+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 1840 -> 1518 characters
+2026-04-20T23:11:43.679+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 1518 -> 1518 characters
+2026-04-20T23:11:43.679+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 1518 characters
+2026-04-20T23:11:43.833+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (), selector: div#logo > a
+2026-04-20T23:11:43.960+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (Homepage), selector: div#logo > a > img
+2026-04-20T23:11:44.071+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Domains), selector: div#header > div:nth-child(2) > ul > li > a
+2026-04-20T23:11:44.187+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Protocols), selector: div#header > div:nth-child(2) > ul > li:nth-child(2) > a
+2026-04-20T23:11:44.302+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Numbers), selector: div#header > div:nth-child(2) > ul > li:nth-child(3) > a
+2026-04-20T23:11:44.417+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (About), selector: div#header > div:nth-child(2) > ul > li:nth-child(4) > a
+2026-04-20T23:11:44.530+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC 2606), selector: div#body > article > main > div > p:nth-child(2) > a
+2026-04-20T23:11:44.645+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC 6761), selector: div#body > article > main > div > p:nth-child(2) > a:nth-child(2)
+2026-04-20T23:11:44.645+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 8 visible interactive elements
+2026-04-20T23:11:44.645+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/help/example-domains
+Заголовок: Example Domains
+Цель тестирования: Test
+Прогресс: 3,3%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<header> <div id="header"> <div id="logo"> <a href="/"><img src="/static/_img/2025.01/iana-logo-header.svg" alt="Homepage"></a> </div
+2026-04-20T23:11:47.064+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "CLICK",
+  "target": "div#header > div:nth-child(2) > ul > li:nth-child(2) > a",
+  "value": "",
+  "reason": "Следующий новый элемент в навигации для исследования. Проверим раздел 'Protocols', так как мы уже исследовали заголовок и ссылку на RFC 2606.",
+  "expectedOutcome": "Страница переключится в раздел протоколов (IANA Protocols)."
+}
+2026-04-20T23:11:47.064+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=CLICK, target=div#header > div:nth-child(2) > ul > li:nth-child(2) > a, reason=Следующий новый элемент в навигации для исследования. Проверим раздел 'Protocols', так как мы уже исследовали заголовок и ссылку на RFC 2606.
+2026-04-20T23:11:47.064+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.actions.ClickAction    : Executing ClickAction on: div#header > div:nth-child(2) > ul > li:nth-child(2) > a
+2026-04-20T23:11:47.064+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: div#header > div:nth-child(2) > ul > li:nth-child(2) > a
+2026-04-20T23:11:49.644+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 3494 -> 3037 characters
+2026-04-20T23:11:49.645+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 3037 -> 3037 characters
+2026-04-20T23:11:49.645+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 3037 characters
+2026-04-20T23:11:49.836+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (), selector: div#logo > a
+2026-04-20T23:11:49.961+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (Homepage), selector: div#logo > a > img
+2026-04-20T23:11:50.072+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Domains), selector: div#header > div:nth-child(2) > ul > li > a
+2026-04-20T23:11:50.183+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Protocols), selector: div#header > div:nth-child(2) > ul > li:nth-child(2) > a
+2026-04-20T23:11:50.293+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Numbers), selector: div#header > div:nth-child(2) > ul > li:nth-child(3) > a
+2026-04-20T23:11:50.408+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (About), selector: div#header > div:nth-child(2) > ul > li:nth-child(4) > a
+2026-04-20T23:11:50.519+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Rsync), selector: div#body > article > main > p:nth-child(3) > a
+2026-04-20T23:11:50.631+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (FTP), selector: div#body > article > main > p:nth-child(3) > a:nth-child(2)
+2026-04-20T23:11:50.741+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (consult the relevant application form), selector: div#body > article > main > p:nth-child(4) > a
+2026-04-20T23:11:50.853+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC 8126), selector: div#body > article > main > p:nth-child(4) > a:nth-child(2)
+2026-04-20T23:11:50.964+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (A), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a
+2026-04-20T23:11:51.092+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (B), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(2)
+2026-04-20T23:11:51.204+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (C), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(3)
+2026-04-20T23:11:51.316+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (D), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(4)
+2026-04-20T23:11:51.458+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (G), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(7)
+2026-04-20T23:11:51.593+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (H), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(8)
+2026-04-20T23:11:51.713+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (M), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(13)
+2026-04-20T23:11:51.827+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (N), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(14)
+2026-04-20T23:11:51.945+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (O), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(15)
+2026-04-20T23:11:52.067+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Q), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(17)
+2026-04-20T23:11:52.205+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (U), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(21)
+2026-04-20T23:11:52.379+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (W), selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a:nth-child(23)
+2026-04-20T23:11:52.379+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 22 visible interactive elements
+2026-04-20T23:11:52.379+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/protocols
+Заголовок: Protocol Registries
+Цель тестирования: Test
+Прогресс: 6,7%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<header> <div id="header"> <div id="logo"> <a href="/"><img src="/static/_img/2025.01/iana-logo-header.svg" alt="Homepage"></a> </div> <div 
+2026-04-20T23:11:56.203+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "CLICK",
+  "target": "div#body > article > main > div:nth-child(5) > center:nth-child(2) > a",
+  "value": "",
+  "reason": "На странице представлен индекс регистров протоколов, разбитый по буквам. Элемент с буквой 'A' является первым в списке и представляет собой новый неисследованный участок контента. Переход по этой ссылке позволит просмотреть протоколы, начинающиеся на 'A', продолжая систематическое тестирование навигации.",
+  "expectedOutcome": "Страница прокрутится или загрузится блок со списком регистров протоколов (например, AAAA, ABNF, etc.), где заголовки будут группироваться под буквой 'A'."
+}
+2026-04-20T23:11:56.203+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=CLICK, target=div#body > article > main > div:nth-child(5) > center:nth-child(2) > a, reason=На странице представлен индекс регистров протоколов, разбитый по буквам. Элемент с буквой 'A' является первым в списке и представляет собой новый неисследованный участок контента. Переход по этой ссылке позволит просмотреть протоколы, начинающиеся на 'A', продолжая систематическое тестирование навигации.
+2026-04-20T23:11:56.203+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.actions.ClickAction    : Executing ClickAction on: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a
+2026-04-20T23:11:56.203+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: div#body > article > main > div:nth-child(5) > center:nth-child(2) > a
+2026-04-20T23:11:58.341+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 8241 -> 6278 characters
+2026-04-20T23:11:58.342+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 6278 -> 6278 characters
+2026-04-20T23:11:58.342+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 6278 characters
+2026-04-20T23:11:58.521+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Capability Types), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(3) > td > a
+2026-04-20T23:11:58.635+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Command Codes), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(4) > td > a
+2026-04-20T23:11:58.748+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Message Types), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(5) > td > a
+2026-04-20T23:11:58.860+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Port Management Functions), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(6) > td > a
+2026-04-20T23:11:58.972+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Result Codes), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(7) > td > a
+2026-04-20T23:11:59.085+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Technology Types), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(8) > td > a
+2026-04-20T23:11:59.197+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP TLV Types), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(9) > td > a
+2026-04-20T23:11:59.312+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Joint GSMP / ANCP Version Registry), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(10) > td > a
+2026-04-20T23:11:59.432+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ACL (D)TLS Parameters), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(12) > td > a
+2026-04-20T23:11:59.547+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ACL DTLS Version Codes), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(13) > td > a
+2026-04-20T23:11:59.662+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ACL TLS Version Codes), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(14) > td > a
+2026-04-20T23:11:59.774+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (AODV Extension Types), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(16) > td > a
+2026-04-20T23:11:59.887+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (AODV Message Types (for messages sent to port 654)), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(17) > td > a
+2026-04-20T23:11:59.998+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Address Family Numbers), selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(19) > td > a
+2026-04-20T23:11:59.998+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 14 visible interactive elements
+2026-04-20T23:11:59.999+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/protocols#index_A
+Заголовок: Protocol Registries
+Цель тестирования: Test
+Прогресс: 10,0%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<tr > <td colspan="3">Access Node Control Protocol (ANCP)</td> </tr><td colspan="3">Access Node Control Protocol (ANCP)</td><tr> <t
+2026-04-20T23:12:02.751+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "CLICK",
+  "target": "table#protocols-table > tbody:nth-child(2) > tr:nth-child(3) > td > a",
+  "value": "",
+  "reason": "Переход к детальной информации о регистре ANCP Capability Types для проверки содержания, так как это первый неисследованный элемент в списке.",
+  "expectedOutcome": "Загрузка новой страницы со списком типов возможностей протокола ANCP."
+}
+2026-04-20T23:12:02.751+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=CLICK, target=table#protocols-table > tbody:nth-child(2) > tr:nth-child(3) > td > a, reason=Переход к детальной информации о регистре ANCP Capability Types для проверки содержания, так как это первый неисследованный элемент в списке.
+2026-04-20T23:12:02.751+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.actions.ClickAction    : Executing ClickAction on: table#protocols-table > tbody:nth-child(2) > tr:nth-child(3) > td > a
+2026-04-20T23:12:02.751+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: table#protocols-table > tbody:nth-child(2) > tr:nth-child(3) > td > a
+2026-04-20T23:12:05.510+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 4141 -> 2774 characters
+2026-04-20T23:12:05.511+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 2774 -> 2766 characters
+2026-04-20T23:12:05.511+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 2766 characters
+2026-04-20T23:12:05.641+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(26) > dd:nth-child(4) > a
+2026-04-20T23:12:05.757+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (CSV), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(26) > dd:nth-child(6) > a
+2026-04-20T23:12:05.885+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(26) > dd:nth-child(6) > a > img
+2026-04-20T23:12:06.012+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: tr (Value Name Tech Type Capability Data? Reference), selector: table#table-capability-types > thead > tr
+2026-04-20T23:12:06.139+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Value), selector: table#table-capability-types > thead > tr > th
+2026-04-20T23:12:06.266+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th > img
+2026-04-20T23:12:06.385+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Name), selector: table#table-capability-types > thead > tr > th:nth-child(2)
+2026-04-20T23:12:06.519+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(2) > img
+2026-04-20T23:12:06.637+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Tech Type), selector: table#table-capability-types > thead > tr > th:nth-child(3)
+2026-04-20T23:12:06.764+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(3) > img
+2026-04-20T23:12:06.882+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Capability Data?), selector: table#table-capability-types > thead > tr > th:nth-child(4)
+2026-04-20T23:12:07.010+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(4) > img
+2026-04-20T23:12:07.127+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Reference), selector: table#table-capability-types > thead > tr > th:nth-child(5)
+2026-04-20T23:12:07.253+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(5) > img
+2026-04-20T23:12:07.365+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr > td:nth-child(5) > a
+2026-04-20T23:12:07.478+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(5) > a
+2026-04-20T23:12:07.591+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(5) > a
+2026-04-20T23:12:07.706+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(5) > a
+2026-04-20T23:12:07.819+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(5) > a
+2026-04-20T23:12:07.933+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(5) > a
+2026-04-20T23:12:08.051+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(7) > td:nth-child(5) > a
+2026-04-20T23:12:08.166+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(8) > td:nth-child(5) > a
+2026-04-20T23:12:08.281+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(9) > td:nth-child(5) > a
+2026-04-20T23:12:08.282+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 23 visible interactive elements
+2026-04-20T23:12:08.282+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+Заголовок: Access Node Control Protocol (ANCP)
+Цель тестирования: Test
+Прогресс: 13,3%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<dl> <dt>Registration Procedure(s)</dt> <dd> <pre>Standards Action</pre> </dd> <dt>Refer
+2026-04-20T23:12:10.963+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "SCROLL_DOWN",
+  "target": "",
+  "value": "",
+  "reason": "На странице ниже видимого DOM-фрагмента находится раздел 'Joint GSMP / ANCP Version Registry'. Прокрутка вниз необходима для исследования новых данных на странице и достижения целевого прогресса.",
+  "expectedOutcome": "Страница прокрутится вниз, появятся элементы таблицы версий GSMP/ANCP."
+}
+2026-04-20T23:12:10.964+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=SCROLL_DOWN, target=, reason=На странице ниже видимого DOM-фрагмента находится раздел 'Joint GSMP / ANCP Version Registry'. Прокрутка вниз необходима для исследования новых данных на странице и достижения целевого прогресса.
+2026-04-20T23:12:10.964+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ScrollDownAction     : Executing ScrollDownAction
+2026-04-20T23:12:13.024+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 3383 -> 2332 characters
+2026-04-20T23:12:13.024+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 2332 -> 2323 characters
+2026-04-20T23:12:13.024+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 2323 characters
+2026-04-20T23:12:13.150+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(9) > td:nth-child(5) > a
+2026-04-20T23:12:13.264+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(4) > a
+2026-04-20T23:12:13.381+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (CSV), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a
+2026-04-20T23:12:13.508+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a > img
+2026-04-20T23:12:13.628+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: tr (Version Description Reference), selector: table#table-joint-version > thead > tr
+2026-04-20T23:12:13.747+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Version), selector: table#table-joint-version > thead > tr > th
+2026-04-20T23:12:13.875+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th > img
+2026-04-20T23:12:13.998+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Description), selector: table#table-joint-version > thead > tr > th:nth-child(2)
+2026-04-20T23:12:14.127+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(2) > img
+2026-04-20T23:12:14.251+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Reference), selector: table#table-joint-version > thead > tr > th:nth-child(3)
+2026-04-20T23:12:14.381+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(3) > img
+2026-04-20T23:12:14.497+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC1987), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(3) > a
+2026-04-20T23:12:14.614+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC2297), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(3) > a
+2026-04-20T23:12:14.726+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC3292), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(3) > a
+2026-04-20T23:12:14.841+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(3) > a
+2026-04-20T23:12:14.952+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Licensing Terms), selector: html > body:nth-child(2) > footer:nth-child(3) > div > a
+2026-04-20T23:12:14.952+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 15 visible interactive elements
+2026-04-20T23:12:14.953+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+Заголовок: Access Node Control Protocol (ANCP)
+Цель тестирования: Test
+Прогресс: 16,7%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<tr> <td align="center">8</td> <td>Bandwidth Delegation</td> <td>0</td> <td>No</td> <td>
+2026-04-20T23:12:17.383+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "CLICK",
+  "target": "a[href=\"/assignments/ancp/joint-version.csv\"]",
+  "value": "",
+  "reason": "Интересует формат CSV для таблицы \"Joint GSMP / ANCP Version Registry\", который предлагает элемент с текстом 'CSV'. Это исследование нового контента.",
+  "expectedOutcome": "Страница перейдет к экспорту данных в формате CSV."
+}
+2026-04-20T23:12:17.383+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=CLICK, target=a[href="/assignments/ancp/joint-version.csv"], reason=Интересует формат CSV для таблицы "Joint GSMP / ANCP Version Registry", который предлагает элемент с текстом 'CSV'. Это исследование нового контента.
+2026-04-20T23:12:17.383+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.actions.ClickAction    : Executing ClickAction on: a[href="/assignments/ancp/joint-version.csv"]
+2026-04-20T23:12:17.383+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.BaseAgentAction      : Finding element with selector: a[href="/assignments/ancp/joint-version.csv"]
+2026-04-20T23:12:19.871+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 3383 -> 2332 characters
+2026-04-20T23:12:19.872+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 2332 -> 2323 characters
+2026-04-20T23:12:19.872+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 2323 characters
+2026-04-20T23:12:19.997+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(9) > td:nth-child(5) > a
+2026-04-20T23:12:20.109+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(4) > a
+2026-04-20T23:12:20.220+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (CSV), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a
+2026-04-20T23:12:20.349+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a > img
+2026-04-20T23:12:20.465+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: tr (Version Description Reference), selector: table#table-joint-version > thead > tr
+2026-04-20T23:12:20.582+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Version), selector: table#table-joint-version > thead > tr > th
+2026-04-20T23:12:20.706+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th > img
+2026-04-20T23:12:20.822+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Description), selector: table#table-joint-version > thead > tr > th:nth-child(2)
+2026-04-20T23:12:20.948+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(2) > img
+2026-04-20T23:12:21.064+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Reference), selector: table#table-joint-version > thead > tr > th:nth-child(3)
+2026-04-20T23:12:21.189+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(3) > img
+2026-04-20T23:12:21.301+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC1987), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(3) > a
+2026-04-20T23:12:21.411+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC2297), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(3) > a
+2026-04-20T23:12:21.521+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC3292), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(3) > a
+2026-04-20T23:12:21.632+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(3) > a
+2026-04-20T23:12:21.743+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Licensing Terms), selector: html > body:nth-child(2) > footer:nth-child(3) > div > a
+2026-04-20T23:12:21.744+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 0 visible interactive elements
+2026-04-20T23:12:21.744+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+Заголовок: Access Node Control Protocol (ANCP)
+Цель тестирования: Test
+Прогресс: 20,0%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<tr> <td align="center">8</td> <td>Bandwidth Delegation</td> <td>0</td> <td>No</td> <td>
+2026-04-20T23:12:25.815+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "EXPLORE_FORMS",
+  "target": "",
+  "value": "",
+  "reason": "Несмотря на то, что в DOM-дереве явно не указаны интерактивные элементы (ссылки или формы), на странице присутствует таблица с данными и ссылки внутри ячеек таблицы (например, 'RFC7256', 'CSV'). Прогресс тестирования составляет лишь 20%, что говорит о том, что исследование страницы еще не завершено. Тип действия EXPLORE_FORMS является наиболее подходящим для инициации поиска элементов управления в контексте текущих инструментов, чтобы убедиться в отсутствии скрытых интерактивных объектов или форм на странице, прежде чем переходить к анализу данных или завершению.",
+  "expectedOutcome": "Агент продолжит исследование страницы, пытаясь выявить потенциальные формы или интерактивные элементы, которые могут быть пропущены при автоматическом парсинге DOM."
+}
+2026-04-20T23:12:25.815+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=EXPLORE_FORMS, target=, reason=Несмотря на то, что в DOM-дереве явно не указаны интерактивные элементы (ссылки или формы), на странице присутствует таблица с данными и ссылки внутри ячеек таблицы (например, 'RFC7256', 'CSV'). Прогресс тестирования составляет лишь 20%, что говорит о том, что исследование страницы еще не завершено. Тип действия EXPLORE_FORMS является наиболее подходящим для инициации поиска элементов управления в контексте текущих инструментов, чтобы убедиться в отсутствии скрытых интерактивных объектов или форм на странице, прежде чем переходить к анализу данных или завершению.
+2026-04-20T23:12:25.815+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Executing ExploreFormsAction
+2026-04-20T23:12:25.906+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Found 11 forms on the page
+2026-04-20T23:12:26.527+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 0 of type SIMPLE_FORM
+2026-04-20T23:12:26.527+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:26.527+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:26.607+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 1 of type SIMPLE_FORM
+2026-04-20T23:12:26.607+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:26.607+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:26.680+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 2 of type SIMPLE_FORM
+2026-04-20T23:12:26.680+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:26.680+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:26.747+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 3 of type SIMPLE_FORM
+2026-04-20T23:12:26.748+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:26.748+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:26.814+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 4 of type SIMPLE_FORM
+2026-04-20T23:12:26.814+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:26.815+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:26.887+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 5 of type SIMPLE_FORM
+2026-04-20T23:12:26.887+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:26.887+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:26.955+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 6 of type SIMPLE_FORM
+2026-04-20T23:12:26.955+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:26.955+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:27.022+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 7 of type SIMPLE_FORM
+2026-04-20T23:12:27.022+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:27.022+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:27.093+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 8 of type SIMPLE_FORM
+2026-04-20T23:12:27.093+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:27.093+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:27.161+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 9 of type SIMPLE_FORM
+2026-04-20T23:12:27.161+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:27.161+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:27.228+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Testing form 10 of type SIMPLE_FORM
+2026-04-20T23:12:27.228+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : Filled 0 out of 0 fields
+2026-04-20T23:12:27.228+03:00  WARN 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreFormsAction   : No submit buttons found in form
+2026-04-20T23:12:29.359+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 3383 -> 2332 characters
+2026-04-20T23:12:29.360+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 2332 -> 2323 characters
+2026-04-20T23:12:29.360+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 2323 characters
+2026-04-20T23:12:29.496+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(9) > td:nth-child(5) > a
+2026-04-20T23:12:29.608+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(4) > a
+2026-04-20T23:12:29.718+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (CSV), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a
+2026-04-20T23:12:29.850+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a > img
+2026-04-20T23:12:29.971+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: tr (Version Description Reference), selector: table#table-joint-version > thead > tr
+2026-04-20T23:12:30.087+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Version), selector: table#table-joint-version > thead > tr > th
+2026-04-20T23:12:30.212+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th > img
+2026-04-20T23:12:30.342+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Description), selector: table#table-joint-version > thead > tr > th:nth-child(2)
+2026-04-20T23:12:30.476+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(2) > img
+2026-04-20T23:12:30.607+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Reference), selector: table#table-joint-version > thead > tr > th:nth-child(3)
+2026-04-20T23:12:30.740+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(3) > img
+2026-04-20T23:12:30.857+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC1987), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(3) > a
+2026-04-20T23:12:30.971+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC2297), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(3) > a
+2026-04-20T23:12:31.083+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC3292), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(3) > a
+2026-04-20T23:12:31.193+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(3) > a
+2026-04-20T23:12:31.305+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Licensing Terms), selector: html > body:nth-child(2) > footer:nth-child(3) > div > a
+2026-04-20T23:12:31.305+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 0 visible interactive elements
+2026-04-20T23:12:31.305+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+Заголовок: Access Node Control Protocol (ANCP)
+Цель тестирования: Test
+Прогресс: 23,3%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<tr> <td align="center">8</td> <td>Bandwidth Delegation</td> <td>0</td> <td>No</td> <td>
+2026-04-20T23:12:34.543+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "NAVIGATE_TO",
+  "target": "https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types",
+  "value": "",
+  "reason": "После попытки исследовать формы (которая завершилась ошибкой) и отсутствия видимых интерактивных элементов на текущем экране регистр версий, необходимо вернуть фокус внимания на основную таблицу Capability Types, с которой началось исследование, чтобы проверить остальные записи или завершить тестирование основного контента.",
+  "expectedOutcome": "Страница перезагрузится и снова отобразит таблицу capability-types (Capability types), позволяя продолжить навигацию по основной части документа."
+}
+2026-04-20T23:12:34.544+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=NAVIGATE_TO, target=https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types, reason=После попытки исследовать формы (которая завершилась ошибкой) и отсутствия видимых интерактивных элементов на текущем экране регистр версий, необходимо вернуть фокус внимания на основную таблицу Capability Types, с которой началось исследование, чтобы проверить остальные записи или завершить тестирование основного контента.
+2026-04-20T23:12:34.544+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.NavigateToAction     : Executing NavigateToAction to: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+2026-04-20T23:12:36.592+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 4141 -> 2774 characters
+2026-04-20T23:12:36.592+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 2774 -> 2766 characters
+2026-04-20T23:12:36.592+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 2766 characters
+2026-04-20T23:12:36.718+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(26) > dd:nth-child(4) > a
+2026-04-20T23:12:36.832+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (CSV), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(26) > dd:nth-child(6) > a
+2026-04-20T23:12:36.960+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(26) > dd:nth-child(6) > a > img
+2026-04-20T23:12:37.079+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: tr (Value Name Tech Type Capability Data? Reference), selector: table#table-capability-types > thead > tr
+2026-04-20T23:12:37.196+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Value), selector: table#table-capability-types > thead > tr > th
+2026-04-20T23:12:37.322+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th > img
+2026-04-20T23:12:37.438+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Name), selector: table#table-capability-types > thead > tr > th:nth-child(2)
+2026-04-20T23:12:37.563+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(2) > img
+2026-04-20T23:12:37.678+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Tech Type), selector: table#table-capability-types > thead > tr > th:nth-child(3)
+2026-04-20T23:12:37.803+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(3) > img
+2026-04-20T23:12:37.921+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Capability Data?), selector: table#table-capability-types > thead > tr > th:nth-child(4)
+2026-04-20T23:12:38.045+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(4) > img
+2026-04-20T23:12:38.162+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Reference), selector: table#table-capability-types > thead > tr > th:nth-child(5)
+2026-04-20T23:12:38.293+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-capability-types > thead > tr > th:nth-child(5) > img
+2026-04-20T23:12:38.407+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr > td:nth-child(5) > a
+2026-04-20T23:12:38.521+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(5) > a
+2026-04-20T23:12:38.634+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(5) > a
+2026-04-20T23:12:38.749+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(5) > a
+2026-04-20T23:12:38.861+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(5) > td:nth-child(5) > a
+2026-04-20T23:12:38.975+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(5) > a
+2026-04-20T23:12:39.091+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(7) > td:nth-child(5) > a
+2026-04-20T23:12:39.205+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(8) > td:nth-child(5) > a
+2026-04-20T23:12:39.322+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(9) > td:nth-child(5) > a
+2026-04-20T23:12:39.322+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 0 visible interactive elements
+2026-04-20T23:12:39.322+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+Заголовок: Access Node Control Protocol (ANCP)
+Цель тестирования: Test
+Прогресс: 26,7%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<dl> <dt>Registration Procedure(s)</dt> <dd> <pre>Standards Action</pre> </dd> <dt>Refer
+2026-04-20T23:12:41.946+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: ```json
+{
+  "action": "EXPLORE_MENU",
+  "target": "div#header > div:nth-child(2)",
+  "value": "",
+  "reason": "Продолжить исследование навигационной структуры сайта для проверки других разделов или возвращающихся элементов, так как текущая страница представляет собой статический список данных без интерактивных форм.",
+  "expectedOutcome": "Открыт выпадающий список меню IANA или обновленный список страниц в шапке."
+}
+```
+2026-04-20T23:12:41.946+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=EXPLORE_MENU, target=div#header > div:nth-child(2), reason=Продолжить исследование навигационной структуры сайта для проверки других разделов или возвращающихся элементов, так как текущая страница представляет собой статический список данных без интерактивных форм.
+2026-04-20T23:12:41.947+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreMenuAction    : Executing ExploreMenuAction
+2026-04-20T23:12:42.027+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreMenuAction    : Found 2 menus on the page
+2026-04-20T23:12:43.179+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreMenuAction    : Menu analysis: 2 menus, 2 items, 0 dropdowns
+2026-04-20T23:12:43.180+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreMenuAction    : Chosen strategy: FULL_EXPLORATION for menu 0
+2026-04-20T23:12:43.180+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreMenuAction    : Exploring full menu with 1 items
+2026-04-20T23:12:43.180+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreMenuAction    : Clicking menu item 1: Domains
+2026-04-20T23:12:46.335+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ExploreMenuAction    : Navigated to new page, going back to menu
+2026-04-20T23:12:49.924+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 3746 -> 2987 characters
+2026-04-20T23:12:49.924+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 2987 -> 2978 characters
+2026-04-20T23:12:49.924+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 2978 characters
+2026-04-20T23:12:50.048+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Domains), selector: div#header > div:nth-child(2) > ul > li > a
+2026-04-20T23:12:50.160+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Protocols), selector: div#header > div:nth-child(2) > ul > li:nth-child(2) > a
+2026-04-20T23:12:50.271+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Numbers), selector: div#header > div:nth-child(2) > ul > li:nth-child(3) > a
+2026-04-20T23:12:50.387+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (About), selector: div#header > div:nth-child(2) > ul > li:nth-child(4) > a
+2026-04-20T23:12:50.499+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (XML), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(2) > dd:nth-child(6) > a
+2026-04-20T23:12:50.625+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(2) > dd:nth-child(6) > a > img
+2026-04-20T23:12:50.736+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (HTML), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(2) > dd:nth-child(6) > a:nth-child(2)
+2026-04-20T23:12:50.861+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(2) > dd:nth-child(6) > a:nth-child(2) > img
+2026-04-20T23:12:50.973+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Plain text), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(2) > dd:nth-child(6) > a:nth-child(3)
+2026-04-20T23:12:51.100+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(2) > dd:nth-child(6) > a:nth-child(3) > img
+2026-04-20T23:12:51.214+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Message Types), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li > a
+2026-04-20T23:12:51.335+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Result Codes), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li:nth-child(2) > a
+2026-04-20T23:12:51.450+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Port Management Functions), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li:nth-child(3) > a
+2026-04-20T23:12:51.563+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Technology Types), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li:nth-child(4) > a
+2026-04-20T23:12:51.677+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Command Codes), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li:nth-child(5) > a
+2026-04-20T23:12:51.789+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP TLV Types), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li:nth-child(6) > a
+2026-04-20T23:12:51.904+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (ANCP Capability Types), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li:nth-child(7) > a
+2026-04-20T23:12:52.019+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Joint GSMP / ANCP Version Registry), selector: html > body:nth-child(2) > article:nth-child(2) > ul:nth-child(4) > li:nth-child(8) > a
+2026-04-20T23:12:52.019+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 18 visible interactive elements
+2026-04-20T23:12:52.019+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+Заголовок: Access Node Control Protocol (ANCP)
+Цель тестирования: Test
+Прогресс: 30,0%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<li> <a href="https://www.iana.org/domains">Domains</a> </li><a href="https://www.iana.o
+2026-04-20T23:12:54.880+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "SCROLL_DOWN",
+  "target": null,
+  "value": null,
+  "reason": "Необходимо прокрутить страницу вниз, чтобы увидеть содержимое раздела 'ANCP Capability Types' (для которого мы на этой странице), а также остальные разделы ниже него, такие как 'Joint GSMP / ANCP Version Registry'. В видимой области только заголовок первого раздела.",
+  "expectedOutcome": "На экране появится таблица или список данных для 'ANCP Capability Types' и последующие секции документа."
+}
+2026-04-20T23:12:54.880+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=SCROLL_DOWN, target=null, reason=Необходимо прокрутить страницу вниз, чтобы увидеть содержимое раздела 'ANCP Capability Types' (для которого мы на этой странице), а также остальные разделы ниже него, такие как 'Joint GSMP / ANCP Version Registry'. В видимой области только заголовок первого раздела.
+2026-04-20T23:12:54.880+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.ScrollDownAction     : Executing ScrollDownAction
+2026-04-20T23:12:56.922+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 3383 -> 2332 characters
+2026-04-20T23:12:56.922+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : DOM optimized: 2332 -> 2323 characters
+2026-04-20T23:12:56.922+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Extracted visible DOM: 2323 characters
+2026-04-20T23:12:57.051+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC7256), selector: table#table-capability-types > tbody:nth-child(2) > tr:nth-child(9) > td:nth-child(5) > a
+2026-04-20T23:12:57.163+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(4) > a
+2026-04-20T23:12:57.275+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (CSV), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a
+2026-04-20T23:12:57.402+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: html > body:nth-child(2) > article:nth-child(2) > dl:nth-child(29) > dd:nth-child(6) > a > img
+2026-04-20T23:12:57.522+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: tr (Version Description Reference), selector: table#table-joint-version > thead > tr
+2026-04-20T23:12:57.641+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Version), selector: table#table-joint-version > thead > tr > th
+2026-04-20T23:12:57.767+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th > img
+2026-04-20T23:12:57.884+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Description), selector: table#table-joint-version > thead > tr > th:nth-child(2)
+2026-04-20T23:12:58.011+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(2) > img
+2026-04-20T23:12:58.129+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: th (Reference), selector: table#table-joint-version > thead > tr > th:nth-child(3)
+2026-04-20T23:12:58.254+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: img (), selector: table#table-joint-version > thead > tr > th:nth-child(3) > img
+2026-04-20T23:12:58.368+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC1987), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(2) > td:nth-child(3) > a
+2026-04-20T23:12:58.482+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC2297), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(3) > td:nth-child(3) > a
+2026-04-20T23:12:58.595+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC3292), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(4) > td:nth-child(3) > a
+2026-04-20T23:12:58.708+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (RFC6320), selector: table#table-joint-version > tbody:nth-child(2) > tr:nth-child(6) > td:nth-child(3) > a
+2026-04-20T23:12:58.819+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Mapped element: a (Licensing Terms), selector: html > body:nth-child(2) > footer:nth-child(3) > div > a
+2026-04-20T23:12:58.819+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.ObservationService     : Found 0 visible interactive elements
+2026-04-20T23:12:58.820+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : Sending prompt to AI: Ты автономный агент для тестирования веб-приложений.
+Твоя задача: принимать решения о следующих действиях для тестирования.
+
+=== ИНФОРМАЦИЯ О СТРАНИЦЕ ===
+URL: https://www.iana.org/assignments/ancp/ancp.xhtml#capability-types
+Заголовок: Access Node Control Protocol (ANCP)
+Цель тестирования: Test
+Прогресс: 33,3%
+
+=== ВИДИМЫЙ DOM ===
+(Показаны только видимые интерактивные элементы, теги html/head/body удалены)
+<tr> <td align="center">8</td> <td>Bandwidth Delegation</td> <td>0</td> <td>No</td> <td>
+2026-04-20T23:13:01.509+03:00 DEBUG 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Response: {
+  "action": "COMPLETE",
+  "target": "",
+  "value": "",
+  "reason": "Тестирование завершено успешно. На странице представлены полные таблицы с информацией о Capability Types (ANCP) и Joint GSMP / ANCP Version Registry. Были просмотрены все основные разделы, ссылки на RFC и форматы экспорта (CSV). Прогресс составляет 33,3%, но контент страницы полностью доступен для анализа без необходимости дополнительных действий по навигации.",
+  "expectedOutcome": "Завершение выполнения тестовой задачи."
+}
+2026-04-20T23:13:01.509+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.service.DecisionEngineService  : AI Decision: action=COMPLETE, target=, reason=Тестирование завершено успешно. На странице представлены полные таблицы с информацией о Capability Types (ANCP) и Joint GSMP / ANCP Version Registry. Были просмотрены все основные разделы, ссылки на RFC и форматы экспорта (CSV). Прогресс составляет 33,3%, но контент страницы полностью доступен для анализа без необходимости дополнительных действий по навигации.
+2026-04-20T23:13:01.509+03:00  INFO 53704 --- [ai-testing] [onPool-worker-3] r.s.u.a.t.s.actions.CompleteAction       : Executing CompleteAction
+2026-04-20T23:13:01.583+03:00  WARN 53704 --- [ai-testing] [kHttpClient-3-3] o.openqa.selenium.remote.http.WebSocket  : Connection reset
+
+java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:401) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:434) ~[na:na]
+	at java.net.http/jdk.internal.net.http.SocketTube.readAvailable(SocketTube.java:1178) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.read(SocketTube.java:841) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowTask.run(SocketTube.java:181) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler$SchedulableTask.run(SequentialScheduler.java:207) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:280) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.common.SequentialScheduler.runOrSchedule(SequentialScheduler.java:233) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$InternalReadSubscription.signalReadable(SocketTube.java:782) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$InternalReadPublisher$ReadEvent.signalEvent(SocketTube.java:965) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.SocketTube$SocketFlowEvent.handle(SocketTube.java:253) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.handleEvent(HttpClientImpl.java:1467) ~[java.net.http:na]
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.lambda$run$3(HttpClientImpl.java:1412) ~[java.net.http:na]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at java.net.http/jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:1412) ~[java.net.http:na]
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  12:32 min
+[INFO] Finished at: 2026-04-20T23:17:16+03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.1.0-M4:run (default-cli) on project ai-testing-app: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

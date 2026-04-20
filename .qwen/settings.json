@@ -23,7 +23,9 @@
       "Bash(del *)",
       "Bash(rmdir *)",
       "Bash(jq *)",
-      "Bash(git reset *)"
+      "Bash(git reset *)",
+      "Bash(jar *)",
+      "Bash(javac *)"
     ]
   },
   "$version": 3
