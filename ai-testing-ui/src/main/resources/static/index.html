@@ -18,18 +18,19 @@
         .screenshot-container {
             border: 1px solid #dee2e6;
             border-radius: 0.375rem;
-            overflow: hidden;
+            overflow: auto;
             background-color: #f8f9fa;
             min-height: 400px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
         }
 
         .screenshot-img {
-            max-width: 100%;
-            max-height: 500px;
+            width: 100%;
+            height: auto;
             object-fit: contain;
+            cursor: zoom-in;
         }
 
         .log-container {
@@ -105,7 +106,7 @@
                     <label for="urlField" class="form-label">URL для тестирования</label>
                     <input type="text" class="form-control" id="urlField"
                         placeholder="https://the-internet.herokuapp.com/login"
-                        value="https://the-internet.herokuapp.com/login">
+                        value="https://pp.kub.progredis.ru/">
                 </div>
                 <div class="col-md-4">
                     <label for="goalSelect" class="form-label">Цель тестирования</label>
@@ -141,10 +142,10 @@
             </div>
         </section>
 
-        <!-- Индикатор состояния -->
-        <div class="alert alert-info d-flex align-items-center" id="statusAlert" role="alert" style="display: none;">
-            <div class="spinner-border spinner-border-sm me-2" role="status"></div>
-            <div id="statusText">Тестирование выполняется...</div>
+        <!-- Индикатор состояния (скрыт по умолчанию; d-flex добавляется только при активном тесте) -->
+        <div class="alert alert-info d-none align-items-center" id="statusAlert" role="alert">
+            <div class="spinner-border spinner-border-sm me-2" id="statusSpinner" role="status"></div>
+            <div id="statusText">Готов к запуску</div>
         </div>
 
         <!-- Основное содержимое -->
@@ -162,7 +163,7 @@
                                 <i class="bi bi-display" style="font-size: 3rem; opacity: 0.3;"></i>
                                 <p class="mt-2">Скриншот появится во время тестирования</p>
                             </div>
-                            <img id="screenshotImage" class="screenshot-img d-none" alt="Browser screenshot">
+                            <img id="screenshotImage" class="screenshot-img d-none" alt="Browser screenshot" title="Открыть в полном размере">
                         </div>
                         <div class="p-2 border-top bg-light">
                             <small class="text-muted">
@@ -324,6 +325,8 @@
         let monacoInitialized = false;
         let generatedTestCode = null;
         let generatedTestClassName = null;
+        let pendingEditorSourceCode = null;
+        const EDITOR_PLACEHOLDER = '// Код теста появится здесь после генерации\n';
 
         // DOM элементы
         const startButton = document.getElementById('startButton');
@@ -331,11 +334,14 @@
         const refreshButton = document.getElementById('refreshButton');
         const generateTestButton = document.getElementById('generateTestButton');
         const downloadTestButton = document.getElementById('downloadTestButton');
+        const downloadGeneratedTestButton = document.getElementById('downloadGeneratedTest');
         const improveCodeBtn = document.getElementById('improveCodeBtn');
         const logContainer = document.getElementById('logContainer');
         const statusAlert = document.getElementById('statusAlert');
+        const statusSpinner = document.getElementById('statusSpinner');
         const statusText = document.getElementById('statusText');
         const testingStatus = document.getElementById('testingStatus');
+        const SESSION_STORAGE_KEY = 'aiTestingCurrentSessionId';
         const sessionIdElement = document.getElementById('sessionId');
         const actionCountElement = document.getElementById('actionCount');
         const urlField = document.getElementById('urlField');
@@ -349,6 +355,7 @@
             refreshButton.addEventListener('click', () => location.reload());
             generateTestButton.addEventListener('click', generateTest);
             downloadTestButton.addEventListener('click', downloadTest);
+            downloadGeneratedTestButton.addEventListener('click', downloadGeneratedTestFromModal);
             improveCodeBtn.addEventListener('click', improveCodeWithAI);
             document.getElementById('sessionsModal').addEventListener('show.bs.modal', loadSessions);
             
@@ -357,7 +364,86 @@
                 initMonacoEditor();
                 monacoInitialized = true;
             }
+
+            initializePageState();
         });
+
+        // Начальное состояние страницы — без ложного «тестирование выполняется»
+        function initializePageState() {
+            isRunning = false;
+            clearPollTimeout();
+            hideStatusAlert();
+            setTestingStatusBadge('IDLE', 'bg-secondary');
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            restoreSessionIfNeeded();
+        }
+
+        function setTestingStatusBadge(text, badgeClass) {
+            testingStatus.textContent = text;
+            testingStatus.className = 'badge ' + badgeClass;
+        }
+
+        function persistSessionId(sessionId) {
+            if (sessionId) {
+                sessionStorage.setItem(SESSION_STORAGE_KEY, sessionId);
+            } else {
+                sessionStorage.removeItem(SESSION_STORAGE_KEY);
+            }
+        }
+
+        function restoreSessionIfNeeded() {
+            const savedSessionId = sessionStorage.getItem(SESSION_STORAGE_KEY);
+            if (!savedSessionId) {
+                return;
+            }
+
+            fetch("/test/session/" + savedSessionId)
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.json();
+                })
+                .then(data => {
+                    currentSessionId = savedSessionId;
+                    sessionIdElement.textContent = savedSessionId.substring(0, 8) + '...';
+                    if (data.targetUrl) urlField.value = data.targetUrl;
+                    if (data.description) promptField.value = data.description;
+
+                    updateUI(data);
+
+                    if (data.status === 'RUNNING') {
+                        isRunning = true;
+                        startButton.disabled = true;
+                        stopButton.disabled = false;
+                        showStatusAlert('Тестирование выполняется...');
+                        setTestingStatusBadge('RUNNING', 'bg-primary');
+                        pollSession(savedSessionId);
+                        return;
+                    }
+
+                    applyTerminalSessionState(data.status);
+                })
+                .catch(() => {
+                    persistSessionId(null);
+                });
+        }
+
+        function applyTerminalSessionState(status) {
+            isRunning = false;
+            hideStatusAlert();
+            resetUI(false);
+            setTestingStatusBadge(status || 'IDLE', status === 'COMPLETED' ? 'bg-success'
+                : status === 'STOPPED' ? 'bg-danger'
+                : status === 'FAILED' ? 'bg-warning' : 'bg-secondary');
+
+            if (status === 'COMPLETED') {
+                generateTestButton.disabled = false;
+                downloadTestButton.disabled = false;
+            } else {
+                generateTestButton.disabled = true;
+                downloadTestButton.disabled = true;
+            }
+        }
         
         // Инициализация Monaco Editor
         function initMonacoEditor() {
@@ -390,7 +476,7 @@
                 }
                 
                 monacoEditor = monaco.editor.create(container, {
-                    value: '// Код теста появится здесь после генерации\n',
+                    value: pendingEditorSourceCode || EDITOR_PLACEHOLDER,
                     language: 'java',
                     theme: 'vs-dark',
                     automaticLayout: true,
@@ -404,6 +490,11 @@
                     suggestOnTriggerCharacters: true,
                     quickSuggestions: true
                 });
+                
+                if (pendingEditorSourceCode) {
+                    monacoEditor.setValue(pendingEditorSourceCode);
+                    pendingEditorSourceCode = null;
+                }
                 
                 console.log('Monaco Editor initialized');
             });
@@ -450,9 +541,8 @@
             isRunning = true;
             startButton.disabled = true;
             stopButton.disabled = false;
-            statusAlert.style.display = 'flex';
-            testingStatus.textContent = 'TESTING';
-            testingStatus.className = 'badge bg-primary';
+            showStatusAlert('Запуск тестирования...');
+            setTestingStatusBadge('RUNNING', 'bg-primary');
 
             lastActionCount = 0;
             actionCountElement.textContent = '0';
@@ -470,6 +560,7 @@
             })
             .then(id => {
                 currentSessionId = id;
+                persistSessionId(id);
                 sessionIdElement.textContent = id.substring(0, 8) + '...';
                 addLogEntry('Сессия запущена: ' + id.substring(0, 8) + '...', 'success');
                 statusText.textContent = 'Выполняется: ' + prompt.substring(0, 40) + '...';
@@ -543,24 +634,7 @@
         // Завершение тестирования - ИСПРАВЛЕНИЕ: проверка статуса
         function completeTesting(status) {
             addLogEntry('Тестирование завершено: ' + status, status === 'COMPLETED' ? 'success' : 'error');
-            hideStatusAlert();
-            testingStatus.textContent = status;
-            
-            if (status === 'COMPLETED') {
-                testingStatus.className = 'badge bg-success';
-                generateTestButton.disabled = false;
-                downloadTestButton.disabled = false;
-            } else if (status === 'STOPPED') {
-                testingStatus.className = 'badge bg-danger';
-                generateTestButton.disabled = true;
-                downloadTestButton.disabled = true;
-            } else {
-                testingStatus.className = 'badge bg-warning';
-                generateTestButton.disabled = true;
-                downloadTestButton.disabled = true;
-            }
-            
-            resetUI(false);
+            applyTerminalSessionState(status);
         }
 
         // Остановка - ИСПРАВЛЕНИЕ: немедленный сброс флага
@@ -578,11 +652,7 @@
             fetch("/test/stopSession/" + currentSessionId, { method: "POST" })
                 .then(r => {
                     if (r.ok) {
-                        testingStatus.textContent = 'STOPPED';
-                        testingStatus.className = 'badge bg-danger';
-                        hideStatusAlert();
-                        generateTestButton.disabled = true;
-                        downloadTestButton.disabled = true;
+                        applyTerminalSessionState('STOPPED');
                     } else {
                         throw new Error('HTTP ' + r.status);
                     }
@@ -607,9 +677,18 @@
             }
         }
 
-        // Скрытие статус алерта
+        function showStatusAlert(message) {
+            statusText.textContent = message;
+            statusSpinner.classList.remove('d-none');
+            statusAlert.classList.remove('d-none');
+            statusAlert.classList.add('d-flex');
+        }
+
         function hideStatusAlert() {
-            statusAlert.style.display = 'none';
+            statusAlert.classList.add('d-none');
+            statusAlert.classList.remove('d-flex');
+            statusSpinner.classList.add('d-none');
+            statusText.textContent = 'Готов к запуску';
         }
 
         // Лог - ИСПРАВЛЕНИЕ: не удаляем placeholder, а скрываем
@@ -640,18 +719,25 @@
         function updateScreenshot(src) {
             const img = document.getElementById('screenshotImage');
             const placeholder = document.getElementById('screenshotPlaceholder');
-            
+            const resolutionBadge = document.getElementById('resolutionBadge');
+
             img.onload = function() {
                 img.classList.remove('d-none');
                 placeholder.classList.add('d-none');
+                if (img.naturalWidth && img.naturalHeight) {
+                    resolutionBadge.textContent = img.naturalWidth + 'x' + img.naturalHeight;
+                }
             };
             img.onerror = function() {
                 console.error('Failed to load image');
+                resolutionBadge.textContent = '-';
+            };
+            img.onclick = function() {
+                window.open(img.src, '_blank');
             };
             img.src = src;
-            
+
             document.getElementById('lastUpdateTime').textContent = new Date().toLocaleTimeString('ru-RU');
-            document.getElementById('resolutionBadge').textContent = '1920x1080';
         }
 
         // Сессии
@@ -692,7 +778,13 @@
 
         // Выбор сессии - ИСПРАВЛЕНИЕ: сброс состояния и проверка статуса
         function selectSession(sessionId) {
+            clearPollTimeout();
+            isRunning = false;
+            hideStatusAlert();
+            resetUI(false);
+
             currentSessionId = sessionId;
+            persistSessionId(sessionId);
             sessionIdElement.textContent = sessionId.substring(0, 8) + '...';
             
             // Сброс лога и скриншота
@@ -711,15 +803,25 @@
                 urlField.value = session.targetUrl || '';
                 promptField.value = session.description || '';
                 
-                // ИСПРАВЛЕНИЕ: явная проверка статуса
-                if (session.status === 'COMPLETED') {
-                    generateTestButton.disabled = false;
-                    downloadTestButton.disabled = false;
+                if (session.status === 'RUNNING') {
+                    isRunning = true;
+                    startButton.disabled = true;
+                    stopButton.disabled = false;
+                    showStatusAlert('Тестирование выполняется...');
+                    setTestingStatusBadge('RUNNING', 'bg-primary');
+                    pollSession(sessionId);
                 } else {
-                    generateTestButton.disabled = true;
-                    downloadTestButton.disabled = true;
+                    applyTerminalSessionState(session.status);
                 }
             }
+
+            fetch("/test/session/" + sessionId)
+                .then(r => r.ok ? r.json() : null)
+                .then(data => {
+                    if (!data) return;
+                    updateUI(data);
+                })
+                .catch(() => {});
             
             bootstrap.Modal.getInstance(document.getElementById('sessionsModal')).hide();
         }
@@ -768,15 +870,10 @@
                     document.getElementById('testGenerationSpinner').style.display = 'none';
                     document.getElementById('testCodeContainer').classList.remove('d-none');
 
-                    // Устанавливаем код в Monaco Editor
-                    if (monacoEditor) {
-                        monacoEditor.setValue(data.sourceCode);
-                    }
+                    setEditorSourceCode(data.sourceCode);
+                    generatedTestClassName = data.className || extractJavaClassName(data.sourceCode) || 'GeneratedTest';
 
                     document.getElementById('downloadGeneratedTest').disabled = false;
-
-                    generatedTestCode = data.sourceCode;
-                    generatedTestClassName = data.className || 'GeneratedTest';
                 })
                 .catch(err => {
                     console.error('Generate error:', err);
@@ -809,8 +906,11 @@
             })
             .then(data => {
                 if (data && data.improvedCode) {
-                    monacoEditor.setValue(data.improvedCode);
-                    generatedTestCode = data.improvedCode;
+                    setEditorSourceCode(data.improvedCode);
+                    const improvedClassName = extractJavaClassName(data.improvedCode);
+                    if (improvedClassName) {
+                        generatedTestClassName = improvedClassName;
+                    }
                     alert('Код успешно улучшен!');
                 } else {
                     throw new Error('Пустой ответ от сервера');
@@ -826,22 +926,73 @@
             });
         }
 
-        // Скачивание из Monaco Editor
-        function downloadTest() {
-            const code = monacoEditor ? monacoEditor.getValue() : generatedTestCode;
-            if (!code) {
+        function setEditorSourceCode(code) {
+            generatedTestCode = code;
+            if (monacoEditor) {
+                monacoEditor.setValue(code);
+                pendingEditorSourceCode = null;
+            } else {
+                pendingEditorSourceCode = code;
+            }
+        }
+
+        function extractJavaClassName(sourceCode) {
+            if (!sourceCode) {
+                return null;
+            }
+            const match = sourceCode.match(/\bclass\s+([A-Za-z_][A-Za-z0-9_]*)/);
+            return match ? match[1] : null;
+        }
+
+        function downloadSourceCodeAsFile(code, className) {
+            const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = (className || 'GeneratedTest') + '.java';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        }
+
+        // Скачивание из модального окна — всегда текущий текст редактора (в т.ч. после AI и ручных правок)
+        function downloadGeneratedTestFromModal() {
+            if (!monacoEditor) {
+                alert('Редактор ещё загружается, подождите секунду');
+                return;
+            }
+
+            const code = monacoEditor.getValue();
+            if (!code || !code.trim() || code.trim() === EDITOR_PLACEHOLDER.trim()) {
                 alert('Нет кода для скачивания');
                 return;
             }
 
-            const className = generatedTestClassName || 'GeneratedTest';
-            const blob = new Blob([code], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = className + '.java';
-            a.click();
-            URL.revokeObjectURL(url);
+            const className = extractJavaClassName(code) || generatedTestClassName || 'GeneratedTest';
+            downloadSourceCodeAsFile(code, className);
+        }
+
+        // Скачивание с панели инструментов
+        function downloadTest() {
+            if (monacoEditor && !document.getElementById('testCodeContainer').classList.contains('d-none')) {
+                downloadGeneratedTestFromModal();
+                return;
+            }
+
+            const code = generatedTestCode;
+            if (!code) {
+                if (!currentSessionId) {
+                    alert('Сначала завершите сессию и сгенерируйте тест');
+                    return;
+                }
+                window.location.href = '/test/' + currentSessionId + '/test/download';
+                return;
+            }
+
+            const className = extractJavaClassName(code) || generatedTestClassName || 'GeneratedTest';
+            downloadSourceCodeAsFile(code, className);
         }
 
         // Утилита

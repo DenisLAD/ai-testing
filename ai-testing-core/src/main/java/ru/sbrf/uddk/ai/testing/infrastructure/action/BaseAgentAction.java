@@ -75,15 +75,15 @@ public abstract class BaseAgentAction implements TestAgentAction {
     protected AgentAction createActionLog(String actionType, boolean success, String message) {
         AgentAction log = new AgentAction();
         log.setActionType(actionType);
-        log.setTargetSelector(target);
-        log.setInputValue(value);
-        log.setReason(reason);
-        log.setExpectedOutcome(expectedOutcome);
+        log.setTargetSelector(truncate(target, 2000));
+        log.setInputValue(truncate(value, 250));
+        log.setReason(truncate(reason, 1000));
+        log.setExpectedOutcome(truncate(expectedOutcome, 1000));
         log.setTimestamp(LocalDateTime.now());
         
         ActionResult result = new ActionResult();
         result.setSuccess(success);
-        result.setMessage(message);
+        result.setMessage(truncate(message, 1900));
         log.setResult(result);
         
         return log;

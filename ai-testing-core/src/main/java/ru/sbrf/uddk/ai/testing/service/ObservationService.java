@@ -11,11 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,9 +43,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -50,7 +53,6 @@ import java.util.regex.Pattern;
 public class ObservationService implements InitializingBean, DisposableBean {
 
     private static final Pattern WHITESPACE_PATTERN = Pattern.compile("\\s+");
-    Map<String, Set<String>> sessionElementCache = new ConcurrentHashMap<>();
     @Value("${app.screenshots.dir:./screenshots}")
     private String screenshotDir;
     @Value("${app.screenshots.format:png}")
@@ -88,6 +90,8 @@ public class ObservationService implements InitializingBean, DisposableBean {
         AgentObservation observation = new AgentObservation();
 
         try {
+            waitForPageReady(driver);
+
             // Базовая информация
             observation.setUrl(driver.getCurrentUrl());
             observation.setGoalDescription(session.getDescription());
@@ -553,77 +557,538 @@ public class ObservationService implements InitializingBean, DisposableBean {
         return ru.sbrf.uddk.ai.testing.utils.EnhancedDOMExtractor.extractCompactDOM(driver);
     }
 
-    // Обновленный метод сканирования видимых элементов (использует ту же логику)
-    public List<InteractiveElement> scanVisibleElements(WebDriver driver, String sessionId) {
-        // Используем улучшенную версию из предыдущего ответа
-        // с дополнительной оптимизацией для работы с видимыми элементами
-
-        List<InteractiveElement> elements = new ArrayList<>();
-        String cacheKey = sessionId + "_" + driver.getCurrentUrl();
-
+    private boolean isFormHeavyContentPage(WebDriver driver) {
         try {
-            // Получаем видимые элементы через JavaScript
             JavascriptExecutor js = (JavascriptExecutor) driver;
+            Object result = js.executeScript("""
+                    const main = document.querySelector('main');
+                    if (!main) {
+                        return false;
+                    }
+                    const contentRoots = resolveContentRoots(main);
+                    let formSignals = 0;
+                    for (const root of contentRoots) {
+                        formSignals += root.querySelectorAll(
+                            'label, input[type="checkbox"], [role="checkbox"], h3 button'
+                        ).length;
+                    }
+                    return formSignals >= 3;
 
-            String script = """
-                    function getVisibleInteractiveElements() {
-                        const allElements = document.querySelectorAll('*');
-                        const interactiveElements = [];
-                        
-                        for (const el of allElements) {
-                            // Проверка видимости
-                            const rect = el.getBoundingClientRect();
-                            const style = window.getComputedStyle(el);
-                            
-                            const isVisible = (
-                                rect.width > 10 &&
-                                rect.height > 10 &&
-                                rect.top >= 0 &&
-                                rect.left >= 0 &&
-                                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                                rect.right <= (window.innerWidth || document.documentElement.clientWidth) &&
-                                style.display !== 'none' &&
-                                style.visibility !== 'hidden' &&
-                                style.opacity !== '0'
-                            );
-                            
-                            if (!isVisible) continue;
-                            
-                            // Проверка интерактивности
-                            const tagName = el.tagName.toLowerCase();
-                            const isInteractiveByTag = [
-                                'a', 'button', 'input', 'select', 'textarea',
-                                'details', 'summary', 'video', 'audio'
-                            ].includes(tagName);
-                            
-                            const hasRole = el.getAttribute('role');
-                            const isInteractiveByRole = [
-                                'button', 'link', 'checkbox', 'radio', 
-                                'menuitem', 'tab', 'slider'
-                            ].includes(hasRole);
-                            
-                            const hasClickHandler = el.onclick || el.getAttribute('onclick');
-                            const hasTabIndex = el.tabIndex >= 0;
-                            const cursorStyle = style.cursor;
-                            const hasPointerCursor = cursorStyle === 'pointer' || cursorStyle === 'hand';
-                            
-                            const isInteractive = (
-                                isInteractiveByTag || 
-                                isInteractiveByRole || 
-                                hasClickHandler || 
-                                hasTabIndex || 
-                                hasPointerCursor
-                            );
-                            
-                            if (isInteractive) {
-                                interactiveElements.push(el);
+                    function resolveContentRoots(mainElement) {
+                        const roots = [];
+                        if (!mainElement) {
+                            return roots;
+                        }
+                        if (mainElement.children.length > 1) {
+                            for (let i = 1; i < mainElement.children.length; i++) {
+                                roots.push(mainElement.children[i]);
+                            }
+                            return roots;
+                        }
+                        const wrapper = mainElement.children[0];
+                        if (wrapper && wrapper.children.length > 1) {
+                            for (let i = 1; i < wrapper.children.length; i++) {
+                                roots.push(wrapper.children[i]);
                             }
                         }
-                        
-                        return interactiveElements;
+                        return roots;
                     }
-                    return getVisibleInteractiveElements();
-                    """;
+                    """);
+            return Boolean.TRUE.equals(result);
+        } catch (Exception e) {
+            log.debug("Form-heavy page detection failed: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean isMainContentLinkHub(WebDriver driver) {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            Object result = js.executeScript("""
+                    const main = document.querySelector('main');
+                    if (!main) {
+                        return false;
+                    }
+                    const drawerSelector = '.MuiDrawer-root, aside, nav, [role="navigation"]';
+                    const contentRoots = resolveContentRoots(main);
+                    let linkCount = 0;
+                    for (const root of contentRoots) {
+                        const links = root.querySelectorAll('a[href]');
+                        for (const link of links) {
+                            if (link.closest(drawerSelector)) {
+                                continue;
+                            }
+                            const href = link.getAttribute('href') || '';
+                            if (!href || href === '#' || href.startsWith('javascript:')) {
+                                continue;
+                            }
+                            linkCount++;
+                        }
+                    }
+                    return linkCount >= 4;
+
+                    function resolveContentRoots(mainElement) {
+                        const roots = [];
+                        if (!mainElement) {
+                            return roots;
+                        }
+                        if (mainElement.children.length > 1) {
+                            for (let i = 1; i < mainElement.children.length; i++) {
+                                roots.push(mainElement.children[i]);
+                            }
+                            return roots;
+                        }
+                        const wrapper = mainElement.children[0];
+                        if (wrapper && wrapper.children.length > 1) {
+                            for (let i = 1; i < wrapper.children.length; i++) {
+                                roots.push(wrapper.children[i]);
+                            }
+                        }
+                        return roots;
+                    }
+                    """);
+            return Boolean.TRUE.equals(result);
+        } catch (Exception e) {
+            log.debug("Link-hub page detection failed: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    private boolean shouldPrioritizeMainContent(WebDriver driver) {
+        return isFormHeavyContentPage(driver) || isMainContentLinkHub(driver);
+    }
+
+    // Обновленный метод сканирования видимых элементов (приоритет main content)
+    public List<InteractiveElement> scanVisibleElements(WebDriver driver, String sessionId) {
+        List<InteractiveElement> elements = new ArrayList<>();
+        Set<String> seenKeys = new HashSet<>();
+
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+
+            boolean contentFirstScan = shouldPrioritizeMainContent(driver);
+
+            String script = """
+                    function collectVisibleInteractiveElements() {
+                        const CONTENT_FIRST = %s;
+                        const NOISE_TAGS = new Set(['svg', 'path', 'g', 'script', 'style', 'noscript']);
+                        const INTERACTIVE_TAGS = new Set([
+                            'a', 'button', 'input', 'select', 'textarea', 'label',
+                            'details', 'summary', 'video', 'audio'
+                        ]);
+                        const INTERACTIVE_ROLES = new Set([
+                            'button', 'link', 'checkbox', 'radio',
+                            'menuitem', 'tab', 'slider'
+                        ]);
+                        const MAX_TOTAL = CONTENT_FIRST ? 100 : 80;
+                        const MAX_SIDEBAR_BUDGET = CONTENT_FIRST ? 14 : 36;
+                        const MAX_CONTENT_BUDGET = MAX_TOTAL - MAX_SIDEBAR_BUDGET;
+                        const collected = [];
+                        const seen = new Set();
+                        let sidebarCount = 0;
+                        let contentCount = 0;
+
+                        function isVisible(el, relaxed) {
+                            const rect = el.getBoundingClientRect();
+                            const style = window.getComputedStyle(el);
+                            const baseVisible = (
+                                rect.width > 5 &&
+                                rect.height > 5 &&
+                                style.display !== 'none' &&
+                                style.visibility !== 'hidden' &&
+                                parseFloat(style.opacity || '1') > 0
+                            );
+                            if (!baseVisible) {
+                                return false;
+                            }
+                            if (relaxed) {
+                                return true;
+                            }
+                            const viewH = window.innerHeight || document.documentElement.clientHeight;
+                            const viewW = window.innerWidth || document.documentElement.clientWidth;
+                            return (
+                                rect.bottom > 0 &&
+                                rect.right > 0 &&
+                                rect.top < viewH &&
+                                rect.left < viewW
+                            );
+                        }
+
+                        function isInteractive(el) {
+                            const tagName = el.tagName.toLowerCase();
+                            if (NOISE_TAGS.has(tagName)) {
+                                return false;
+                            }
+                            if (INTERACTIVE_TAGS.has(tagName)) {
+                                return true;
+                            }
+                            const role = el.getAttribute('role');
+                            if (role && INTERACTIVE_ROLES.has(role)) {
+                                return true;
+                            }
+                            if (el.onclick || el.getAttribute('onclick')) {
+                                return true;
+                            }
+                            if (el.tabIndex >= 0) {
+                                return true;
+                            }
+                            const cursor = window.getComputedStyle(el).cursor;
+                            if (cursor === 'pointer' || cursor === 'hand') {
+                                return true;
+                            }
+                            if (tagName === 'div' || tagName === 'li' || tagName === 'span') {
+                                const text = (el.innerText || el.textContent || '').trim();
+                                if (text.length >= 3 && text.length <= 200) {
+                                    if (text.includes('\\n')) {
+                                        return true;
+                                    }
+                                    if (!el.querySelector('a, button, input')) {
+                                        return true;
+                                    }
+                                }
+                            }
+                            return false;
+                        }
+
+                        function elementKey(el) {
+                            const tag = el.tagName.toLowerCase();
+                            const id = el.id || '';
+                            const href = el.getAttribute('href') || '';
+                            const text = (el.innerText || el.textContent || '').trim().substring(0, 80);
+                            return tag + '|' + id + '|' + href + '|' + text;
+                        }
+
+                        function canAddToBucket(bucket) {
+                            if (collected.length >= MAX_TOTAL) {
+                                return false;
+                            }
+                            if (bucket === 'sidebar') {
+                                return sidebarCount < MAX_SIDEBAR_BUDGET;
+                            }
+                            if (bucket === 'content') {
+                                return contentCount < MAX_CONTENT_BUDGET;
+                            }
+                            return true;
+                        }
+
+                        function addElement(el, relaxed, bucket) {
+                            if (!el || seen.has(el)) {
+                                return false;
+                            }
+                            if (!canAddToBucket(bucket)) {
+                                return false;
+                            }
+                            if (!isVisible(el, relaxed) || !isInteractive(el)) {
+                                return false;
+                            }
+                            const key = elementKey(el);
+                            if (seen.has(key)) {
+                                return false;
+                            }
+                            seen.add(el);
+                            seen.add(key);
+                            collected.push(el);
+                            if (bucket === 'sidebar') {
+                                sidebarCount++;
+                            } else if (bucket === 'content') {
+                                contentCount++;
+                            }
+                            return true;
+                        }
+
+                        function scanRoots(roots, relaxed, budget, bucket, selector, reverseOrder) {
+                            const query = selector || (
+                                'a, button, input, select, textarea, label, [role], [onclick], [tabindex], div, span, h3'
+                            );
+                            let addedInBatch = 0;
+                            for (const root of roots) {
+                                if (!root || collected.length >= MAX_TOTAL || addedInBatch >= budget) {
+                                    continue;
+                                }
+                                let candidates = Array.from(root.querySelectorAll(query));
+                                if (reverseOrder) {
+                                    candidates = candidates.reverse();
+                                }
+                                for (const el of candidates) {
+                                    if (addElement(el, relaxed, bucket)) {
+                                        addedInBatch++;
+                                    }
+                                    if (collected.length >= MAX_TOTAL || addedInBatch >= budget) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        function scanSidebar(roots, budget) {
+                            const controlsBudget = Math.max(8, Math.ceil(budget * 0.6));
+                            scanRoots(
+                                roots,
+                                true,
+                                controlsBudget,
+                                'sidebar',
+                                'a, button, label, input, select, textarea, [role=link], [role=button], [role=menuitem], h3',
+                                true
+                            );
+                            if (sidebarCount < budget) {
+                                scanRoots(
+                                    roots,
+                                    true,
+                                    budget - sidebarCount,
+                                    'sidebar',
+                                    'div, span, li',
+                                    true
+                                );
+                            }
+                        }
+
+                        function isInsideDrawer(el) {
+                            return !!el.closest('.MuiDrawer-root, aside, nav, [role="navigation"]');
+                        }
+
+                        function resolveContentRoots(mainElement) {
+                            const roots = [];
+                            if (!mainElement) {
+                                return roots;
+                            }
+                            if (mainElement.children.length > 1) {
+                                for (let i = 1; i < mainElement.children.length; i++) {
+                                    roots.push(mainElement.children[i]);
+                                }
+                                return roots.filter(Boolean);
+                            }
+                            const wrapper = mainElement.children[0];
+                            if (wrapper && wrapper.children.length > 1) {
+                                for (let i = 1; i < wrapper.children.length; i++) {
+                                    roots.push(wrapper.children[i]);
+                                }
+                            }
+                            if (roots.length > 0) {
+                                return roots;
+                            }
+                            return [
+                                document.querySelector('[role="main"]'),
+                                document.querySelector('.main-content'),
+                                document.querySelector('[data-testid="main-content"]')
+                            ].filter(Boolean);
+                        }
+
+                        function resolveSidebarRoots(mainElement) {
+                            const roots = [];
+                            const drawer = document.querySelector('.MuiDrawer-root');
+                            if (drawer) {
+                                roots.push(drawer);
+                            }
+                            if (mainElement) {
+                                if (mainElement.children.length > 0) {
+                                    roots.push(mainElement.children[0]);
+                                }
+                                const wrapper = mainElement.children.length === 1 ? mainElement.children[0] : null;
+                                if (wrapper && wrapper.children.length > 0) {
+                                    roots.push(wrapper.children[0]);
+                                }
+                            }
+                            roots.push(
+                                document.querySelector('aside'),
+                                document.querySelector('nav'),
+                                document.querySelector('[role="navigation"]')
+                            );
+                            return roots.filter(Boolean);
+                        }
+
+                        function scanContent(roots, budget) {
+                            const linksBudget = Math.max(12, Math.ceil(budget * 0.45));
+                            for (const root of roots) {
+                                if (!root || collected.length >= MAX_TOTAL || contentCount >= budget) {
+                                    continue;
+                                }
+                                let links = Array.from(root.querySelectorAll('a[href]'));
+                                for (const el of links) {
+                                    if (isInsideDrawer(el)) {
+                                        continue;
+                                    }
+                                    if (addElement(el, false, 'content')) {
+                                        if (contentCount >= linksBudget || collected.length >= MAX_TOTAL) {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            const controlsBudget = Math.max(8, Math.ceil(budget * 0.35));
+                            scanRoots(
+                                roots,
+                                false,
+                                controlsBudget,
+                                'content',
+                                'button, input, select, textarea, label, [role=button], [role=checkbox], h3, h4',
+                                false
+                            );
+                            if (contentCount < budget) {
+                                scanRoots(
+                                    roots,
+                                    false,
+                                    budget - contentCount,
+                                    'content',
+                                    'div, span, li',
+                                    false
+                                );
+                            }
+                        }
+
+                        const mainElement = document.querySelector('main');
+                        const sidebarRoots = resolveSidebarRoots(mainElement);
+                        const filteredContent = resolveContentRoots(mainElement);
+
+                        if (CONTENT_FIRST) {
+                            scanContent(filteredContent, MAX_CONTENT_BUDGET);
+                            scanSidebar(sidebarRoots, MAX_SIDEBAR_BUDGET);
+                        } else {
+                            scanSidebar(sidebarRoots, MAX_SIDEBAR_BUDGET);
+                            scanContent(filteredContent, MAX_CONTENT_BUDGET);
+                        }
+
+                        const navRoots = [document.querySelector('header')].filter(Boolean);
+                        scanRoots(navRoots, false, CONTENT_FIRST ? 5 : 8, 'content', null, false);
+
+                        function exportButtonLabel(el) {
+                            if (!el) {
+                                return '';
+                            }
+                            const chunks = [
+                                el.innerText,
+                                el.textContent,
+                                el.getAttribute('title'),
+                                el.getAttribute('aria-label')
+                            ];
+                            for (const node of el.querySelectorAll('span, p')) {
+                                chunks.push(node.textContent);
+                            }
+                            return chunks.filter(Boolean).join(' ').toLowerCase();
+                        }
+
+                        function isExportDownloadButton(el) {
+                            const text = exportButtonLabel(el);
+                            return text.includes('скачать')
+                                || text.includes('пакет')
+                                || (text.includes('экспорт') && text.includes('zip'));
+                        }
+
+                        function forceAddDownloadButton(el) {
+                            if (!el || seen.has(el)) {
+                                return false;
+                            }
+                            if (!isExportDownloadButton(el)) {
+                                return false;
+                            }
+                            if (collected.length >= MAX_TOTAL) {
+                                for (let i = collected.length - 1; i >= 0; i--) {
+                                    const candidate = collected[i];
+                                    const tag = candidate.tagName ? candidate.tagName.toLowerCase() : '';
+                                    if (tag === 'div' || tag === 'span' || tag === 'li') {
+                                        collected.splice(i, 1);
+                                        contentCount = Math.max(0, contentCount - 1);
+                                        break;
+                                    }
+                                }
+                            }
+                            return addElement(el, true, 'content');
+                        }
+
+                        function scanPriorityFormControls(roots) {
+                            let treeAdded = 0;
+                            const MAX_TREE_CHECKBOXES = 8;
+                            for (const root of roots) {
+                                if (!root) {
+                                    continue;
+                                }
+                                const buttons = root.querySelectorAll('button');
+                                for (const el of buttons) {
+                                    if (el.classList.contains('MuiAccordionSummary-root')) {
+                                        continue;
+                                    }
+                                    forceAddDownloadButton(el);
+                                }
+                                if (treeAdded >= MAX_TREE_CHECKBOXES) {
+                                    continue;
+                                }
+                                const treeInputs = root.querySelectorAll('input[type="checkbox"][id*="-item-"]');
+                                for (const el of treeInputs) {
+                                    if (treeAdded >= MAX_TREE_CHECKBOXES || collected.length >= MAX_TOTAL) {
+                                        break;
+                                    }
+                                    if (addElement(el, true, 'content')) {
+                                        treeAdded++;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (CONTENT_FIRST && filteredContent.length > 0) {
+                            scanPriorityFormControls(filteredContent);
+                            for (const root of filteredContent) {
+                                if (root && root.scrollHeight > root.clientHeight) {
+                                    root.scrollTop = root.scrollHeight;
+                                }
+                            }
+                            window.scrollTo(0, document.body.scrollHeight);
+                            const belowFoldSelectors = 'a[href], button, h3, h4, label, [role="button"], [role="treeitem"], li.k-treeview-item, .k-treeview-item';
+                            for (const root of filteredContent) {
+                                const belowFold = root.querySelectorAll(belowFoldSelectors);
+                                for (const el of belowFold) {
+                                    if (isInsideDrawer(el)) {
+                                        continue;
+                                    }
+                                    const tag = el.tagName ? el.tagName.toLowerCase() : '';
+                                    if (tag === 'button') {
+                                        forceAddDownloadButton(el);
+                                        continue;
+                                    }
+                                    addElement(el, true, 'content');
+                                    if (collected.length >= MAX_TOTAL) {
+                                        break;
+                                    }
+                                }
+                            }
+                            scanPriorityFormControls(filteredContent);
+                        }
+
+                        function scanExportDownloadButtonGlobally() {
+                            const main = document.querySelector('main') || document.body;
+                            if (!main) {
+                                return;
+                            }
+                            for (const el of main.querySelectorAll('button')) {
+                                if (el.classList.contains('MuiAccordionSummary-root')) {
+                                    continue;
+                                }
+                                forceAddDownloadButton(el);
+                            }
+                        }
+                        scanExportDownloadButtonGlobally();
+
+                        if (collected.length < MAX_TOTAL) {
+                            const bodyChildren = document.body ? Array.from(document.body.children) : [];
+                            for (const child of bodyChildren) {
+                                if (collected.length >= MAX_TOTAL) {
+                                    break;
+                                }
+                                if (child.tagName && ['SCRIPT', 'STYLE', 'NOSCRIPT'].includes(child.tagName)) {
+                                    continue;
+                                }
+                                const candidates = child.querySelectorAll('a, button, input, select, textarea, [role], [onclick], [tabindex]');
+                                for (const el of candidates) {
+                                    addElement(el, false, 'content');
+                                    if (collected.length >= MAX_TOTAL) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        return collected;
+                    }
+                    return collectVisibleInteractiveElements();
+                    """.formatted(contentFirstScan);
 
             @SuppressWarnings("unchecked")
             List<WebElement> webElements = (List<WebElement>) js.executeScript(script);
@@ -631,19 +1096,12 @@ public class ObservationService implements InitializingBean, DisposableBean {
             if (webElements != null) {
                 for (WebElement webElement : webElements) {
                     try {
-                        InteractiveElement element = mapToInteractiveElement(webElement, driver, sessionId);
-                        String elementSignature = generateElementSignature(element);
-                        Set<String> cachedSignatures = sessionElementCache.computeIfAbsent(
-                                cacheKey, k -> new HashSet<>());
-
-                        if (!cachedSignatures.contains(elementSignature)) {
-                            elements.add(element);
-                            cachedSignatures.add(elementSignature);
-
-                            if (elements.size() >= 50) {
-                                break;
-                            }
+                        String key = generateElementKey(webElement);
+                        if (!seenKeys.add(key)) {
+                            continue;
                         }
+                        InteractiveElement element = mapToInteractiveElement(webElement, driver, sessionId);
+                        elements.add(element);
                     } catch (StaleElementReferenceException e) {
                         log.debug("Element became stale, skipping");
                     } catch (Exception e) {
@@ -730,51 +1188,41 @@ public class ObservationService implements InitializingBean, DisposableBean {
         }
     }
 
-    // Генерация сигнатуры элемента для кэширования
-    private String generateElementSignature(InteractiveElement element) {
-        return String.format("%s|%s|%s|%s",
-                element.getTagName(),
-                element.getSelector() != null ? element.getSelector() : "",
-                element.getText() != null ? element.getText().hashCode() : 0,
-                element.getIdAttr() != null ? element.getIdAttr() : ""
-        );
-    }
-
-    // Очистка старых записей кэша
-    private void cleanupOldCacheEntries(String sessionId, String currentCacheKey) {
-        try {
-            sessionElementCache.keySet().removeIf(key ->
-                    key.startsWith(sessionId + "_") && !key.equals(currentCacheKey));
-        } catch (Exception e) {
-            log.debug("Failed to cleanup cache: {}", e.getMessage());
-        }
-    }
-
     private String getElementText(WebElement element, WebDriver driver) {
         try {
-            // Пробуем разные способы получения текста
+            String tag = element.getTagName().toLowerCase();
             String text = element.getText().trim();
 
-            if (text.isEmpty()) {
-                // Для input элементов берем value
-                if ("input".equals(element.getTagName()) || "textarea".equals(element.getTagName())) {
+            if ("button".equals(tag)) {
+                JavascriptExecutor js = (JavascriptExecutor) driver;
+                text = (String) js.executeScript("""
+                        const el = arguments[0];
+                        const parts = [
+                            el.innerText,
+                            el.textContent,
+                            el.getAttribute('title'),
+                            el.getAttribute('aria-label')
+                        ];
+                        for (const node of el.querySelectorAll('span, p')) {
+                            parts.push(node.textContent);
+                        }
+                        return parts.filter(Boolean).join(' ').trim();
+                        """, element);
+            } else if (text.isEmpty()) {
+                if ("input".equals(tag) || "textarea".equals(tag)) {
                     text = element.getAttribute("value");
-                }
-                // Для ссылок берем текст или href
-                else if ("a".equals(element.getTagName())) {
+                } else if ("a".equals(tag)) {
                     text = element.getAttribute("text") != null ?
                             element.getAttribute("text") :
                             element.getAttribute("href");
-                }
-                // Пробуем получить через JavaScript
-                else {
+                } else {
                     JavascriptExecutor js = (JavascriptExecutor) driver;
                     text = (String) js.executeScript("""
-                            return arguments[0].textContent || 
-                                   arguments[0].innerText || 
-                                   arguments[0].getAttribute('aria-label') || 
-                                   arguments[0].getAttribute('title') || 
-                                   arguments[0].getAttribute('alt') || 
+                            return arguments[0].textContent ||
+                                   arguments[0].innerText ||
+                                   arguments[0].getAttribute('aria-label') ||
+                                   arguments[0].getAttribute('title') ||
+                                   arguments[0].getAttribute('alt') ||
                                    '';
                             """, element);
                 }
@@ -815,9 +1263,12 @@ public class ObservationService implements InitializingBean, DisposableBean {
                             return element.tagName.toLowerCase() + '[name="' + element.name + '"]';
                         }
                         
-                        // Генерация по классам
-                        if (element.className) {
-                            const classes = element.className.trim().split(/\\s+/);
+                        // Генерация по классам (SVG: className — SVGAnimatedString)
+                        const classAttr = (typeof element.className === 'string'
+                            ? element.className
+                            : element.getAttribute('class')) || '';
+                        if (classAttr) {
+                            const classes = classAttr.trim().split(/\\s+/).filter(Boolean);
                             if (classes.length > 0) {
                                 const classSelector = '.' + classes.join('.');
                                 const withClass = document.querySelectorAll(element.tagName.toLowerCase() + classSelector);
@@ -1186,7 +1637,7 @@ public class ObservationService implements InitializingBean, DisposableBean {
             String[] importantAttrs = {
                     "id", "name", "type", "value", "placeholder",
                     "href", "src", "alt", "title", "role",
-                    "aria-label", "aria-describedby", "aria-hidden",
+                    "aria-label", "aria-describedby", "aria-hidden", "aria-checked", "aria-expanded",
                     "disabled", "readonly", "required", "tabindex",
                     "data-testid", "data-qa", "data-cy", "data-id",
                     "onclick", "onchange", "onsubmit"
@@ -1198,6 +1649,8 @@ public class ObservationService implements InitializingBean, DisposableBean {
                     attributes.put(attr, value.trim());
                 }
             }
+
+            enrichCheckboxState(webElement, attributes, element);
 
             element.setAttributes(attributes);
             element.setDiscoveredAt(LocalDateTime.now());
@@ -1219,6 +1672,90 @@ public class ObservationService implements InitializingBean, DisposableBean {
         }
 
         return element;
+    }
+
+    private void enrichCheckboxState(WebElement webElement, Map<String, String> attributes, InteractiveElement element) {
+        String tag = element.getTagName();
+        try {
+            if ("label".equals(tag)) {
+                WebElement checkboxControl = findCheckboxControlInside(webElement);
+                if (checkboxControl != null) {
+                    attributes.put("has-checkbox", "true");
+                    applyCheckboxStateAttributes(checkboxControl, attributes);
+                }
+            } else if ("input".equals(tag) && "checkbox".equals(element.getType())) {
+                attributes.put("has-checkbox", "true");
+                attributes.put("checked", String.valueOf(webElement.isSelected()));
+                applyKendoTreeCheckboxState(webElement, attributes);
+            } else if ("checkbox".equals(attributes.get("role"))) {
+                attributes.put("has-checkbox", "true");
+                applyCheckboxStateAttributes(webElement, attributes);
+            }
+        } catch (Exception e) {
+            log.debug("Failed to read checkbox state: {}", e.getMessage());
+        }
+    }
+
+    private WebElement findCheckboxControlInside(WebElement container) {
+        try {
+            return container.findElement(By.cssSelector("input[type='checkbox']"));
+        } catch (NoSuchElementException ignored) {
+            try {
+                return container.findElement(By.cssSelector("[role='checkbox']"));
+            } catch (NoSuchElementException ignored2) {
+                return null;
+            }
+        }
+    }
+
+    private void applyKendoTreeCheckboxState(WebElement checkboxInput, Map<String, String> attributes) {
+        String id = Optional.ofNullable(checkboxInput.getAttribute("id")).orElse("");
+        if (!id.contains("-item-")) {
+            return;
+        }
+        try {
+            WebElement treeItem = checkboxInput.findElement(
+                    By.xpath("./ancestor::li[contains(@class,'k-treeview-item')][1]")
+            );
+            String itemClass = Optional.ofNullable(treeItem.getAttribute("class")).orElse("");
+            if (itemClass.contains("k-selected") || itemClass.contains("k-checked")) {
+                attributes.put("checked", "true");
+                attributes.put("aria-checked", "true");
+            }
+            try {
+                WebElement kendoCheckbox = treeItem.findElement(By.cssSelector(".k-checkbox, .k-checkbox-wrap"));
+                String kendoClass = Optional.ofNullable(kendoCheckbox.getAttribute("class")).orElse("");
+                String ariaChecked = kendoCheckbox.getAttribute("aria-checked");
+                if (kendoClass.contains("k-checked") || "true".equalsIgnoreCase(ariaChecked)) {
+                    attributes.put("checked", "true");
+                    attributes.put("aria-checked", "true");
+                }
+            } catch (NoSuchElementException ignored) {
+                // Kendo markup variant without explicit checkbox wrapper
+            }
+        } catch (NoSuchElementException ignored) {
+            // Not inside a Kendo tree item
+        }
+    }
+
+    private void applyCheckboxStateAttributes(WebElement checkboxControl, Map<String, String> attributes) {
+        try {
+            if ("input".equalsIgnoreCase(checkboxControl.getTagName())) {
+                attributes.put("checked", String.valueOf(checkboxControl.isSelected()));
+            }
+        } catch (Exception ignored) {
+            // role=checkbox span has no isSelected
+        }
+        String ariaChecked = checkboxControl.getAttribute("aria-checked");
+        if (ariaChecked != null) {
+            attributes.put("aria-checked", ariaChecked);
+            attributes.put("checked", ariaChecked);
+        }
+        String cls = checkboxControl.getAttribute("class");
+        if (cls != null && cls.contains("Mui-checked")) {
+            attributes.put("checked", "true");
+            attributes.put("aria-checked", "true");
+        }
     }
 
 
@@ -1339,6 +1876,23 @@ public class ObservationService implements InitializingBean, DisposableBean {
 
         } catch (Exception e) {
             log.warn("Failed to optimize image size", e);
+        }
+    }
+
+    private void waitForPageReady(WebDriver driver) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            wait.until(d -> {
+                JavascriptExecutor js = (JavascriptExecutor) d;
+                if (!"complete".equals(js.executeScript("return document.readyState"))) {
+                    return false;
+                }
+                Long count = (Long) js.executeScript(
+                        "return document.querySelectorAll('input, button, a, select, textarea').length");
+                return count != null && count > 0;
+            });
+        } catch (Exception e) {
+            log.debug("Page ready wait finished with: {}", e.getMessage());
         }
     }
 
