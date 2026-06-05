@@ -18,16 +18,19 @@ spring:
       hibernate:
         format_sql: true
 
-  # Spring AI - OpenAI совместимый API
+  # Spring AI — OpenAI-совместимый API (в k8s задаётся через env / Secret)
   ai:
+    model:
+      chat: openai
     openai:
-      base-url: http://localhost:1234
-      api-key: ""
+      base-url: ${SPRING_AI_OPENAI_BASE_URL:http://localhost:1234}
+      # Пустой ключ отключает автоконфиг Spring AI; для LM Studio/RouterAI нужен непустой placeholder
+      api-key: ${SPRING_AI_OPENAI_API_KEY:local-dev-key}
       chat:
         enabled: true
         options:
-          model: local-model
-          temperature: 0.7
+          model: ${SPRING_AI_OPENAI_CHAT_OPTIONS_MODEL:local-model}
+          temperature: ${SPRING_AI_OPENAI_CHAT_OPTIONS_TEMPERATURE:0.7}
 
 # Server
 server:
@@ -48,9 +51,15 @@ logging:
     org.springframework.ai: DEBUG
     org.openqa.selenium: WARN
 
-# Скриншоты
+# Скриншоты и Selenium
 app:
   screenshots:
-    dir: ./screenshots
+    dir: ${APP_SCREENSHOTS_DIR:/tmp/screenshots}
     format: png
     max-size-kb: 500
+  selenium:
+    webdriver-manager-enabled: ${APP_SELENIUM_WEBDRIVER_MANAGER_ENABLED:true}
+    chrome-binary: ${APP_SELENIUM_CHROME_BINARY:}
+    chromedriver-path: ${APP_SELENIUM_CHROMEDRIVER_PATH:}
+    window-width: ${APP_SELENIUM_WINDOW_WIDTH:1920}
+    window-height: ${APP_SELENIUM_WINDOW_HEIGHT:1080}

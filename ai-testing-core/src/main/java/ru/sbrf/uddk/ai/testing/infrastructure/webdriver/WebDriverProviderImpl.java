@@ -1,11 +1,13 @@
 package ru.sbrf.uddk.ai.testing.infrastructure.webdriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.stereotype.Component;
+import ru.sbrf.uddk.ai.testing.config.SeleniumBrowserSettings;
 import ru.sbrf.uddk.ai.testing.domain.webdriver.WebDriverProvider;
 
 import java.time.Duration;
@@ -20,9 +22,15 @@ import java.util.concurrent.atomic.AtomicReference;
 public class WebDriverProviderImpl implements WebDriverProvider, WebDriverProviderAdapter {
 
     private final AtomicReference<WebDriver> driverRef = new AtomicReference<>();
-    private final ChromeOptions defaultOptions;
+    private final SeleniumBrowserSettings browserSettings;
+    private ChromeOptions defaultOptions;
 
-    public WebDriverProviderImpl() {
+    public WebDriverProviderImpl(SeleniumBrowserSettings browserSettings) {
+        this.browserSettings = browserSettings;
+    }
+
+    @PostConstruct
+    void initOptions() {
         this.defaultOptions = createDefaultOptions();
     }
 
@@ -69,14 +77,14 @@ public class WebDriverProviderImpl implements WebDriverProvider, WebDriverProvid
         try {
             log.info("Creating new Chrome WebDriver...");
             WebDriverManager.chromedriver().setup();
-            
+
             ChromeDriver driver = new ChromeDriver(defaultOptions);
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            driver.manage().window().maximize();
-            
+            browserSettings.applyWindowSize(driver);
+
             log.info("Chrome WebDriver created successfully");
             return driver;
-            
+
         } catch (Exception e) {
             log.error("Failed to create Chrome WebDriver", e);
             throw new RuntimeException("Failed to create WebDriver: " + e.getMessage(), e);
@@ -89,7 +97,7 @@ public class WebDriverProviderImpl implements WebDriverProvider, WebDriverProvid
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
-        options.addArguments("--window-size=1920,1080");
+        browserSettings.applyWindowChromeArgs(options);
         options.addArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
         return options;
     }

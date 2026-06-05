@@ -44,7 +44,7 @@ public class ExploreFormsAction extends BaseAgentAction {
                 // Взаимодействуем с первым доступным элементом
                 for (WebElement input : inputs) {
                     try {
-                        if (input.isDisplayed()) {
+                        if (input.isDisplayed() && !isModeSwitchButton(input)) {
                             String tagName = input.getTagName();
                             
                             if ("input".equals(tagName) || "textarea".equals(tagName)) {
@@ -82,5 +82,14 @@ public class ExploreFormsAction extends BaseAgentAction {
             return createActionLog("EXPLORE_FORMS", false,
                     String.format("Ошибка исследования форм: %s", e.getMessage()));
         }
+    }
+
+    private boolean isModeSwitchButton(WebElement element) {
+        String text = element.getText();
+        if (text == null || text.isBlank()) {
+            return false;
+        }
+        String normalized = text.trim().toLowerCase();
+        return normalized.equals("админ") || normalized.equals("клиент");
     }
 }

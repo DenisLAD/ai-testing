@@ -41,9 +41,17 @@ public class AgentAction {
     private String actionType;
 
     private String targetElement;
+
+    @Column(name = "target_selector", columnDefinition = "TEXT")
     private String targetSelector;
+
+    @Column(name = "target_xpath", columnDefinition = "TEXT")
     private String targetXpath;
+
+    @Column(name = "target_css", columnDefinition = "TEXT")
     private String targetCss;
+
+    @Column(name = "input_value", columnDefinition = "TEXT")
     private String inputValue;
 
     @Column(length = 1000)

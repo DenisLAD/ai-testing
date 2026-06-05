@@ -25,8 +25,20 @@ public class ScrollDownAction extends BaseAgentAction {
             // Скриншот до
             String screenshotBefore = takeScreenshotBefore(driver);
             
-            executeJavaScript(driver, "window.scrollBy(0, 500);");
-            Thread.sleep(500);
+            executeJavaScript(driver, """
+                    const main = document.querySelector('main');
+                    if (main) {
+                        const scrollables = main.querySelectorAll('*');
+                        for (const node of scrollables) {
+                            if (node.scrollHeight > node.clientHeight + 20) {
+                                node.scrollTop = node.scrollHeight;
+                            }
+                        }
+                    }
+                    window.scrollBy(0, Math.max(500, window.innerHeight * 0.8));
+                    window.scrollTo(0, document.body.scrollHeight);
+                    """);
+            Thread.sleep(600);
             
             // Скриншот после
             String screenshotAfter = takeScreenshotAfter(driver);
